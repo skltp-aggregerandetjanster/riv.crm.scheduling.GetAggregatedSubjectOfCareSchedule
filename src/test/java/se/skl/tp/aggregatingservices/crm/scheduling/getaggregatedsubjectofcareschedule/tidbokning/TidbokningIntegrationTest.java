@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
 import org.soitoolkit.commons.mule.test.ActiveMqJmsTestUtil;
-import org.soitoolkit.commons.mule.test.LoggingHelper;
  
  
 import org.soitoolkit.commons.mule.test.junit4.AbstractTestCase;
@@ -46,8 +45,6 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
  
 
     public TidbokningIntegrationTest() {
-      // redirect logging to console, will disable all appenders in log4j.xml
-      LoggingHelper.logToConsoleOnly();    
     
  
         // Only start up Mule once to make the tests run faster...

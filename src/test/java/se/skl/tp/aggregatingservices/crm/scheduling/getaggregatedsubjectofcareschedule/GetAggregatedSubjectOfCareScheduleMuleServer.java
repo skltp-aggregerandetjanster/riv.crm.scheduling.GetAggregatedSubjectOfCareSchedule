@@ -3,7 +3,6 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
  
 import org.soitoolkit.commons.mule.test.StandaloneMuleServer;
 
-import org.soitoolkit.commons.mule.test.LoggingHelper;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
 import org.slf4j.Logger;
@@ -21,9 +20,6 @@ public class GetAggregatedSubjectOfCareScheduleMuleServer {
 
 	public static void main(String[] args) throws Exception {
 	
-        // redirect logging to console, will disable all appenders in log4j.xml
-        LoggingHelper.logToConsoleOnly();
-
  
         // Configure the mule-server:
         //
