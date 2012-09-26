@@ -10,7 +10,6 @@
 	xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
 	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns:https="http://www.mulesoft.org/schema/mule/https"
 	xmlns:mule-xml="http://www.mulesoft.org/schema/mule/xml"
 	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
 	xmlns:json="http://www.mulesoft.org/schema/mule/json"
@@ -18,14 +17,13 @@
 	xmlns:rest="http://www.mulesoft.org/schema/mule/rest"
 	xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-current.xsd
+		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.mulesoft.org/schema/mule/core      http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 		http://www.mulesoft.org/schema/mule/vm        http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 		http://www.mulesoft.org/schema/mule/jdbc      http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd
 		http://www.mulesoft.org/schema/mule/cxf       http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
 		http://www.mulesoft.org/schema/mule/jms       http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
 		http://www.mulesoft.org/schema/mule/http      http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-		http://www.mulesoft.org/schema/mule/https      http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
 		http://www.mulesoft.org/schema/mule/xml       http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 		http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.3/mule-module-smooks.xsd
 		http://www.mulesoft.org/schema/mule/json      http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
@@ -34,45 +32,127 @@
 		http://www.mulesoft.org/schema/mule/xml       http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 	">
 
-	<!-- TODO: Add service specific definitions here -->
+	<queued-asynchronous-processing-strategy name="tidbokning-workers-processing-strategy" maxThreads="50"/>    
 
- 
+	<flow name="tidbokning-flow">
 
-	<flow name="tidbokning-service">
-
-		<https:inbound-endpoint
-            connector-ref="soitoolkit-https-connector"
+		<http:inbound-endpoint
+            connector-ref="soitoolkit-http-connector"
 			address="${TIDBOKNING_INBOUND_URL}"
 			exchange-pattern="request-response"
 			transformer-refs="objToStr logReqIn"
 			responseTransformer-refs="createSoapFaultIfException logRespOut">
-		</https:inbound-endpoint>
+		</http:inbound-endpoint>
+
+<!-- 
+			service="GetSubjectOfCareScheduleResponderService"
+			wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl" 
+			namespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21"
+ -->
+
 		<cxf:proxy-service 
-			service="sampleService"
-			wsdlLocation="classpath:/schemas/org/soitoolkit/refapps/sd/sample/sampleService.wsdl" 
-			namespace="urn:org.soitoolkit.refapps.sd.sample.wsdl:v1">
+			service="GetAggregatedSubjectOfCareScheduleResponderService"
+			wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetAggregatedSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl"
+			namespace="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareSchedule:1:rivtabp21"
+			payload="envelope">
 		</cxf:proxy-service>
  
+	    <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
+        <enricher target="#[payload]">
+			<http:outbound-endpoint 
+	            connector-ref="soitoolkit-http-connector"
+				address="${ENGAGEMANGSINDEX_OUTBOUND_URL}" 
+				exchange-pattern="request-response"
+				responseTimeout="${SERVICE_TIMEOUT_MS}"
+				transformer-refs="logReqOut"
+				responseTransformer-refs="logRespIn">
+		        <cxf:jaxws-client port="FindContentResponderPort" operation="FindContent" clientClass="se.riv.itintegration.engagementindex.findcontent.v1.rivtabp21.FindContentResponderService"/>
+			</http:outbound-endpoint>
+        </enricher>
 
-        <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestTransformer"/>
+	    <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestTransformer"/>
+
+        <request-reply timeout="${AGGREGATED_SERVICE_TIMEOUT_MS}">  
+            <vm:outbound-endpoint path="as1-splitter"> 
+	            <message-properties-transformer scope="outbound"> 
+	                <delete-message-property key="MULE_REPLYTO"/> 
+	            </message-properties-transformer> 
+            </vm:outbound-endpoint>
+            <vm:inbound-endpoint path="as1-reply"></vm:inbound-endpoint> 
+        </request-reply>
+
         <response>
             <custom-transformer doc:name="transform-response" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseTransformer"/>
         </response>
- 
 
-		
-		<cxf:proxy-client />
-        
-		<https:outbound-endpoint 
-            connector-ref="soitoolkit-https-connector"
+	</flow>
+	
+
+	
+    <flow name="AS1-splitter-flow" doc:name="AS1-splitter-flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="as1-splitter" doc:name="VM"/>
+		<collection-splitter enableCorrelation="IF_NOT_SET"/>
+        <message-properties-transformer scope="outbound"> 
+            <add-message-property key="MULE_REPLYTO" value="vm://as1-aggregate"/> 
+        </message-properties-transformer> 
+        <vm:outbound-endpoint path="as1-worker" doc:name="VM"/>
+    </flow>
+    
+	<custom-transformer name="Fix1" doc:name="handle error" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.Fix1Transformer"/>
+
+    
+    <flow name="AS1-worker-flow" processingStrategy="tidbokning-workers-processing-strategy" doc:name="AS1-worker-flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="as1-worker" doc:name="VM"/>
+
+		<!-- Save the incoming logical-address in a variable so that is can be added to the response in the <response> - element -->
+        <set-variable variableName="logical-address" value="#[groovy:payload[0]]" doc:name="Variable"/>
+
+		<http:outbound-endpoint 
+            connector-ref="soitoolkit-http-connector"
 			address="${TIDBOKNING_OUTBOUND_URL}" 
 			exchange-pattern="request-response"
 			responseTimeout="${SERVICE_TIMEOUT_MS}"
 			transformer-refs="logReqOut"
-			responseTransformer-refs="logRespIn">
-		</https:outbound-endpoint>
+			responseTransformer-refs="logRespIn Fix1">
+	        <cxf:jaxws-client port="GetSubjectOfCareScheduleResponderPort" operation="GetSubjectOfCareSchedule" clientClass="se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21.GetSubjectOfCareScheduleResponderService"/>
+		</http:outbound-endpoint>
  
-		<custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>
-	</flow>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+<!-- 
+        	SKALL RETURNERA ETT FÄRDIGT ERROR-REPORT OBJECT
+ -->
+            <custom-transformer doc:name="handle error" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningHandleErrorTransformer"/>
+	        <vm:outbound-endpoint path="as1-aggregate" doc:name="VM"/>
+        </catch-exception-strategy>
+    </flow>
+
+
+    <flow name="AS1-aggregation-flow" doc:name="AS1-aggregation-flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="as1-aggregate" doc:name="VM"/>
+        <scripting:component doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[
+println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + ", agg-in-correlationId: $message.correlationId"
+println "agg-in-correlationGroupSize: $message.correlationGroupSize"
+println "agg-in-payload: " + payload.class.name
+System.err.println("agg-in-p: " + message.getInboundProperty('logical-address'))
+
+return message]]></scripting:text>
+            </scripting:script>
+        </scripting:component>
+        <collection-aggregator timeout="${AGGREGATE_TIMEOUT_MS}" failOnTimeout="false" doc:name="Collection Aggregator"/>
+        <scripting:component doc:name="Groovy">
+            <scripting:script engine="Groovy">
+                <scripting:text><![CDATA[println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + ", agg-out-correlationId: $message.correlationId"
+println "agg-out-correlationGroupSize: $message.correlationGroupSize"
+
+String p = "### RESULT: " + payload.toString()
+println new Date().toString() + ": aggregation result: $p"
+return p]]></scripting:text>
+            </scripting:script>
+        </scripting:component>
+        <vm:outbound-endpoint path="as1-reply" doc:name="VM"/>
+    </flow>
+	
 </mule>

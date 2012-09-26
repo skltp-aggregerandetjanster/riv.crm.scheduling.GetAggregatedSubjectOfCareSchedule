@@ -13,11 +13,10 @@
 		http://www.mulesoft.org/schema/mule/jms     http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
 	">
 
-	<!-- Teststub for a soure system (källsystem) behind a virtual service in TP VP -->
 	<simple-service 
-		name="tidbokning-teststub-service"
-        address="${TIDBOKNING_TESTSTUB_INBOUND_URL}?connector=soitoolkit-http-connector" 
-        component-class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer"
+		name="engagemangsindex-teststub-service"
+        address="${ENGAGEMANGSINDEX_TESTSTUB_INBOUND_URL}?connector=soitoolkit-http-connector" 
+        component-class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.EngagemangsindexTestProducer"
         type="jax-ws" />
-
+ 
 </mule>

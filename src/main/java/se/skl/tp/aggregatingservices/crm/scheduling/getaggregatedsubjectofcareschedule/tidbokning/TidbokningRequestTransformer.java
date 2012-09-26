@@ -1,18 +1,26 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
-import org.soitoolkit.refapps.sd.sample.schema.v1.Sample;
+
+import riv.itintegration.engagementindex._1.EngagementType;
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
+import se.riv.interoperability.headers.v1.ActorType;
+import se.riv.interoperability.headers.v1.ActorTypeEnum;
+import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
 
 public class TidbokningRequestTransformer extends AbstractMessageTransformer {
 
 	private static final Logger log = LoggerFactory.getLogger(TidbokningRequestTransformer.class);
-
-	private static final JaxbUtil jaxbUtil = new JaxbUtil(Sample.class);
 
     /**
      * Message aware transformer that ...
@@ -21,19 +29,54 @@ public class TidbokningRequestTransformer extends AbstractMessageTransformer {
     public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
 
         // Perform any message aware processing here, otherwise delegate as much as possible to pojoTransform() for easier unit testing
+    	List<Object[]> transformedPayload = pojoTransform(message.getPayload(), outputEncoding);
 
-        return pojoTransform(message.getPayload(), outputEncoding);
+    	// Set the expected number of responses so that the aggregator knows when to stop, update the message payload and return the message for further processing
+    	message.setCorrelationGroupSize(transformedPayload.size());
+    	message.setPayload(transformedPayload);
+    	return message;
     }
 
 	/**
      * Simple pojo transformer method that can be tested with plain unit testing...
 	 */
-	protected Object pojoTransform(Object src, String encoding) throws TransformerException {
+	protected List<Object[]> pojoTransform(Object src, String encoding) throws TransformerException {
 
-
-		log.debug("Transforming payload: {}", src);
+		FindContentResponseType inResp = (FindContentResponseType)src;
+		List<EngagementType> inEngagements = inResp.getEngagement();
 		
-		return src;
+		log.info("### Got {} hits in the engagement index", inEngagements.size());
 
+		// Since we are using the GetSubjectOfCareSchedule that returns all bookings from a logical-address in one call we can reduce multiple hits in the index for the same logical-address to lower the number of calls required
+		Map<String, String> uniqueLogicalAddresses = new HashMap<String, String>();
+		for (EngagementType inEng : inEngagements) {
+			uniqueLogicalAddresses.put(inEng.getLogicalAddress(), inEng.getRegisteredResidentIdentification());
+		}
+
+
+		// Prepare the result of the transformation as a list of request-payloads, 
+		// one payload for each unique logical-address from the Set uniqueLogicalAddresses,
+		// each payload built up as an object-array according to the JAXB-signature for the method in the service interface
+		List<Object[]> reqList = new ArrayList<Object[]>();
+		
+		for (Entry<String, String> entry : uniqueLogicalAddresses.entrySet()) {
+			
+			// FIX ME. Get Actor from some invocation variable
+			ActorType actor = new ActorType();
+			actor.setActorId("999");
+			actor.setActorType(ActorTypeEnum.SUBJECT_OF_CARE);
+
+			GetSubjectOfCareScheduleType request = new GetSubjectOfCareScheduleType();
+			request.setHealthcareFacility(entry.getKey());
+			request.setSubjectOfCare(entry.getValue());
+
+			Object[] reqArr = new Object[] {entry.getKey(), actor, request};
+			
+			reqList.add(reqArr);
+		}
+
+		log.info("Transformed payload: {}", reqList);
+
+		return reqList;
 	}
 }

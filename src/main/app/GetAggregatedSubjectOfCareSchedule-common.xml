@@ -86,6 +86,7 @@
 
     <spring:beans>
   
+    <spring:import resource="classpath:soitoolkit-mule-http-connector.xml"/>
     <spring:import resource="classpath:soitoolkit-mule-https-connector.xml"/>
   </spring:beans>
 

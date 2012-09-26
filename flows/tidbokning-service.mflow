@@ -1,1 +1,636 @@
-<mule-configuration name='tidbokning' xmlns='http://www.mulesoft.com/tooling/messageflow' />
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="tidbokning">
+    <global-element type="http://www.mulesoft.org/schema/mule/core/queued-asynchronous-processing-strategy" name="Queued Asynchronous Processing Strategy" entity-id="Queued Asynchronous Processing Strategy#1">
+        <properties>
+            <property value="tidbokning-workers-processing-strategy" name="name"/>
+            <property value="50" name="maxThreads"/>
+            <property name="minThreads"/>
+            <property name="threadTTL"/>
+            <property name="poolExhaustedAction"/>
+            <property name="threadWaitTimeout"/>
+            <property name="maxBufferSize"/>
+            <property name="queueTimeout"/>
+            <property name="maxQueueSize"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#1">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="23" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.Fix1Transformer" name="class"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="Fix1" name="name"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="23" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="tidbokning-flow" entity-id="9194bb7f-5a3e-4732-83f4-95ee68eabef4">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="2" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="${TIDBOKNING_INBOUND_URL}" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="soitoolkit-http-connector" name="connector-ref"/>
+                    <property name="ref"/>
+                    <property value="objToStr logReqIn" name="transformer-refs"/>
+                    <property value="createSoapFaultIfException logRespOut" name="responseTransformer-refs"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#1">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property value="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareSchedule:1:rivtabp21" name="namespace"/>
+                    <property value="GetAggregatedSubjectOfCareScheduleResponderService" name="service"/>
+                    <property name="onException"/>
+                    <property name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="envelope" name="payload"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property value="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetAggregatedSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl" name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="transform-request" entity-id="Java#2">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer" name="class"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <scope type="org.mule.tooling.ui.modules.core.scope.enricher" name="Message Enricher" entity-id="Message Enricher#1">
+                <properties>
+                    <property name="source"/>
+                    <property value="#[payload]" name="target"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+                        <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#2">
+                            <properties>
+<property value="one-way" name="exchange-pattern"/>
+<property value="request-response" name="exchange-pattern"/>
+<property value="7" name="auxiliary;index"/>
+<property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property value="7" name="auxiliary;index"/>
+<property name="httpLabel"/>
+<property name="host"/>
+<property name="port"/>
+<property name="path"/>
+<property name="method"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property value="7" name="auxiliary;index"/>
+<property value="${ENGAGEMANGSINDEX_OUTBOUND_URL}" name="address"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property value="${SERVICE_TIMEOUT_MS}" name="responseTimeout"/>
+<property name="followRedirects"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property value="soitoolkit-http-connector" name="connector-ref"/>
+<property name="ref"/>
+<property value="logReqOut" name="transformer-refs"/>
+<property value="logRespIn" name="responseTransformer-refs"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property name="user"/>
+<property name="password"/>
+<property value="7" name="auxiliary;index"/>
+<property name="contentType"/>
+<property name="keep-alive"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </scope>
+            <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="transform-request" entity-id="Java#3">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestTransformer" name="class"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="10" description="false" entity-id="unknown#1">
+                <content>&lt;request-reply xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:jdbc-ee=&quot;http://www.mulesoft.org/schema/mule/ee/jdbc&quot; timeout=&quot;${AGGREGATED_SERVICE_TIMEOUT_MS}&quot;&gt;  
+            &lt;vm:outbound-endpoint xmlns:vm=&quot;http://www.mulesoft.org/schema/mule/vm&quot; path=&quot;as1-splitter&quot;&gt; 
+	            &lt;message-properties-transformer scope=&quot;outbound&quot;&gt; 
+	                &lt;delete-message-property key=&quot;MULE_REPLYTO&quot;&gt;&lt;/delete-message-property&gt; 
+	            &lt;/message-properties-transformer&gt; 
+            &lt;/vm:outbound-endpoint&gt;
+            &lt;vm:inbound-endpoint xmlns:vm=&quot;http://www.mulesoft.org/schema/mule/vm&quot; path=&quot;as1-reply&quot;&gt;&lt;/vm:inbound-endpoint&gt; 
+        &lt;/request-reply&gt;</content>
+            </unknown>
+            <response index="15" entity-id="response#1">
+                <compartment entity-id="compartment#2">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+                        <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="transform-response" entity-id="Java#4">
+                            <properties>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property value="16" name="auxiliary;index"/>
+<property name="mimeType"/>
+<property value="16" name="auxiliary;index"/>
+<property value="16" name="auxiliary;index"/>
+<property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseTransformer" name="class"/>
+<property value="16" name="auxiliary;index"/>
+<property value="16" name="auxiliary;index"/>
+<property value="16" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </response>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="AS1-splitter-flow" entity-id="e2aedf83-ce9b-428c-93db-a24ac6d21e7d">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="17" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="17" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="VM" entity-id="VM#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="as1-splitter" name="path"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
+                    <property value="18" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/collection-splitter" name="Collection Splitter" entity-id="Collection Splitter#1">
+                <properties>
+                    <property value="IF_NOT_SET" name="enableCorrelation"/>
+                    <property value="19" name="auxiliary;index"/>
+                    <property value="19" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="19" name="auxiliary;index"/>
+                    <property value="19" name="auxiliary;index"/>
+                    <property value="19" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Message Properties" entity-id="Message Properties#1">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property name="overwrite"/>
+                    <property value="outbound" name="scope"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
+                        <property value="vm://as1-aggregate" name="value"/>
+                        <property value="21" name="auxiliary;wrapIn"/>
+                        <property value="21" name="auxiliary;index"/>
+                        <property value="MULE_REPLYTO" name="key"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="VM" entity-id="VM#2">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property name="exchange-pattern"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="as1-worker" name="path"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="AS1-worker-flow" entity-id="26b4c429-8840-4458-a13b-c6aa10c95a0f">
+        <properties>
+            <property value="tidbokning-workers-processing-strategy" name="processingStrategy2"/>
+            <property value="tidbokning-workers-processing-strategy" name="processingStrategy"/>
+            <property value="24" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="24" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#5">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="VM" entity-id="VM#3">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="as1-worker" name="path"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/variable-transformer" name="Variable" entity-id="Variable#1">
+                <properties>
+                    <property value="http://www.mulesoft.org/schema/mule/core/set-variable" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="logical-address" name="variableName"/>
+                    <property value="#[groovy:payload[0]]" name="value"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#3">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="${TIDBOKNING_OUTBOUND_URL}" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="${SERVICE_TIMEOUT_MS}" name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="soitoolkit-http-connector" name="connector-ref"/>
+                    <property name="ref"/>
+                    <property value="logReqOut" name="transformer-refs"/>
+                    <property value="logRespIn Fix1" name="responseTransformer-refs"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <scope type="http://www.mulesoft.org/schema/mule/core/catch-exception-strategy" name="Catch Exception Strategy" entity-id="Catch Exception Strategy#1">
+                <properties>
+                    <property name=""/>
+                    <property name="when"/>
+                    <property name="enableNotifications"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="29" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#3">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#6">
+                        <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="handle error" entity-id="Java#5">
+                            <properties>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property value="30" name="auxiliary;index"/>
+<property name="mimeType"/>
+<property value="30" name="auxiliary;index"/>
+<property value="30" name="auxiliary;index"/>
+<property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningHandleErrorTransformer" name="class"/>
+<property value="30" name="auxiliary;index"/>
+<property value="30" name="auxiliary;index"/>
+<property value="30" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="VM" entity-id="VM#4">
+                            <properties>
+<property value="one-way" name="exchange-pattern"/>
+<property name="exchange-pattern"/>
+<property value="31" name="auxiliary;index"/>
+<property value="as1-aggregate" name="path"/>
+<property value="31" name="auxiliary;index"/>
+<property value="31" name="auxiliary;index"/>
+<property value="31" name="auxiliary;index"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property value="31" name="auxiliary;index"/>
+<property name="address"/>
+<property name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property value="31" name="auxiliary;index"/>
+<property value="31" name="auxiliary;index"/>
+<property name="connector-ref"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+<property value="31" name="auxiliary;index"/>
+<property value="31" name="auxiliary;index"/>
+<property value="31" name="auxiliary;index"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </scope>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="AS1-aggregation-flow" entity-id="74f12857-b1a1-4fe3-b860-8751fd20d46b">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="32" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="32" name="auxiliary;index"/>
+            <property value="32" name="auxiliary;index"/>
+            <property value="32" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#7">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="VM" entity-id="VM#5">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="as1-aggregate" name="path"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Groovy" entity-id="Groovy#1">
+                <properties>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+                        <property value="println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + &quot;, agg-in-correlationId: $message.correlationId&quot;&#xA;println &quot;agg-in-correlationGroupSize: $message.correlationGroupSize&quot;&#xA;println &quot;agg-in-payload: &quot; + payload.class.name&#xA;System.err.println(&quot;agg-in-p: &quot; + message.getInboundProperty('logical-address'))&#xA;&#xA;return message" name="text"/>
+                        <property value="Groovy" name="engine"/>
+                        <property value="35" name="auxiliary;wrapIn"/>
+                        <property value="35" name="auxiliary;index"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
+                        <property value="println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + &quot;, agg-in-correlationId: $message.correlationId&quot;&#xA;println &quot;agg-in-correlationGroupSize: $message.correlationGroupSize&quot;&#xA;println &quot;agg-in-payload: &quot; + payload.class.name&#xA;System.err.println(&quot;agg-in-p: &quot; + message.getInboundProperty('logical-address'))&#xA;&#xA;return message" name="text"/>
+                        <property value="Groovy" name="engine"/>
+                        <property value="35" name="auxiliary;wrapIn"/>
+                        <property value="35" name="auxiliary;index"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/collection-aggregator" name="Collection Aggregator" entity-id="Collection Aggregator#1">
+                <properties>
+                    <property value="${AGGREGATE_TIMEOUT_MS}" name="timeout"/>
+                    <property value="false" name="failOnTimeout"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Groovy" entity-id="Groovy#2">
+                <properties>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+                        <property value="println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + &quot;, agg-out-correlationId: $message.correlationId&quot;&#xA;println &quot;agg-out-correlationGroupSize: $message.correlationGroupSize&quot;&#xA;&#xA;String p = &quot;### RESULT: &quot; + payload.toString()&#xA;println new Date().toString() + &quot;: aggregation result: $p&quot;&#xA;return p" name="text"/>
+                        <property value="Groovy" name="engine"/>
+                        <property value="39" name="auxiliary;wrapIn"/>
+                        <property value="39" name="auxiliary;index"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
+                        <property value="println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + &quot;, agg-out-correlationId: $message.correlationId&quot;&#xA;println &quot;agg-out-correlationGroupSize: $message.correlationGroupSize&quot;&#xA;&#xA;String p = &quot;### RESULT: &quot; + payload.toString()&#xA;println new Date().toString() + &quot;: aggregation result: $p&quot;&#xA;return p" name="text"/>
+                        <property value="Groovy" name="engine"/>
+                        <property value="39" name="auxiliary;wrapIn"/>
+                        <property value="39" name="auxiliary;index"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="VM" entity-id="VM#6">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property name="exchange-pattern"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="as1-reply" name="path"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+</mule-configuration>

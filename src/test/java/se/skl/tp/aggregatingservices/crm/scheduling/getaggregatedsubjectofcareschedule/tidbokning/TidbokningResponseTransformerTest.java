@@ -1,12 +1,8 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning;
 
 import static org.junit.Assert.assertEquals;
-import static org.soitoolkit.commons.mule.smooks.SmooksUtil.runSmooksTransformer;
-
-import java.io.IOException;
 
 import org.junit.Test;
-import org.mule.api.transformer.TransformerException;
 import org.soitoolkit.commons.mule.util.MiscUtil;
 
 public class TidbokningResponseTransformerTest {

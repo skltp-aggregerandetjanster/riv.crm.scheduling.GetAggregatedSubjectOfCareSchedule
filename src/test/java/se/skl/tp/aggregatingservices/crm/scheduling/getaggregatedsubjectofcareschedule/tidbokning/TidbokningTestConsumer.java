@@ -2,54 +2,59 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
 
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
 
+import java.net.MalformedURLException;
 import java.net.URL;
-import org.apache.cxf.bus.spring.SpringBusFactory;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+
+import javax.xml.ws.Holder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
-import org.soitoolkit.refapps.sd.sample.schema.v1.Sample;
-import org.soitoolkit.refapps.sd.sample.schema.v1.SampleResponse;
-import org.soitoolkit.refapps.sd.sample.wsdl.v1.Fault;
-import org.soitoolkit.refapps.sd.sample.wsdl.v1.SampleInterface;
+
+import se.riv.crm.scheduling.getaggregatedsubjectofcareschedule.v1.rivtabp21.GetAggregatedSubjectOfCareScheduleResponderInterface;
+import se.riv.crm.scheduling.getaggregatedsubjectofcareschedule.v1.rivtabp21.GetAggregatedSubjectOfCareScheduleResponderService;
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
+import se.riv.interoperability.headers.v1.ActorType;
+import se.riv.interoperability.headers.v1.ActorTypeEnum;
+import se.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class TidbokningTestConsumer {
 
 	private static final Logger log = LoggerFactory.getLogger(TidbokningTestConsumer.class);
 
-	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
+	private GetAggregatedSubjectOfCareScheduleResponderInterface _service = null;
 
-	private SampleInterface _service = null;
-	    
-    public TidbokningTestConsumer(String serviceAddress) {
-		JaxWsProxyFactoryBean proxyFactory = new JaxWsProxyFactoryBean();
-		proxyFactory.setServiceClass(SampleInterface.class);
-		proxyFactory.setAddress(serviceAddress);
-		
-		//Used for HTTPS
-		SpringBusFactory bf = new SpringBusFactory();
-		URL cxfConfig = TidbokningTestConsumer.class.getClassLoader().getResource("cxf-test-consumer-config.xml");
-		if (cxfConfig != null) {
-			proxyFactory.setBus(bf.createBus(cxfConfig));
-		}
-		
-		_service  = (SampleInterface) proxyFactory.create(); 
-    }
+	public static void main(String[] args) {
+		String serviceAddress = getAddress("TIDBOKNING_INBOUND_URL");
+		String personnummer = "1234567890";
 
-    public static void main(String[] args) throws Fault {
-            String serviceAddress = getAddress("TIDBOKNING_INBOUND_URL");
-            String personnummer = "1234567890";
-
-            TidbokningTestConsumer consumer = new TidbokningTestConsumer(serviceAddress);
-            SampleResponse response = consumer.callService(personnummer);
-            log.info("Returned value = " + response.getValue());
-    }
-
-    public SampleResponse callService(String id) throws Fault {
-            log.debug("Calling sample-soap-service with id = {}", id);
-            Sample request = new Sample();
-            request.setId(id);
-            return _service.sample(request);
-    }	
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(serviceAddress);
+		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
+		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
+		consumer.callService("logical-adress", personnummer, processingStatusHolder, responseHolder);
+		log.info("Returned #timeslots = " + responseHolder.value.getTimeslotDetail().size());
+	}
 	
+	public TidbokningTestConsumer(String serviceAddress) {
+        try {
+            URL url =  new URL(serviceAddress + "?wsdl");
+            _service = new GetAggregatedSubjectOfCareScheduleResponderService(url).getGetAggregatedSubjectOfCareScheduleResponderPort();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Malformed URL Exception: " + e.getMessage());
+        }
+	}
+	
+	public void callService(String logicalAddress, String id, Holder<ProcessingStatusType> processingStatusHolder, Holder<GetSubjectOfCareScheduleResponseType> responseHolder) {
+		
+		log.debug("Calling GetSubjectOfCareSchedule-soap-service with id = {}", id);
+		
+		ActorType actor = new ActorType();
+		actor.setActorId(id);
+		actor.setActorType(ActorTypeEnum.SUBJECT_OF_CARE);
+		
+		GetSubjectOfCareScheduleType request = new GetSubjectOfCareScheduleType();
+		request.setSubjectOfCare(id);
+		
+		_service.getAggregatedSubjectOfCareSchedule(logicalAddress, actor, request, processingStatusHolder, responseHolder);
+	}
 }

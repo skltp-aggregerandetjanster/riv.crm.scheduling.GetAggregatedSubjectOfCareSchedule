@@ -2,7 +2,6 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
 
 import static org.junit.Assert.assertEquals;
 
-
 import org.junit.Test;
 import org.soitoolkit.commons.mule.util.MiscUtil;
 
@@ -20,7 +19,7 @@ public class TidbokningRequestTransformerTest {
 		// Create the transformer under test and let it perform the transformation
 
 		TidbokningRequestTransformer transformer = new TidbokningRequestTransformer();
-		String result = (String)transformer.pojoTransform(input, "UTF-8");
+		Object result = transformer.pojoTransform(input, "UTF-8");
 
 
 		// Compare the result to the expected value

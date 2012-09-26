@@ -64,10 +64,23 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 			<version>${soitoolkit.version}</version>
 			<type>pom</type>
 		</dependency>
-	<dependency>
+		
+		<dependency>
 			<groupId>org.soitoolkit.refapps.sd</groupId>
 			<artifactId>soitoolkit-refapps-sample-schemas</artifactId>
 			<version>${soitoolkit.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>se.rivta.tools</groupId>
+			<artifactId>itintegration-engagementindex-schemas</artifactId>
+			<version>1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>se.rivta.tools</groupId>
+			<artifactId>ehr-scheduling-schemas</artifactId>
+			<version>1</version>
 		</dependency>
   </dependencies> 
 
