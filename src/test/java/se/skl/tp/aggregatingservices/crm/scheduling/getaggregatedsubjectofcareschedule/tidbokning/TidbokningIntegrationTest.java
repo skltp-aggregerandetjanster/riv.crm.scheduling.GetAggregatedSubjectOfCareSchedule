@@ -49,6 +49,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 	 
 	private static final String LOGICAL_ADDRESS = "logical-address";
 	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Read timed out";
+	private static final String EXPECTED_ERR_INVALID_ID_MSG = "Invalid Id: -1";
 	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("TIDBOKNING_INBOUND_URL");
   
 	private static final String ERROR_LOG_QUEUE = "SOITOOLKIT.LOG.ERROR";
@@ -111,14 +112,14 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
     }
 
     @Test
-    public void test_ok_many_bookings() {
+    public void test_ok_many_bookings_with_partial_timeout() {
     	String id = TEST_ID_MANY_BOOKINGS;
     	TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
     	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);
 
-    	// Verify the response
+    	// Verify the response, expect one booking from source #1, two from source #2 and a timeout from source #3
     	GetSubjectOfCareScheduleResponseType response = responseHolder.value;
 		assertEquals(3, response.getTimeslotDetail().size());
 		
@@ -150,20 +151,24 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 
     @Test
 	public void test_fault_invalidInput() throws Exception {
-		try {
-	    	String id = TEST_ID_FAULT_INVALID_ID;
-	    	TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
-			Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
-			Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
-	    	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);
-	    	GetSubjectOfCareScheduleResponseType response = responseHolder.value;
-	        fail("expected fault, but got a response of type: " + ((response == null) ? "NULL" : response.getClass().getName()));
+    	String id = TEST_ID_FAULT_INVALID_ID;
+    	TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
+		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
+		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
+    	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);
+    	GetSubjectOfCareScheduleResponseType response = responseHolder.value;
 
-		} catch (SOAPFaultException e) {
-	    	assertEquals("Invalid Id: " + TEST_ID_FAULT_INVALID_ID, e.getMessage());
-	    }
+    	// Expect a response with zero booking and error information in the processingstatus
+		assertEquals(0, response.getTimeslotDetail().size());
+		
+    	// Verify the Processing Status
+		List<ProcessingStatusRecordType> statusList = processingStatusHolder.value.getProcessingStatusList();
+		assertEquals(1, statusList.size());
+		
+		assertProcessingStatusNoDataSynchFailed(statusList.get(0), TEST_LOGICAL_ADDRESS_1, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_INVALID_ID_MSG);
 	}
 
+    /* Timeout aspects are covered in the test test_ok_many_bookings_with_partial_timeout
     @Test
 	public void test_fault_timeout() {
         try {
@@ -184,6 +189,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {}
     }
+    */
  
 	private void assertProcessingStatusDataFromSource(ProcessingStatusRecordType status, String logicalAddress) {
 		assertEquals(logicalAddress, status.getLogicalAddress());
@@ -207,6 +213,6 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		assertNotNull(error);
 		assertEquals(agent, error.getCausingAgent());
 		assertNotNull(error.getCode());
-		assertTrue(error.getText().startsWith(EXPECTED_ERR_TIMEOUT_MSG));
+		assertTrue("Missing expected [" + expectedErrStartingWith + "] in the beginning if the error message [" + error.getText() + "]", error.getText().startsWith(expectedErrStartingWith));
 	}
 }

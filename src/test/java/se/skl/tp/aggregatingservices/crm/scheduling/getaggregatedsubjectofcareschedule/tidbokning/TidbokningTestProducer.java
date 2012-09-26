@@ -27,11 +27,13 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 	public static final String TEST_ID_FAULT_INVALID_ID = "-1";
 	public static final String TEST_ID_FAULT_TIMEOUT    = "0";
 
-	public static final String TEST_BOOKING_ID_ONE_BOOKING     = "1001";
-	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_1 = "1002";
-	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_2 = "1003";
-	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_3 = "1004";
-	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_4 = "1004";
+	public static final String TEST_BOOKING_ID_ONE_BOOKING      = "1001";
+	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_1  = "1002";
+	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_2  = "1003";
+	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_3  = "1004";
+	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_4  = "1004";
+	public static final String TEST_BOOKING_ID_FAULT_INVALID_ID = "1005";
+
 
 	public static final String TEST_LOGICAL_ADDRESS_1 = "HSA-ID-1";
 	public static final String TEST_LOGICAL_ADDRESS_2 = "HSA-ID-2";
