@@ -33,7 +33,7 @@
             <property value="23" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="tidbokning-flow" entity-id="9194bb7f-5a3e-4732-83f4-95ee68eabef4">
+    <flow SubFlow="false" name="tidbokning-flow" entity-id="927216c7-4b3c-4fab-8c62-8ef61bbe8417">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -244,7 +244,7 @@
             </response>
         </lane>
     </flow>
-    <flow SubFlow="false" name="AS1-splitter-flow" entity-id="e2aedf83-ce9b-428c-93db-a24ac6d21e7d">
+    <flow SubFlow="false" name="AS1-splitter-flow" entity-id="97d47178-f5c3-4d57-a4be-d68cfbf13075">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -351,7 +351,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="AS1-worker-flow" entity-id="26b4c429-8840-4458-a13b-c6aa10c95a0f">
+    <flow SubFlow="false" name="AS1-worker-flow" entity-id="955f5ea1-29ce-4d36-b251-79a8b4cd710a">
         <properties>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy2"/>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy"/>
@@ -506,7 +506,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="AS1-aggregation-flow" entity-id="74f12857-b1a1-4fe3-b860-8751fd20d46b">
+    <flow SubFlow="false" name="AS1-aggregation-flow" entity-id="42d8c7ed-b328-4f62-82a7-14ec01bd2389">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

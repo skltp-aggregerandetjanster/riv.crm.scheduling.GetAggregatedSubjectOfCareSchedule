@@ -67,7 +67,12 @@
 				responseTimeout="${SERVICE_TIMEOUT_MS}"
 				transformer-refs="logReqOut"
 				responseTransformer-refs="logRespIn">
-		        <cxf:jaxws-client port="FindContentResponderPort" operation="FindContent" clientClass="se.riv.itintegration.engagementindex.findcontent.v1.rivtabp21.FindContentResponderService"/>
+		        <cxf:jaxws-client 
+		        	port="FindContentResponderPort" 
+		        	operation="FindContent" 
+		        	clientClass="se.riv.itintegration.engagementindex.findcontent.v1.rivtabp21.FindContentResponderService"
+		        	wsdlLocation="classpath:/interactions/FindContentInteraction/FindContentInteraction_1.0_RIVTABP21.wsdl"
+		       	/>
 			</http:outbound-endpoint>
         </enricher>
 
@@ -115,7 +120,12 @@
 			responseTimeout="${SERVICE_TIMEOUT_MS}"
 			transformer-refs="logReqOut"
 			responseTransformer-refs="logRespIn Fix1">
-	        <cxf:jaxws-client port="GetSubjectOfCareScheduleResponderPort" operation="GetSubjectOfCareSchedule" clientClass="se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21.GetSubjectOfCareScheduleResponderService"/>
+	        <cxf:jaxws-client 
+	        	port="GetSubjectOfCareScheduleResponderPort" 
+	        	operation="GetSubjectOfCareSchedule" 
+	        	clientClass="se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21.GetSubjectOfCareScheduleResponderService"
+	        	wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl"
+	        />
 		</http:outbound-endpoint>
  
         <catch-exception-strategy doc:name="Catch Exception Strategy">
