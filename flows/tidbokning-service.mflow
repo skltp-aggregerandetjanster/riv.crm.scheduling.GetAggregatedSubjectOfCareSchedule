@@ -33,7 +33,7 @@
             <property value="23" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="tidbokning-flow" entity-id="927216c7-4b3c-4fab-8c62-8ef61bbe8417">
+    <flow SubFlow="false" name="tidbokning-flow" entity-id="efe5bdab-0d69-46fe-9cab-cc606e1e10ce">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -50,7 +50,10 @@
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="request-response" name="exchange-pattern"/>
                     <property value="3" name="auxiliary;index"/>
-                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="3" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property name="host"/>
@@ -71,7 +74,42 @@
                     <property value="3" name="auxiliary;index"/>
                     <property value="3" name="auxiliary;index"/>
                     <property value="3" name="auxiliary;index"/>
-                    <property value="soitoolkit-http-connector" name="connector-ref"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref-outbound"/>
+                    <property name="ref"/>
+                    <property value="objToStr logReqIn" name="transformer-refs"/>
+                    <property value="createSoapFaultIfException logRespOut" name="responseTransformer-refs"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="${TIDBOKNING_INBOUND_URL}" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref"/>
                     <property name="ref"/>
                     <property value="objToStr logReqIn" name="transformer-refs"/>
                     <property value="createSoapFaultIfException logRespOut" name="responseTransformer-refs"/>
@@ -156,7 +194,10 @@
 <property value="one-way" name="exchange-pattern"/>
 <property value="request-response" name="exchange-pattern"/>
 <property value="7" name="auxiliary;index"/>
-<property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property value="request-response" name="exchange-pattern"/>
+<property value="7" name="auxiliary;index"/>
+<property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
 <property value="7" name="auxiliary;index"/>
 <property name="httpLabel"/>
 <property name="host"/>
@@ -177,7 +218,42 @@
 <property value="7" name="auxiliary;index"/>
 <property value="7" name="auxiliary;index"/>
 <property value="7" name="auxiliary;index"/>
-<property value="soitoolkit-http-connector" name="connector-ref"/>
+<property value="soitoolkit-https-connector" name="connector-ref"/>
+<property value="soitoolkit-https-connector" name="connector-ref-outbound"/>
+<property name="ref"/>
+<property value="logReqOut" name="transformer-refs"/>
+<property value="logRespIn" name="responseTransformer-refs"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property name="user"/>
+<property name="password"/>
+<property value="7" name="auxiliary;index"/>
+<property name="contentType"/>
+<property name="keep-alive"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property name="httpLabel"/>
+<property name="host"/>
+<property name="port"/>
+<property name="path"/>
+<property name="method"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property value="7" name="auxiliary;index"/>
+<property value="${ENGAGEMANGSINDEX_OUTBOUND_URL}" name="address"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property value="${SERVICE_TIMEOUT_MS}" name="responseTimeout"/>
+<property name="followRedirects"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property value="7" name="auxiliary;index"/>
+<property value="soitoolkit-https-connector" name="connector-ref"/>
 <property name="ref"/>
 <property value="logReqOut" name="transformer-refs"/>
 <property value="logRespIn" name="responseTransformer-refs"/>
@@ -244,7 +320,7 @@
             </response>
         </lane>
     </flow>
-    <flow SubFlow="false" name="AS1-splitter-flow" entity-id="97d47178-f5c3-4d57-a4be-d68cfbf13075">
+    <flow SubFlow="false" name="AS1-splitter-flow" entity-id="ea825cab-61f8-46a1-b01e-8e2ac3e3897a">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -351,7 +427,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="AS1-worker-flow" entity-id="955f5ea1-29ce-4d36-b251-79a8b4cd710a">
+    <flow SubFlow="false" name="AS1-worker-flow" entity-id="81359d2e-0b29-4394-9e97-1355fb982ef0">
         <properties>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy2"/>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy"/>
@@ -410,7 +486,10 @@
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="request-response" name="exchange-pattern"/>
                     <property value="27" name="auxiliary;index"/>
-                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
                     <property value="27" name="auxiliary;index"/>
                     <property name="httpLabel"/>
                     <property name="host"/>
@@ -431,7 +510,42 @@
                     <property value="27" name="auxiliary;index"/>
                     <property value="27" name="auxiliary;index"/>
                     <property value="27" name="auxiliary;index"/>
-                    <property value="soitoolkit-http-connector" name="connector-ref"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref-outbound"/>
+                    <property name="ref"/>
+                    <property value="logReqOut" name="transformer-refs"/>
+                    <property value="logRespIn Fix1" name="responseTransformer-refs"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="${TIDBOKNING_OUTBOUND_URL}" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="${SERVICE_TIMEOUT_MS}" name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref"/>
                     <property name="ref"/>
                     <property value="logReqOut" name="transformer-refs"/>
                     <property value="logRespIn Fix1" name="responseTransformer-refs"/>
@@ -506,7 +620,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="AS1-aggregation-flow" entity-id="42d8c7ed-b328-4f62-82a7-14ec01bd2389">
+    <flow SubFlow="false" name="AS1-aggregation-flow" entity-id="e8718fda-1522-477e-a1e6-fe1e829e899e">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

@@ -10,6 +10,7 @@
 	xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
 	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:https="http://www.mulesoft.org/schema/mule/https"
 	xmlns:mule-xml="http://www.mulesoft.org/schema/mule/xml"
 	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
 	xmlns:json="http://www.mulesoft.org/schema/mule/json"
@@ -24,6 +25,7 @@
 		http://www.mulesoft.org/schema/mule/cxf       http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
 		http://www.mulesoft.org/schema/mule/jms       http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
 		http://www.mulesoft.org/schema/mule/http      http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+		http://www.mulesoft.org/schema/mule/https     http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
 		http://www.mulesoft.org/schema/mule/xml       http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 		http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.3/mule-module-smooks.xsd
 		http://www.mulesoft.org/schema/mule/json      http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
@@ -36,13 +38,13 @@
 
 	<flow name="tidbokning-flow">
 
-		<http:inbound-endpoint
-            connector-ref="soitoolkit-http-connector"
+		<https:inbound-endpoint
+            connector-ref="soitoolkit-https-connector"
 			address="${TIDBOKNING_INBOUND_URL}"
 			exchange-pattern="request-response"
 			transformer-refs="objToStr logReqIn"
 			responseTransformer-refs="createSoapFaultIfException logRespOut">
-		</http:inbound-endpoint>
+		</https:inbound-endpoint>
 
 <!-- 
 			service="GetSubjectOfCareScheduleResponderService"
@@ -60,8 +62,8 @@
 	    <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
         <enricher target="#[payload]">
-			<http:outbound-endpoint 
-	            connector-ref="soitoolkit-http-connector"
+			<https:outbound-endpoint 
+	            connector-ref="soitoolkit-https-connector"
 				address="${ENGAGEMANGSINDEX_OUTBOUND_URL}" 
 				exchange-pattern="request-response"
 				responseTimeout="${SERVICE_TIMEOUT_MS}"
@@ -73,7 +75,7 @@
 		        	clientClass="se.riv.itintegration.engagementindex.findcontent.v1.rivtabp21.FindContentResponderService"
 		        	wsdlLocation="classpath:/interactions/FindContentInteraction/FindContentInteraction_1.0_RIVTABP21.wsdl"
 		       	/>
-			</http:outbound-endpoint>
+			</https:outbound-endpoint>
         </enricher>
 
 	    <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestTransformer"/>
@@ -113,8 +115,8 @@
 		<!-- Save the incoming logical-address in a variable so that is can be added to the response in the <response> - element -->
         <set-variable variableName="logical-address" value="#[groovy:payload[0]]" doc:name="Variable"/>
 
-		<http:outbound-endpoint 
-            connector-ref="soitoolkit-http-connector"
+		<https:outbound-endpoint 
+            connector-ref="soitoolkit-https-connector"
 			address="${TIDBOKNING_OUTBOUND_URL}" 
 			exchange-pattern="request-response"
 			responseTimeout="${SERVICE_TIMEOUT_MS}"
@@ -126,7 +128,7 @@
 	        	clientClass="se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21.GetSubjectOfCareScheduleResponderService"
 	        	wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl"
 	        />
-		</http:outbound-endpoint>
+		</https:outbound-endpoint>
  
         <catch-exception-strategy doc:name="Catch Exception Strategy">
 <!-- 

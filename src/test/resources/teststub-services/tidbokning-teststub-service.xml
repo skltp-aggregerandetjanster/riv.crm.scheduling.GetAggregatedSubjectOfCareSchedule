@@ -16,7 +16,7 @@
 	<!-- Teststub for a soure system (källsystem) behind a virtual service in TP VP -->
 	<simple-service 
 		name="tidbokning-teststub-service"
-        address="${TIDBOKNING_TESTSTUB_INBOUND_URL}?connector=soitoolkit-http-connector" 
+        address="${TIDBOKNING_TESTSTUB_INBOUND_URL}?connector=soitoolkit-https-connector" 
         component-class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer"
         type="jax-ws" />
 
