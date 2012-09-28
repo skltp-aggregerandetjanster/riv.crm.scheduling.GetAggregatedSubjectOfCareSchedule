@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- 
 DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOING!
-[soi-toolkit.gen.version=0.5.1-SNAPSHOT]
+[soi-toolkit.gen.version=0.6.0]
 [soi-toolkit.gen.type=services]
 [soi-toolkit.gen.createDate=2012-09-25T00:15:13.781+02:00]
 [soi-toolkit.gen.artifactId=GetAggregatedSubjectOfCareSchedule]
@@ -13,7 +13,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <parent>
         <groupId>org.soitoolkit.commons.poms</groupId>
         <artifactId>soitoolkit-default-parent</artifactId>
-        <version>0.5.1-SNAPSHOT</version>
+        <version>0.6.0</version>
     </parent>
     
     <groupId>se.skl.tp.aggregatingservices.crm.scheduling</groupId>
