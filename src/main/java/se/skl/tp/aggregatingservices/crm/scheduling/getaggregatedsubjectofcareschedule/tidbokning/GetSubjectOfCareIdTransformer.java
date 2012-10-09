@@ -1,4 +1,4 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex;
+package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -31,12 +31,12 @@ import org.w3c.dom.NodeList;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
 
-public class FindContentRequestTransformer extends AbstractMessageTransformer {
+public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
 
 	public static final String SERVICE_DOMAIN_SCHEDULING = "riv:crm:scheduling";
 	public static final String HSA_ID_NATIONELLT_EI = "HSA-ID-NATIONELLT-EI";
 
-	private static final Logger log = LoggerFactory.getLogger(FindContentRequestTransformer.class);
+	private static final Logger log = LoggerFactory.getLogger(GetSubjectOfCareIdTransformer.class);
 	private static final JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleType.class);
 	private static final Map<String, String> namespaceMap = new HashMap<String, String>();
 	
@@ -64,19 +64,55 @@ public class FindContentRequestTransformer extends AbstractMessageTransformer {
 
 		log.debug("Transforming payload: {}", src);
 
-		String subjectofCareId = ((String)src);
-		
-		
-//		GetSubjectOfCareScheduleType reqIn = getRequestIn(src);
+		String xml = XmlUtil.convertReversibleXMLStreamReaderToString((ReversibleXMLStreamReader)src, "UTF-8");
+		System.err.println("### TRY XPATH ON XML: " + xml);
+		Object result;
+		try {
+			XPath xpath = XPathFactory.newInstance().newXPath();
+		    xpath.setNamespaceContext(new MapNamespaceContext(namespaceMap));
 
-		FindContentType reqOut = new FindContentType();
-		reqOut.setRegisteredResidentIdentification(subjectofCareId);
-		reqOut.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
-		
-		Object[] reqOutList = new Object[] {HSA_ID_NATIONELLT_EI, reqOut};
+//			XPathExpression xpathLogicalAddress = xpath.compile("/soap:Envelope/soap:Header/it-int:LogicalAddress");
+//			XPathExpression xpathActor = xpath.compile("/soap:Envelope/soap:Header/interop:Actor");
+			XPathExpression xpathRequest = xpath.compile("/soap:Envelope/soap:Body/service:GetSubjectOfCareSchedule");
 
-		log.debug("Transformed payload: {}, pid: {}", reqOutList, reqOut.getRegisteredResidentIdentification());
+			
+			//			Document reqDoc = XMLUtils.toW3cDocument(xml);
+			Document reqDoc = createDocument(xml, "UTF-8");
+			result = xpathRequest.evaluate(reqDoc, XPathConstants.NODESET);
+		} catch (XPathExpressionException e) {
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		System.err.println("### XPATH RESULT: " + result);
+		NodeList list = (NodeList)result; 
+		System.err.println("### XPATH RESULT: " + list.getLength());
+		Node node = list.item(0);
+				
+		// Lookup the fragment...
+		GetSubjectOfCareScheduleType reqIn = (GetSubjectOfCareScheduleType)ju.unmarshal(node);
 		
-		return reqOutList;
+		String subjectofCareId = reqIn.getSubjectOfCare();
+		System.err.println("### XPATH RESULT: " + subjectofCareId);
+		
+		log.debug("Transformed payload: pid: {}", subjectofCareId);
+		
+		return subjectofCareId;
+	}
+
+	private Document createDocument(String content, String charset) {
+		try {
+			InputStream is = new ByteArrayInputStream(content.getBytes(charset));
+			return getBuilder().parse(is);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private DocumentBuilder getBuilder() throws ParserConfigurationException {
+		DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+		domFactory.setNamespaceAware(true);
+		DocumentBuilder builder = domFactory.newDocumentBuilder();
+		return builder;
 	}
 }

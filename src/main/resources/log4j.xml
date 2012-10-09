@@ -80,6 +80,11 @@
 	<logger name="org.soitoolkit.commons.mule.messageLogger">
 		<level value="INFO" />
 	</logger>
+
+	<logger name="com.mulesoft.mule.cache">
+		<level value="DEBUG" />
+	</logger>
+
 	
 	<root>
 		<priority value="WARN" />

@@ -56,9 +56,15 @@
 			payload="envelope">
 		</cxf:proxy-service>
 		
+        <response>
+            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
+        </response>
+
+	    <custom-transformer doc:name="Extract SubjectOfCare Id" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
+
 <!-- 
-		<ee:cache doc:name="Cache">
  -->
+		<ee:cache doc:name="Cache">
  
 	    <custom-transformer doc:name="Find Content Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
@@ -82,10 +88,6 @@
 
 	    <custom-transformer doc:name="Request List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestListTransformer"/>
 
-        <response>
-            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
-        </response>
-
         <request-reply timeout="${AGGREGATED_SERVICE_TIMEOUT_MS}">  
             <vm:outbound-endpoint path="splitter"> 
 	            <message-properties-transformer scope="outbound"> 
@@ -96,8 +98,8 @@
         </request-reply>
 
 <!-- 
-		</ee:cache>
  -->
+		</ee:cache>
 
 	</flow>
 	
@@ -171,7 +173,7 @@ println "agg-out-correlationGroupSize: $message.correlationGroupSize"
 
 String p = "### RESULT: " + payload.toString()
 println new Date().toString() + ": aggregation result: $p"
-return p]]></scripting:text>
+return message]]></scripting:text>
             </scripting:script>
         </scripting:component>
         <vm:outbound-endpoint path="reply" doc:name="vm://reply"/>
