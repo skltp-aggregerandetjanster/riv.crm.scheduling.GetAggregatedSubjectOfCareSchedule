@@ -18,9 +18,9 @@ import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
 
-public class TidbokningRequestTransformer extends AbstractMessageTransformer {
+public class TidbokningRequestListTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(TidbokningRequestTransformer.class);
+	private static final Logger log = LoggerFactory.getLogger(TidbokningRequestListTransformer.class);
 
     /**
      * Message aware transformer that ...
@@ -60,17 +60,20 @@ public class TidbokningRequestTransformer extends AbstractMessageTransformer {
 		List<Object[]> reqList = new ArrayList<Object[]>();
 		
 		for (Entry<String, String> entry : uniqueLogicalAddresses.entrySet()) {
-			
+
+			String logicalAdress = entry.getKey();
+			String subjectOfCare = entry.getValue();
+
 			// FIX ME. Get Actor from some invocation variable
 			ActorType actor = new ActorType();
 			actor.setActorId("999");
 			actor.setActorType(ActorTypeEnum.SUBJECT_OF_CARE);
 
 			GetSubjectOfCareScheduleType request = new GetSubjectOfCareScheduleType();
-			request.setHealthcareFacility(entry.getKey());
-			request.setSubjectOfCare(entry.getValue());
+			request.setHealthcareFacility(logicalAdress);
+			request.setSubjectOfCare(subjectOfCare);
 
-			Object[] reqArr = new Object[] {entry.getKey(), actor, request};
+			Object[] reqArr = new Object[] {logicalAdress, actor, request};
 			
 			reqList.add(reqArr);
 		}

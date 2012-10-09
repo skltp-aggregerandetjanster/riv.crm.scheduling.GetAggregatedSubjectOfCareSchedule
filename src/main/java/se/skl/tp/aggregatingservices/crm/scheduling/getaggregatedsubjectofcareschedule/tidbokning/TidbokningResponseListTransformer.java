@@ -40,9 +40,9 @@ import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.ProcessingStatusUtil;
 
-public class TidbokningResponseTransformer extends AbstractMessageTransformer {
+public class TidbokningResponseListTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(TidbokningResponseTransformer.class);
+	private static final Logger log = LoggerFactory.getLogger(TidbokningResponseListTransformer.class);
 	private static final JaxbUtil jaxbUtil = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class, ProcessingStatusType.class);
 	private static final ObjectFactory OF = new ObjectFactory();
 	private static final se.riv.interoperability.headers.v1.ObjectFactory OF_HEADERS = new se.riv.interoperability.headers.v1.ObjectFactory();
@@ -85,13 +85,13 @@ public class TidbokningResponseTransformer extends AbstractMessageTransformer {
      */
     public Object pojoTransform(Object src, String outputEncoding) throws TransformerException {
         log.debug("Transforming payload: {}", src);
-        System.err.println("TidbokningResponseTransformer is transforming payload: " + src);
+        System.err.println("TidbokningResponseListTransformer is transforming payload: " + src);
         
 		@SuppressWarnings("unchecked")
 		List<Object> listSrc = (List<Object>)src;
 
-		System.err.println("TidbokningResponseTransformer is transforming " + listSrc.size() + " rows");
-        System.err.println("TidbokningResponseTransformer type of first element " + listSrc.get(0).getClass().getName());
+		System.err.println("TidbokningResponseListTransformer is transforming " + listSrc.size() + " rows");
+        System.err.println("TidbokningResponseListTransformer type of first element " + listSrc.get(0).getClass().getName());
 
         ProcessingStatusUtil psu = new ProcessingStatusUtil();
         GetSubjectOfCareScheduleResponseType aggregatedResponse = new GetSubjectOfCareScheduleResponseType();

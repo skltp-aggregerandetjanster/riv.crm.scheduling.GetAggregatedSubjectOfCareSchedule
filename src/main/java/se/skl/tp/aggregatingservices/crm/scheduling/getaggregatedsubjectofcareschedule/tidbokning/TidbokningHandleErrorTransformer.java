@@ -12,7 +12,7 @@ import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 
 public class TidbokningHandleErrorTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(TidbokningRequestTransformer.class);
+	private static final Logger log = LoggerFactory.getLogger(TidbokningHandleErrorTransformer.class);
 
 	@Override
 	public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.soitoolkit.commons.mule.util.MiscUtil;
 
-public class TidbokningRequestTransformerTest {
+public class TidbokningRequestListTransformerTest {
 
 	@Test
 	public void testTransformer_ok() throws Exception {
@@ -22,7 +22,7 @@ public class TidbokningRequestTransformerTest {
 
 		// Create the transformer under test and let it perform the transformation
 
-		TidbokningRequestTransformer transformer = new TidbokningRequestTransformer();
+		TidbokningRequestListTransformer transformer = new TidbokningRequestListTransformer();
 		Object result = transformer.pojoTransform(input, "UTF-8");
 
 

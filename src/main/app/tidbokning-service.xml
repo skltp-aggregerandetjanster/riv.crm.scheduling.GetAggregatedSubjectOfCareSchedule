@@ -39,18 +39,13 @@
 	<flow name="tidbokning-flow">
 
 		<https:inbound-endpoint
+			doc:name="Inbound"
             connector-ref="soitoolkit-https-connector"
 			address="${TIDBOKNING_INBOUND_URL}"
 			exchange-pattern="request-response"
 			transformer-refs="objToStr logReqIn"
 			responseTransformer-refs="createSoapFaultIfException logRespOut">
 		</https:inbound-endpoint>
-
-<!-- 
-			service="GetSubjectOfCareScheduleResponderService"
-			wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl" 
-			namespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21"
- -->
 
 		<cxf:proxy-service 
 			service="GetAggregatedSubjectOfCareScheduleResponderService"
@@ -59,10 +54,11 @@
 			payload="envelope">
 		</cxf:proxy-service>
  
-	    <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
+	    <custom-transformer doc:name="Find Content Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
         <enricher target="#[payload]">
 			<https:outbound-endpoint 
+				doc:name="Engagement Index"
 	            connector-ref="soitoolkit-https-connector"
 				address="${ENGAGEMANGSINDEX_OUTBOUND_URL}" 
 				exchange-pattern="request-response"
@@ -78,42 +74,45 @@
 			</https:outbound-endpoint>
         </enricher>
 
-	    <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestTransformer"/>
+	    <custom-transformer doc:name="Request List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestListTransformer"/>
+
+        <response>
+            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
+        </response>
 
         <request-reply timeout="${AGGREGATED_SERVICE_TIMEOUT_MS}">  
-            <vm:outbound-endpoint path="as1-splitter"> 
+            <vm:outbound-endpoint path="splitter"> 
 	            <message-properties-transformer scope="outbound"> 
 	                <delete-message-property key="MULE_REPLYTO"/> 
 	            </message-properties-transformer> 
             </vm:outbound-endpoint>
-            <vm:inbound-endpoint path="as1-reply"></vm:inbound-endpoint> 
+            <vm:inbound-endpoint path="reply"></vm:inbound-endpoint> 
         </request-reply>
-
-        <response>
-            <custom-transformer doc:name="transform-response" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseTransformer"/>
-        </response>
 
 	</flow>
 	
 
 	
-    <flow name="AS1-splitter-flow" doc:name="AS1-splitter-flow">
-        <vm:inbound-endpoint exchange-pattern="one-way" path="as1-splitter" doc:name="VM"/>
+    <flow name="splitter-flow" doc:name="splitter-flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="splitter" doc:name="vm://splitter"/>
+		
 		<collection-splitter enableCorrelation="IF_NOT_SET"/>
-        <message-properties-transformer scope="outbound"> 
-            <add-message-property key="MULE_REPLYTO" value="vm://as1-aggregate"/> 
+		
+        <message-properties-transformer scope="outbound" doc:name="Set ReplyTo = vm://agregate"> 
+            <add-message-property key="MULE_REPLYTO" value="vm://aggregate"/> 
         </message-properties-transformer> 
-        <vm:outbound-endpoint path="as1-worker" doc:name="VM"/>
+        
+        <vm:outbound-endpoint path="worker" doc:name="vm://worker"/>
     </flow>
     
-	<custom-transformer name="Fix1" doc:name="handle error" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.Fix1Transformer"/>
+	<custom-transformer name="Fix1" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.Fix1Transformer"/>
 
     
-    <flow name="AS1-worker-flow" processingStrategy="tidbokning-workers-processing-strategy" doc:name="AS1-worker-flow">
-        <vm:inbound-endpoint exchange-pattern="one-way" path="as1-worker" doc:name="VM"/>
+    <flow name="worker-flow" processingStrategy="tidbokning-workers-processing-strategy" doc:name="worker-flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="worker" doc:name="vm://worker"/>
 
 		<!-- Save the incoming logical-address in a variable so that is can be added to the response in the <response> - element -->
-        <set-variable variableName="logical-address" value="#[groovy:payload[0]]" doc:name="Variable"/>
+        <set-variable variableName="logical-address" value="#[groovy:payload[0]]" doc:name="Set Logical Address"/>
 
 		<https:outbound-endpoint 
             connector-ref="soitoolkit-https-connector"
@@ -134,14 +133,14 @@
 <!-- 
         	SKALL RETURNERA ETT FÄRDIGT ERROR-REPORT OBJECT
  -->
-            <custom-transformer doc:name="handle error" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningHandleErrorTransformer"/>
-	        <vm:outbound-endpoint path="as1-aggregate" doc:name="VM"/>
+            <custom-transformer doc:name="Error Handler" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningHandleErrorTransformer"/>
+	        <vm:outbound-endpoint path="aggregate" doc:name="vm://aggregate"/>
         </catch-exception-strategy>
     </flow>
 
 
-    <flow name="AS1-aggregation-flow" doc:name="AS1-aggregation-flow">
-        <vm:inbound-endpoint exchange-pattern="one-way" path="as1-aggregate" doc:name="VM"/>
+    <flow name="aggregation-flow" doc:name="aggregation-flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="aggregate" doc:name="vm://aggregate"/>
         <scripting:component doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[
@@ -164,7 +163,7 @@ println new Date().toString() + ": aggregation result: $p"
 return p]]></scripting:text>
             </scripting:script>
         </scripting:component>
-        <vm:outbound-endpoint path="as1-reply" doc:name="VM"/>
+        <vm:outbound-endpoint path="reply" doc:name="vm://reply"/>
     </flow>
 	
 </mule>
