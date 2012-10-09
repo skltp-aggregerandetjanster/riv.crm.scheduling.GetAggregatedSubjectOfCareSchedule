@@ -1,8 +1,8 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning;
 
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.ws.Holder;
@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import se.riv.crm.scheduling.getaggregatedsubjectofcareschedule.v1.rivtabp21.GetAggregatedSubjectOfCareScheduleResponderInterface;
-import se.riv.crm.scheduling.getaggregatedsubjectofcareschedule.v1.rivtabp21.GetAggregatedSubjectOfCareScheduleResponderService;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.interoperability.headers.v1.ActorType;
@@ -28,13 +27,19 @@ public class TidbokningTestConsumer {
 
 	public static void main(String[] args) {
 		String serviceAddress = getAddress("TIDBOKNING_INBOUND_URL");
-		String personnummer = "1234567890";
+		String personnummer = TEST_ID_ONE_BOOKING;
 
 		TidbokningTestConsumer consumer = new TidbokningTestConsumer(serviceAddress);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
+		long now = System.currentTimeMillis();
 		consumer.callService("logical-adress", personnummer, processingStatusHolder, responseHolder);
-		log.info("Returned #timeslots = " + responseHolder.value.getTimeslotDetail().size());
+		log.info("Returned #timeslots = " + responseHolder.value.getTimeslotDetail().size() + " in " + (System.currentTimeMillis() - now) + " ms.");
+
+		now = System.currentTimeMillis();
+		consumer.callService("logical-adress", personnummer, processingStatusHolder, responseHolder);
+		log.info("Returned #timeslots = " + responseHolder.value.getTimeslotDetail().size() + " in " + (System.currentTimeMillis() - now) + " ms.");
+	
 	}
 	
 	public TidbokningTestConsumer(String serviceAddress) {

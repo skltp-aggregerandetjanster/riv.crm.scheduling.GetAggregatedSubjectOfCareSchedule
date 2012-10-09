@@ -33,7 +33,7 @@
             <property value="23" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="tidbokning-flow" entity-id="faede967-e079-44b2-be84-9344590486c9">
+    <flow SubFlow="false" name="tidbokning-flow" entity-id="56fb136b-8927-4537-abad-36782d1252c9">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -320,7 +320,7 @@
             </unknown>
         </lane>
     </flow>
-    <flow SubFlow="false" name="splitter-flow" entity-id="095f1928-e852-4d18-9051-83368cf03d81">
+    <flow SubFlow="false" name="splitter-flow" entity-id="4f1a1377-dd83-4f97-9575-014b546b784e">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -427,7 +427,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="worker-flow" entity-id="02af151b-149a-4cbb-b4a5-0bf134e81dc0">
+    <flow SubFlow="false" name="worker-flow" entity-id="7fed3f5c-0764-431a-b564-58a07deb7bd0">
         <properties>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy2"/>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy"/>
@@ -481,7 +481,7 @@
                     <property value="26" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#3">
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="Outbound" entity-id="HTTP#3">
                 <properties>
                     <property value="one-way" name="exchange-pattern"/>
                     <property value="request-response" name="exchange-pattern"/>
@@ -620,7 +620,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="aggregation-flow" entity-id="20f9c9be-40e6-4d35-b742-759d108bd029">
+    <flow SubFlow="false" name="aggregation-flow" entity-id="b25e4f21-1468-49bf-8174-cb021d12c060">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

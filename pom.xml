@@ -13,7 +13,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <parent>
         <groupId>org.soitoolkit.commons.poms</groupId>
         <artifactId>soitoolkit-default-parent</artifactId>
-        <version>0.6.0</version>
+        <version>0.6.1-SNAPSHOT</version>
     </parent>
     
     <groupId>se.skl.tp.aggregatingservices.crm.scheduling</groupId>
@@ -22,8 +22,14 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <packaging>mule</packaging>
     <name>GetAggregatedSubjectOfCareSchedule</name>
 
+<!-- 
+	<properties>
+		<mule-ee.version>3.3.1</mule-ee.version>
+	</properties>
+ -->
+    
     <scm>
-        <!-- TODO: Sample <scm>-tag, update to reflect you own environment! -->
+        <!-- TODO: Sample <scm>-tag, update to reflect you own environment! -->		
         <connection>scm:svn:https://my-subversion-server/svn/GetAggregatedSubjectOfCareSchedule/trunk</connection>
         <developerConnection>scm:svn:https://my-subversion-server/svn/GetAggregatedSubjectOfCareSchedule/trunk</developerConnection>
         <url>https://my-subversion-server/svn/GetAggregatedSubjectOfCareSchedule/trunk</url>
@@ -44,6 +50,15 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     </distributionManagement>
 
 	<dependencies>	
+
+<!-- 
+		<dependency>
+		  <groupId>com.mulesoft.muleesb.modules</groupId>
+		  <artifactId>mule-module-spring-config-ee</artifactId>
+		  <version>${mule-ee.version}</version>
+		</dependency>
+ -->
+
 		<dependency>
 		  <groupId>org.soitoolkit.commons.components</groupId>
 			<artifactId>soitoolkit-commons-mule</artifactId>

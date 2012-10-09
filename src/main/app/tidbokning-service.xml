@@ -4,6 +4,7 @@
 	xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" 
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
 	xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc"
@@ -20,6 +21,7 @@
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.mulesoft.org/schema/mule/core      http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/ee/core   http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
 		http://www.mulesoft.org/schema/mule/vm        http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 		http://www.mulesoft.org/schema/mule/jdbc      http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd
 		http://www.mulesoft.org/schema/mule/cxf       http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
@@ -53,6 +55,10 @@
 			namespace="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareSchedule:1:rivtabp21"
 			payload="envelope">
 		</cxf:proxy-service>
+		
+<!-- 
+		<ee:cache doc:name="Cache">
+ -->
  
 	    <custom-transformer doc:name="Find Content Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
@@ -89,6 +95,10 @@
             <vm:inbound-endpoint path="reply"></vm:inbound-endpoint> 
         </request-reply>
 
+<!-- 
+		</ee:cache>
+ -->
+
 	</flow>
 	
 
@@ -115,6 +125,7 @@
         <set-variable variableName="logical-address" value="#[groovy:payload[0]]" doc:name="Set Logical Address"/>
 
 		<https:outbound-endpoint 
+			doc:name="Outbound"
             connector-ref="soitoolkit-https-connector"
 			address="${TIDBOKNING_OUTBOUND_URL}" 
 			exchange-pattern="request-response"

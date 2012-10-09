@@ -95,7 +95,9 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 		else if (TEST_LOGICAL_ADDRESS_2.equals(logicalAddress)) processingTime = TEST_LOGICAL_ADDRESS_2_RESPONSE_TIME;
 		else if (TEST_LOGICAL_ADDRESS_3.equals(logicalAddress)) processingTime = TEST_LOGICAL_ADDRESS_3_RESPONSE_TIME;
     	try {
-		Thread.sleep(processingTime );
+    		System.err.println("## SLEEP FOR " + processingTime + " ms.");
+    		Thread.sleep(processingTime );
+    		System.err.println("## SLEEP DONE.");
 		} catch (InterruptedException e) {}
         
         // Lookup the response
