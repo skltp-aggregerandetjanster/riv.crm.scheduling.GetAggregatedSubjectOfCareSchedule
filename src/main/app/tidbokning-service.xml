@@ -68,10 +68,6 @@
 	
 	<sub-flow name="main-flow">
 
-        <response>
-            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
-        </response>
-
 	    <custom-transformer doc:name="Find Content Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
         <enricher target="#[payload]">
@@ -102,6 +98,10 @@
             </vm:outbound-endpoint>
             <vm:inbound-endpoint path="reply"></vm:inbound-endpoint> 
         </request-reply>
+
+        <response>
+            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
+        </response>
 
 	</sub-flow>
 	
