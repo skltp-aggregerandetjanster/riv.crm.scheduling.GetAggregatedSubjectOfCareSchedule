@@ -71,7 +71,7 @@
 	<logger name="org.soitoolkit.commons">
 		<level value="INFO" />
 	</logger>
-	
+
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule">
 		<level value="INFO" />
 	</logger>

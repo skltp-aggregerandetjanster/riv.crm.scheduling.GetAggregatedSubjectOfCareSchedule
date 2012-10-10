@@ -66,7 +66,14 @@
 
 	</flow>
 	
+<!-- 
 	<sub-flow name="main-flow">
+ -->
+	<flow name="main-flow" processingStrategy="synchronous">
+
+        <response>
+            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
+        </response>
 
 	    <custom-transformer doc:name="Find Content Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
@@ -99,11 +106,7 @@
             <vm:inbound-endpoint path="reply"></vm:inbound-endpoint> 
         </request-reply>
 
-        <response>
-            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
-        </response>
-
-	</sub-flow>
+	</flow>
 	
 	
     <flow name="splitter-flow" doc:name="splitter-flow">

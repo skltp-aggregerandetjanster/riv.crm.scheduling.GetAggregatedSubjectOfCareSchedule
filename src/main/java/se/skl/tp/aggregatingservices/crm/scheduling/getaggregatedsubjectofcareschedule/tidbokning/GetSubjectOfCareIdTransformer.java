@@ -62,10 +62,10 @@ public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
 	 */
 	protected Object pojoTransform(Object src, String encoding) throws TransformerException {
 
-		log.debug("Transforming payload: {}", src);
 
 		String xml = XmlUtil.convertReversibleXMLStreamReaderToString((ReversibleXMLStreamReader)src, "UTF-8");
-		System.err.println("### TRY XPATH ON XML: " + xml);
+		log.debug("Transforming payload: {}", xml);
+
 		Object result;
 		try {
 			XPath xpath = XPathFactory.newInstance().newXPath();
@@ -84,16 +84,13 @@ public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		System.err.println("### XPATH RESULT: " + result);
 		NodeList list = (NodeList)result; 
-		System.err.println("### XPATH RESULT: " + list.getLength());
 		Node node = list.item(0);
 				
 		// Lookup the fragment...
 		GetSubjectOfCareScheduleType reqIn = (GetSubjectOfCareScheduleType)ju.unmarshal(node);
 		
 		String subjectofCareId = reqIn.getSubjectOfCare();
-		System.err.println("### XPATH RESULT: " + subjectofCareId);
 		
 		log.debug("Transformed payload: pid: {}", subjectofCareId);
 		

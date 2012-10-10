@@ -72,7 +72,7 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 
 	@Override
 	public GetSubjectOfCareScheduleResponseType getSubjectOfCareSchedule(String logicalAddress, ActorType actor, GetSubjectOfCareScheduleType request) {
-		log.info("### Virtuell tj�nst f�r Tidbokning anropar k�llsystem med logisk adress: {} och patientId: {}", logicalAddress, request.getSubjectOfCare());
+		log.info("### Virtual service for GetSubjectOfCareSchedule call the source system with logical address: {} and patientId: {}", logicalAddress, request.getSubjectOfCare());
 
 		String id = request.getSubjectOfCare();
 
@@ -95,9 +95,9 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 		else if (TEST_LOGICAL_ADDRESS_2.equals(logicalAddress)) processingTime = TEST_LOGICAL_ADDRESS_2_RESPONSE_TIME;
 		else if (TEST_LOGICAL_ADDRESS_3.equals(logicalAddress)) processingTime = TEST_LOGICAL_ADDRESS_3_RESPONSE_TIME;
     	try {
-    		System.err.println("## SLEEP FOR " + processingTime + " ms.");
+    		log.debug("## SLEEP FOR " + processingTime + " ms.");
     		Thread.sleep(processingTime );
-    		System.err.println("## SLEEP DONE.");
+    		log.debug("## SLEEP DONE.");
 		} catch (InterruptedException e) {}
         
         // Lookup the response
@@ -107,7 +107,7 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
         	response = new GetSubjectOfCareScheduleResponseType();
         }
 
-		log.info("### Virtuell tj�nst fick {} bokningar som svar fr�n logisk adress: {} och patientId: {}", new Object[] {response.getTimeslotDetail().size(), logicalAddress, request.getSubjectOfCare()});
+		log.info("### Virtual service got {} booknings in the reply from the source system with logical address: {} and patientId: {}", new Object[] {response.getTimeslotDetail().size(), logicalAddress, request.getSubjectOfCare()});
 
 		// We are done
         return response;

@@ -85,13 +85,12 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
      */
     public Object pojoTransform(Object src, String outputEncoding) throws TransformerException {
         log.debug("Transforming payload: {}", src);
-        System.err.println("TidbokningResponseListTransformer is transforming payload: " + src);
         
 		@SuppressWarnings("unchecked")
 		List<Object> listSrc = (List<Object>)src;
 
-		System.err.println("TidbokningResponseListTransformer is transforming " + listSrc.size() + " rows");
-        System.err.println("TidbokningResponseListTransformer type of first element " + listSrc.get(0).getClass().getName());
+		log.debug("TidbokningResponseListTransformer is transforming {} rows", listSrc.size());
+        log.debug("TidbokningResponseListTransformer type of first element {}", listSrc.get(0).getClass().getName());
 
         ProcessingStatusUtil psu = new ProcessingStatusUtil();
         GetSubjectOfCareScheduleResponseType aggregatedResponse = new GetSubjectOfCareScheduleResponseType();
@@ -116,12 +115,12 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 
 	        	} else {
 	        		// FIXME. Fix error handling... 
-	        		System.err.println("### HERE COMES UNHADLED ERROR INFORMATION: " + singleResponse);
+	        		log.warn("HERE COMES UNHADLED ERROR INFORMATION: {}", singleResponse);
 	        	}
         		
         	} else {
         		// FIXME. Fix error handling... 
-        		System.err.println("### HERE COMES UNHADLED ERROR INFORMATION: " + singleResponse);
+        		log.warn("HERE COMES UNHADLED ERROR INFORMATION: {}", singleResponse);
         	}
 		}
         
@@ -130,7 +129,7 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
         String xml = jaxbUtil.marshal(OF.createGetSubjectOfCareScheduleResponse(aggregatedResponse));
 
         String xmlStatus = jaxbUtil.marshal(OF_HEADERS.createProcessingStatus(psu.getStatus()));
-        System.err.println("processingStatus:\n" + xmlStatus);
+        log.debug("processingStatus:\n{}", xmlStatus);
         
 		XPath xpath = XPathFactory.newInstance().newXPath();
 	    xpath.setNamespaceContext(new MapNamespaceContext(namespaceMap));
@@ -141,9 +140,7 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 			XPathExpression xpathBody = xpath.compile("/soap:Envelope/soap:Body");
 			result = xpathBody.evaluate(respDoc, XPathConstants.NODESET);
 			
-			System.err.println("### XPATH RESULT: " + result);
 			NodeList list = (NodeList)result; 
-			System.err.println("### XPATH RESULT: " + list.getLength());
 			Node nodeBody = list.item(0);
 	        
 	    	appendXmlFragment(nodeBody, xml);
@@ -152,9 +149,7 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 	    	XPathExpression xpathHeader = xpath.compile("/soap:Envelope/soap:Header");
 			result = xpathHeader.evaluate(respDoc, XPathConstants.NODESET);
 			
-			System.err.println("### XPATH RESULT: " + result);
 			list = (NodeList)result; 
-			System.err.println("### XPATH RESULT: " + list.getLength());
 			Node nodeHeader = list.item(0);
 	        
 	    	appendXmlFragment(nodeHeader, xmlStatus);
@@ -172,7 +167,7 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 
 		xml = getXml(respDoc);
         
-        System.err.println("Transforming result: " + xml);
+        log.debug("Transforming result: {}", xml);
 
         return xml;
 	}

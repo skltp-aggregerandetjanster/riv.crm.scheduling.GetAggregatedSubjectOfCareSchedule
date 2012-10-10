@@ -18,8 +18,8 @@ public class Fix1Transformer extends AbstractMessageTransformer {
 
     	String logicalAddress = message.getInvocationProperty("logical-address");
     	
-//    	message.setOutboundProperty("logical-address", logicalAddress);
-//    	System.err.println("java-out-p: " + message.getOutboundProperty("logical-address"));
+    	log.debug("Add logical-address to the payload as an ibject-array, {}", logicalAddress);
+
     	return new Object[] {logicalAddress, message.getPayload()};
 	}
 }
