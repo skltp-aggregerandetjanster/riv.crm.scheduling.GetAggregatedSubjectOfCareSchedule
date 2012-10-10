@@ -38,6 +38,8 @@
 
 	<queued-asynchronous-processing-strategy name="tidbokning-workers-processing-strategy" maxThreads="50"/>    
 
+    <ee:object-store-caching-strategy name="Caching_Strategy" keyGenerationExpression="#[payload]" doc:name="Caching Strategy"/>
+
 	<flow name="cache-flow">
 
 		<https:inbound-endpoint
@@ -58,7 +60,7 @@
 		
 	    <custom-transformer doc:name="Extract SubjectOfCare Id" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
 
-		<ee:cache doc:name="Cache">
+        <ee:cache doc:name="Cache" cachingStrategy-ref="Caching_Strategy">
 		
 			<flow-ref name="main-flow" doc:name="main-flow"/>
  

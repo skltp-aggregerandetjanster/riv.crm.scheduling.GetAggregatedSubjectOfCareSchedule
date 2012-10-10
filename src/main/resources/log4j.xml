@@ -73,12 +73,16 @@
 	</logger>
 
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestConsumer">
 		<level value="INFO" />
 	</logger>
 
     <!-- Message logging using soi-toolkit LogTransformer class -->
 	<logger name="org.soitoolkit.commons.mule.messageLogger">
-		<level value="INFO" />
+		<level value="WARN" />
 	</logger>
 
 	<logger name="com.mulesoft.mule.cache">
