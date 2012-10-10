@@ -40,6 +40,14 @@ public class TidbokningTestConsumer {
 		consumer.callService("logical-adress", personnummer, processingStatusHolder, responseHolder);
 		log.info("Returned #timeslots = " + responseHolder.value.getTimeslotDetail().size() + " in " + (System.currentTimeMillis() - now) + " ms.");
 	
+		now = System.currentTimeMillis();
+		consumer.callService("logical-adress", personnummer, processingStatusHolder, responseHolder);
+		log.info("Returned #timeslots = " + responseHolder.value.getTimeslotDetail().size() + " in " + (System.currentTimeMillis() - now) + " ms.");
+	
+		now = System.currentTimeMillis();
+		consumer.callService("logical-adress", personnummer, processingStatusHolder, responseHolder);
+		log.info("Returned #timeslots = " + responseHolder.value.getTimeslotDetail().size() + " in " + (System.currentTimeMillis() - now) + " ms.");
+	
 	}
 	
 	public TidbokningTestConsumer(String serviceAddress) {

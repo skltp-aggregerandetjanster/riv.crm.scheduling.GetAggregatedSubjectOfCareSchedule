@@ -38,7 +38,7 @@
 
 	<queued-asynchronous-processing-strategy name="tidbokning-workers-processing-strategy" maxThreads="50"/>    
 
-	<flow name="tidbokning-flow">
+	<flow name="cache-flow">
 
 		<https:inbound-endpoint
 			doc:name="Inbound"
@@ -56,16 +56,22 @@
 			payload="envelope">
 		</cxf:proxy-service>
 		
+	    <custom-transformer doc:name="Extract SubjectOfCare Id" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
+
+		<ee:cache doc:name="Cache">
+		
+			<flow-ref name="main-flow" doc:name="main-flow"/>
+ 
+		</ee:cache>
+
+	</flow>
+	
+	<sub-flow name="main-flow">
+
         <response>
             <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
         </response>
 
-	    <custom-transformer doc:name="Extract SubjectOfCare Id" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
-
-<!-- 
- -->
-		<ee:cache doc:name="Cache">
- 
 	    <custom-transformer doc:name="Find Content Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.engagemangsindex.FindContentRequestTransformer"/>
 
         <enricher target="#[payload]">
@@ -97,13 +103,8 @@
             <vm:inbound-endpoint path="reply"></vm:inbound-endpoint> 
         </request-reply>
 
-<!-- 
- -->
-		</ee:cache>
-
-	</flow>
+	</sub-flow>
 	
-
 	
     <flow name="splitter-flow" doc:name="splitter-flow">
         <vm:inbound-endpoint exchange-pattern="one-way" path="splitter" doc:name="vm://splitter"/>
@@ -154,6 +155,7 @@
 
     <flow name="aggregation-flow" doc:name="aggregation-flow">
         <vm:inbound-endpoint exchange-pattern="one-way" path="aggregate" doc:name="vm://aggregate"/>
+<!-- 
         <scripting:component doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[
@@ -165,7 +167,11 @@ System.err.println("agg-in-p: " + message.getInboundProperty('logical-address'))
 return message]]></scripting:text>
             </scripting:script>
         </scripting:component>
+ -->
+
         <collection-aggregator timeout="${AGGREGATE_TIMEOUT_MS}" failOnTimeout="false" doc:name="Collection Aggregator"/>
+
+<!-- 
         <scripting:component doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + ", agg-out-correlationId: $message.correlationId"
@@ -176,6 +182,8 @@ println new Date().toString() + ": aggregation result: $p"
 return message]]></scripting:text>
             </scripting:script>
         </scripting:component>
+ -->
+
         <vm:outbound-endpoint path="reply" doc:name="vm://reply"/>
     </flow>
 	
