@@ -38,8 +38,14 @@
 
 	<queued-asynchronous-processing-strategy name="tidbokning-workers-processing-strategy" maxThreads="50"/>    
 
-    <ee:object-store-caching-strategy name="Caching_Strategy" keyGenerationExpression="#[payload]" doc:name="Caching Strategy"/>
-
+    <ee:object-store-caching-strategy name="caching_strategy" keyGenerationExpression="#[payload]" doc:name="Caching Strategy">
+        <custom-object-store class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl">
+        	<spring:property name="maxEntries" value="${CACHE_MAX_ENTRIES}"/>
+        	<spring:property name="entryTTL" value="${CACHE_TTL_MS}"/>
+        	<spring:property name="expirationInterval" value="${CACHE_EXPIRATION_INTERVAL_MS}"/>
+        </custom-object-store>
+    </ee:object-store-caching-strategy>
+    
 	<flow name="cache-flow">
 
 		<https:inbound-endpoint
@@ -60,17 +66,12 @@
 		
 	    <custom-transformer doc:name="Extract SubjectOfCare Id" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
 
-        <ee:cache doc:name="Cache" cachingStrategy-ref="Caching_Strategy">
-		
+        <ee:cache doc:name="Cache" cachingStrategy-ref="caching_strategy">
 			<flow-ref name="main-flow" doc:name="main-flow"/>
- 
 		</ee:cache>
 
 	</flow>
 	
-<!-- 
-	<sub-flow name="main-flow">
- -->
 	<flow name="main-flow" processingStrategy="synchronous">
 
         <response>

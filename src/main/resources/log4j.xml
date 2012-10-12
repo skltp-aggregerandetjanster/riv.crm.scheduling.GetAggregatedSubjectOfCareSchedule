@@ -79,6 +79,12 @@
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestConsumer">
 		<level value="INFO" />
 	</logger>
+	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl">
+		<level value="DEBUG" />
+	</logger>
 
     <!-- Message logging using soi-toolkit LogTransformer class -->
 	<logger name="org.soitoolkit.commons.mule.messageLogger">

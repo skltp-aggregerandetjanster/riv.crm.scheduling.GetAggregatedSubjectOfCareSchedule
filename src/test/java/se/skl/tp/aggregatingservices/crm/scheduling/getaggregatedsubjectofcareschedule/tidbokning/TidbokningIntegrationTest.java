@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static se.riv.interoperability.headers.v1.CausingAgentEnum.VIRTUALIZATION_PLATFORM;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
+import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.NO_DATA_SYNCH_FAILED;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
@@ -21,18 +22,23 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_3;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1_RESPONSE_TIME;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.ws.Holder;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Test;
+import org.mule.api.MuleEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
 import org.soitoolkit.commons.mule.test.ActiveMqJmsTestUtil;
 import org.soitoolkit.commons.mule.test.junit4.AbstractTestCase;
+
+import com.mulesoft.mule.cache.ObjectStoreCachingStrategy;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
@@ -40,6 +46,7 @@ import se.riv.interoperability.headers.v1.CausingAgentEnum;
 import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
 
  
 public class TidbokningIntegrationTest extends AbstractTestCase {
@@ -74,9 +81,18 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 	protected void doSetUp() throws Exception {
 		super.doSetUp();
 
+		doResetCache("caching_strategy");
+
 		doSetUpJms();
   
      }
+
+	private void doResetCache(String cachingStrategyBeanName) {
+		Object obj = muleContext.getRegistry().lookupObject(cachingStrategyBeanName);
+		ObjectStoreCachingStrategy oscs = (ObjectStoreCachingStrategy)obj;
+		CacheMemoryStoreImpl<MuleEvent> cache = (CacheMemoryStoreImpl<MuleEvent>)oscs.getStore();
+		cache.reset();
+	}
 
 	private void doSetUpJms() {
 		// TODO: Fix lazy init of JMS connection et al so that we can create jmsutil in the declaration
@@ -92,7 +108,17 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
     @Test
     public void test_ok_one_booking() {
     	String id = TEST_ID_ONE_BOOKING;
-    	TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
+    	String expectedBookingId = TEST_BOOKING_ID_ONE_BOOKING;
+		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
+    	
+    	ProcessingStatusType statusList = do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
+		
+		assertProcessingStatusDataFromSource(statusList.getProcessingStatusList().get(0), expectedLogicalAddress);
+    }
+
+	private ProcessingStatusType do_test_ok_one_booking(String id,
+			String expectedBookingId, String expectedLogicalAddress) {
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
     	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);
@@ -102,14 +128,13 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		
 		TimeslotType timeslot = response.getTimeslotDetail().get(0);
 		assertEquals(id, timeslot.getSubjectOfCare());		
-		assertEquals(TEST_BOOKING_ID_ONE_BOOKING, timeslot.getBookingId());		
-		assertEquals(TEST_LOGICAL_ADDRESS_1, timeslot.getHealthcareFacility());		
+		assertEquals(expectedBookingId, timeslot.getBookingId());		
+		assertEquals(expectedLogicalAddress, timeslot.getHealthcareFacility());		
 
 		ProcessingStatusType statusList = processingStatusHolder.value;
 		assertEquals(1, statusList.getProcessingStatusList().size());
-		
-		assertProcessingStatusDataFromSource(statusList.getProcessingStatusList().get(0), TEST_LOGICAL_ADDRESS_1);
-    }
+		return statusList;
+	}
 
     @Test
     public void test_ok_many_bookings_with_partial_timeout() {
@@ -168,6 +193,26 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		assertProcessingStatusNoDataSynchFailed(statusList.get(0), TEST_LOGICAL_ADDRESS_1, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_INVALID_ID_MSG);
 	}
 
+    @Test
+    public void test_ok_caching() {
+    	String id = TEST_ID_ONE_BOOKING;
+    	long   expectedProcessingTime = TEST_LOGICAL_ADDRESS_1_RESPONSE_TIME;
+    	String expectedBookingId      = TEST_BOOKING_ID_ONE_BOOKING;
+		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
+
+		long ts = System.currentTimeMillis();
+    	ProcessingStatusType statusList = do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
+		ts = System.currentTimeMillis() - ts;
+		assertProcessingStatusDataFromSource(statusList.getProcessingStatusList().get(0), expectedLogicalAddress);
+		assertTrue("Expected a long processing time (i.e. a non cached response)", ts > expectedProcessingTime);
+
+		ts = System.currentTimeMillis();
+    	statusList = do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
+		ts = System.currentTimeMillis() - ts;
+		assertProcessingStatusDataFromCache(statusList.getProcessingStatusList().get(0), expectedLogicalAddress);
+		assertTrue("Expected a short processing time (i.e. a cached response)", ts < expectedProcessingTime);
+    }
+    
     /* Timeout aspects are covered in the test test_ok_many_bookings_with_partial_timeout
     @Test
 	public void test_fault_timeout() {
@@ -195,6 +240,16 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		assertEquals(logicalAddress, status.getLogicalAddress());
 		assertEquals(DATA_FROM_SOURCE, status.getStatusCode());
 		assertFalse(status.isIsResponseFromCache());
+		assertTrue(status.isIsResponseInSynch());
+		assertNotNull(status.getLastSuccessfulSynch());
+		assertNull(status.getLastUnsuccessfulSynch());
+		assertNull(status.getLastUnsuccessfulSynchError());
+	}
+
+	private void assertProcessingStatusDataFromCache(ProcessingStatusRecordType status, String logicalAddress) {
+		assertEquals(logicalAddress, status.getLogicalAddress());
+		assertEquals(DATA_FROM_CACHE, status.getStatusCode());
+		assertTrue(status.isIsResponseFromCache());
 		assertTrue(status.isIsResponseInSynch());
 		assertNotNull(status.getLastSuccessfulSynch());
 		assertNull(status.getLastUnsuccessfulSynch());
