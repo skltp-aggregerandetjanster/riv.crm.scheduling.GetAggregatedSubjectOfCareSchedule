@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="process-notification">
+    <flow SubFlow="false" name="process-notification-service" entity-id="75d94d3b-c536-4d61-9320-05fe25b5e3e3">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="1" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/https/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="${PROCESS-NOTIFICATION_INBOUND_URL}" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref-outbound"/>
+                    <property name="ref"/>
+                    <property value="objToStr logReqIn" name="transformer-refs"/>
+                    <property value="createSoapFaultIfException logRespOut" name="responseTransformer-refs"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="${PROCESS-NOTIFICATION_INBOUND_URL}" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="soitoolkit-https-connector" name="connector-ref"/>
+                    <property name="ref"/>
+                    <property value="objToStr logReqIn" name="transformer-refs"/>
+                    <property value="createSoapFaultIfException logRespOut" name="responseTransformer-refs"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                    <property value="2" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#1">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property value="urn:org.soitoolkit.refapps.sd.sample.wsdl:v1" name="namespace"/>
+                    <property value="sampleService" name="service"/>
+                    <property name="onException"/>
+                    <property name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="payload"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property value="classpath:/schemas/org/soitoolkit/refapps/sd/sample/sampleService.wsdl" name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="transform-request" entity-id="Java#1">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestTransformer" name="class"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <response index="5" entity-id="response#1">
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+                        <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="transform-response" entity-id="Java#2">
+                            <properties>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property value="6" name="auxiliary;index"/>
+<property name="mimeType"/>
+<property value="6" name="auxiliary;index"/>
+<property value="6" name="auxiliary;index"/>
+<property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationResponseTransformer" name="class"/>
+<property value="6" name="auxiliary;index"/>
+<property value="6" name="auxiliary;index"/>
+<property value="6" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </response>
+            <unknown index="7" description="false" entity-id="unknown#1">
+                <content>&lt;request-reply xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:jdbc-ee=&quot;http://www.mulesoft.org/schema/mule/ee/jdbc&quot; timeout=&quot;${SERVICE_TIMEOUT_MS}&quot;&gt;
+			&lt;jms:outbound-endpoint xmlns:jms=&quot;http://www.mulesoft.org/schema/mule/jms&quot; connector-ref=&quot;soitoolkit-jms-connector&quot; queue=&quot;${PROCESS-NOTIFICATION_REQUEST_QUEUE}&quot; transformer-refs=&quot;objToStr strToJms logReqOut&quot;&gt;&lt;/jms:outbound-endpoint&gt;
+			&lt;jms:inbound-endpoint xmlns:jms=&quot;http://www.mulesoft.org/schema/mule/jms&quot; connector-ref=&quot;soitoolkit-jms-connector&quot; queue=&quot;${PROCESS-NOTIFICATION_RESPONSE_QUEUE}&quot; transformer-refs=&quot;logRespIn jmsToStr&quot;&gt;&lt;/jms:inbound-endpoint&gt;
+		&lt;/request-reply&gt;</content>
+            </unknown>
+            <unknown index="10" description="false" entity-id="unknown#2">
+                <content>&lt;custom-exception-strategy xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:jdbc-ee=&quot;http://www.mulesoft.org/schema/mule/ee/jdbc&quot; class=&quot;org.soitoolkit.commons.mule.error.ServiceExceptionStrategy&quot;&gt;&lt;/custom-exception-strategy&gt;</content>
+            </unknown>
+        </lane>
+    </flow>
+</mule-configuration>
