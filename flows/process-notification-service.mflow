@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="process-notification">
-    <flow SubFlow="false" name="process-notification-service" entity-id="75d94d3b-c536-4d61-9320-05fe25b5e3e3">
+    <flow SubFlow="false" name="process-notification-service" entity-id="3eb0eb53-6bc7-4282-bc6c-50bd2220cc38">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -100,8 +100,8 @@
                     <property value="3" name="auxiliary;index"/>
                     <property name="bindingId"/>
                     <property name="port"/>
-                    <property value="urn:org.soitoolkit.refapps.sd.sample.wsdl:v1" name="namespace"/>
-                    <property value="sampleService" name="service"/>
+                    <property value="urn:riv:itintegration:engagementindex:ProcessNotification:1:rivtabp21" name="namespace"/>
+                    <property value="ProcessNotificationResponderService" name="service"/>
                     <property name="onException"/>
                     <property name="serviceClass"/>
                     <property name="validationEnabled"/>
@@ -114,7 +114,7 @@
                     <property value="3" name="auxiliary;index"/>
                     <property value="3" name="auxiliary;index"/>
                     <property name="mtomEnabled"/>
-                    <property value="classpath:/schemas/org/soitoolkit/refapps/sd/sample/sampleService.wsdl" name="wsdlLocation"/>
+                    <property value="classpath:/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl" name="wsdlLocation"/>
                     <property name="enableMuleSoapHeaders"/>
                     <property value="3" name="auxiliary;index"/>
                     <property value="3" name="auxiliary;index"/>
@@ -167,13 +167,38 @@
                     </lane>
                 </compartment>
             </response>
-            <unknown index="7" description="false" entity-id="unknown#1">
-                <content>&lt;request-reply xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:jdbc-ee=&quot;http://www.mulesoft.org/schema/mule/ee/jdbc&quot; timeout=&quot;${SERVICE_TIMEOUT_MS}&quot;&gt;
-			&lt;jms:outbound-endpoint xmlns:jms=&quot;http://www.mulesoft.org/schema/mule/jms&quot; connector-ref=&quot;soitoolkit-jms-connector&quot; queue=&quot;${PROCESS-NOTIFICATION_REQUEST_QUEUE}&quot; transformer-refs=&quot;objToStr strToJms logReqOut&quot;&gt;&lt;/jms:outbound-endpoint&gt;
-			&lt;jms:inbound-endpoint xmlns:jms=&quot;http://www.mulesoft.org/schema/mule/jms&quot; connector-ref=&quot;soitoolkit-jms-connector&quot; queue=&quot;${PROCESS-NOTIFICATION_RESPONSE_QUEUE}&quot; transformer-refs=&quot;logRespIn jmsToStr&quot;&gt;&lt;/jms:inbound-endpoint&gt;
-		&lt;/request-reply&gt;</content>
-            </unknown>
-            <unknown index="10" description="false" entity-id="unknown#2">
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/jms/endpoint" name="JMS" entity-id="JMS#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property name="exchange-pattern"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="${PROCESS_NOTIFICATION_QUEUE}" name="queue"/>
+                    <property name="topic"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="durableName"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="disableTemporaryReplyToDestinations"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="soitoolkit-jms-connector" name="connector-ref"/>
+                    <property name="ref"/>
+                    <property value="objToStr strToJms logReqOut" name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
+                    <property value="7" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <unknown index="8" description="false" entity-id="unknown#1">
                 <content>&lt;custom-exception-strategy xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:jdbc-ee=&quot;http://www.mulesoft.org/schema/mule/ee/jdbc&quot; class=&quot;org.soitoolkit.commons.mule.error.ServiceExceptionStrategy&quot;&gt;&lt;/custom-exception-strategy&gt;</content>
             </unknown>
         </lane>

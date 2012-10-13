@@ -34,10 +34,6 @@
 		http://www.mulesoft.org/schema/mule/xml       http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 	">
 
-	<!-- TODO: Add service specific definitions here -->
-
- 
-
 	<flow name="process-notification-service">
 
 		<https:inbound-endpoint
@@ -49,24 +45,17 @@
 		</https:inbound-endpoint>
 
 		<cxf:proxy-service 
-			service="sampleService"
-			wsdlLocation="classpath:/schemas/org/soitoolkit/refapps/sd/sample/sampleService.wsdl" 
-			namespace="urn:org.soitoolkit.refapps.sd.sample.wsdl:v1">
+			service="ProcessNotificationResponderService"
+        	wsdlLocation="classpath:/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl"
+			namespace="urn:riv:itintegration:engagementindex:ProcessNotification:1:rivtabp21">
 		</cxf:proxy-service>
- 
-
 
         <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestTransformer"/>
         <response>
             <custom-transformer doc:name="transform-response" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationResponseTransformer"/>
         </response>
- 
 
-
-		<request-reply timeout="${SERVICE_TIMEOUT_MS}">
-			<jms:outbound-endpoint connector-ref="soitoolkit-jms-connector" queue="${PROCESS-NOTIFICATION_REQUEST_QUEUE}" transformer-refs="objToStr strToJms logReqOut" />
-			<jms:inbound-endpoint  connector-ref="soitoolkit-jms-connector" queue="${PROCESS-NOTIFICATION_RESPONSE_QUEUE}" transformer-refs="logRespIn jmsToStr"/>
-		</request-reply>
+		<jms:outbound-endpoint connector-ref="soitoolkit-jms-connector" queue="${PROCESS_NOTIFICATION_QUEUE}" transformer-refs="objToStr strToJms logReqOut" />
  
 		<custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>
 	</flow>

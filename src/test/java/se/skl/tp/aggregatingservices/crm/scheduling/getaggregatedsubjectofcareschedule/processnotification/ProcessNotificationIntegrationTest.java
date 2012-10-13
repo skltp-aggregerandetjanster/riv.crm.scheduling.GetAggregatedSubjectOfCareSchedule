@@ -3,12 +3,10 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
 import static org.junit.Assert.*;
  
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
-
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationTestProducer.TEST_ID_OK;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationTestProducer.TEST_ID_FAULT_INVALID_ID;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationTestProducer.TEST_ID_FAULT_TIMEOUT;
-
- 
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_TIMEOUT;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
@@ -25,7 +23,9 @@ import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.soitoolkit.refapps.sd.sample.schema.v1.FaultInfo;
 import org.soitoolkit.refapps.sd.sample.schema.v1.SampleResponse;
 import org.soitoolkit.refapps.sd.sample.wsdl.v1.Fault;
-import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
+
+import riv.itintegration.engagementindex._1.ResultCodeEnum;
+import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 
  
 public class ProcessNotificationIntegrationTest extends AbstractTestCase {
@@ -39,11 +39,12 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Response timed out (" + SERVICE_TIMOUT_MS + "ms) waiting for message response id ";
  
 
+	private static final String LOGICAL_ADDRESS = "logical-address";
 	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("PROCESS-NOTIFICATION_INBOUND_URL");
  
 
-	private static final String REQUEST_QUEUE   = rb.getString("PROCESS-NOTIFICATION_REQUEST_QUEUE");
-	private static final String RESPONSE_QUEUE  = rb.getString("PROCESS-NOTIFICATION_RESPONSE_QUEUE");
+	private static final String REQUEST_QUEUE   = rb.getString("PROCESS_NOTIFICATION_QUEUE");
+	private static final String DLQ_QUEUE  = rb.getString("PROCESS-NOTIFICATION_QUEUE_DLQ");
  
 	private static final String ERROR_LOG_QUEUE = "SOITOOLKIT.LOG.ERROR";
 	private AbstractJmsTestUtil jmsUtil = null;
@@ -61,8 +62,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		return "soitoolkit-mule-jms-connector-activemq-embedded.xml," + 
   
 		"GetAggregatedSubjectOfCareSchedule-common.xml," +
-        "process-notification-service.xml," +
-		"teststub-services/process-notification-teststub-service.xml";
+        "process-notification-service.xml";
     }
 
     @Override
@@ -81,7 +81,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
 		// Clear queues used for the outbound endpoint
 		jmsUtil.clearQueues(REQUEST_QUEUE);
-		jmsUtil.clearQueues(RESPONSE_QUEUE);
+		jmsUtil.clearQueues(DLQ_QUEUE);
  
 		// Clear queues used for error handling
 		jmsUtil.clearQueues(ERROR_LOG_QUEUE);
@@ -90,10 +90,10 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
     @Test
     public void test_ok() throws Fault {
-    	String id = TEST_ID_OK;
+    	String id = TEST_ID_ONE_BOOKING;
     	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
-		SampleResponse response = consumer.callService(id);
-		assertEquals("Value" + id,  response.getValue());
+    	ProcessNotificationResponseType response = consumer.callService(LOGICAL_ADDRESS, id);
+		assertEquals(ResultCodeEnum.OK,  response.getResultCode());
 	}
 
     @Test
@@ -101,7 +101,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		try {
 	    	String id = TEST_ID_FAULT_INVALID_ID;
 	    	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
-			Object response = consumer.callService(id);
+			Object response = consumer.callService(LOGICAL_ADDRESS, id);
 	        fail("expected fault, but got a response of type: " + ((response == null) ? "NULL" : response.getClass().getName()));
 	    } catch (SOAPFaultException e) {
 
@@ -115,7 +115,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
         try {
 	    	String id = TEST_ID_FAULT_TIMEOUT;
 	    	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
-			Object response = consumer.callService(id);
+			Object response = consumer.callService(LOGICAL_ADDRESS, id);
 	        fail("expected fault, but got a response of type: " + ((response == null) ? "NULL" : response.getClass().getName()));
         } catch (SOAPFaultException e) {
             assertTrue("Unexpected error message: " + e.getMessage(), e.getMessage().startsWith(EXPECTED_ERR_TIMEOUT_MSG));

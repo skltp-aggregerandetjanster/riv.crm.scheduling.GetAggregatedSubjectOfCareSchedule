@@ -85,10 +85,13 @@
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl">
 		<level value="DEBUG" />
 	</logger>
+	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification">
+		<level value="DEBUG" />
+	</logger>
 
     <!-- Message logging using soi-toolkit LogTransformer class -->
 	<logger name="org.soitoolkit.commons.mule.messageLogger">
-		<level value="WARN" />
+		<level value="INFO" />
 	</logger>
 
 	<logger name="com.mulesoft.mule.cache">

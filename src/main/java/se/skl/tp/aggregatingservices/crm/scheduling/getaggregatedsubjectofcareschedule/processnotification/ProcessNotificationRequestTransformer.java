@@ -1,5 +1,7 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification;
 
+import java.util.List;
+
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
@@ -8,11 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import org.soitoolkit.refapps.sd.sample.schema.v1.Sample;
 
+import riv.itintegration.engagementindex._1.EngagementTransactionType;
+import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
+
 public class ProcessNotificationRequestTransformer extends AbstractMessageTransformer {
 
 	private static final Logger log = LoggerFactory.getLogger(ProcessNotificationRequestTransformer.class);
 
-	private static final JaxbUtil jaxbUtil = new JaxbUtil(Sample.class);
+	private static final JaxbUtil jaxbUtil = new JaxbUtil(ProcessNotificationType.class);
 
     /**
      * Message aware transformer that ...
@@ -30,13 +35,17 @@ public class ProcessNotificationRequestTransformer extends AbstractMessageTransf
 	 */
 	protected Object pojoTransform(Object src, String encoding) throws TransformerException {
 
-
 		log.debug("Transforming xml payload: {}", src);
-		Sample s = (Sample) jaxbUtil.unmarshal(src);
 		
-		String csv = "msg-0001-req," + s.getId();
+		Object[] oArr = (Object[])src;
+		String logicalAdress = (String)oArr[0].toString();
+		ProcessNotificationType s = (ProcessNotificationType) jaxbUtil.unmarshal(oArr[1]);
 
-		return csv;
-
+		System.err.println(logicalAdress);
+		List<EngagementTransactionType> txList = s.getEngagementTransaction();
+		for (EngagementTransactionType tx : txList) {
+			System.err.println(tx.getEngagement().getRegisteredResidentIdentification());
+		}
+		return src;
 	}
 }

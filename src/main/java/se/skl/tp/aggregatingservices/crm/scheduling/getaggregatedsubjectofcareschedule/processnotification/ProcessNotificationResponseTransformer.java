@@ -8,10 +8,17 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
+
+import riv.itintegration.engagementindex._1.ResultCodeEnum;
+import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
+import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 
 public class ProcessNotificationResponseTransformer extends AbstractMessageTransformer {
 
+	private static final JaxbUtil jaxbUtil = new JaxbUtil(ProcessNotificationResponseType.class);
 	private static final Logger log = LoggerFactory.getLogger(ProcessNotificationResponseTransformer.class);
+    ObjectFactory of = new ObjectFactory();
 
     /**
      * Message aware transformer that ...
@@ -30,34 +37,18 @@ public class ProcessNotificationResponseTransformer extends AbstractMessageTrans
     public Object pojoTransform(Object src, String outputEncoding) throws TransformerException {
         log.debug("Transforming payload: {}", src);
 
+        ProcessNotificationResponseType response = new ProcessNotificationResponseType();
+        response.setComment("OK");
+        response.setResultCode(ResultCodeEnum.OK);
 
-		StringTokenizer st = new StringTokenizer((String)src, ",");
-		String msgType = st.nextToken().trim();
-		String value = st.nextToken().trim();
+		String xml = jaxbUtil.marshal(of.createProcessNotificationResponse(response));
 
-		String xml = null;
-		
-		if (msgType.equals("msg-0001-resp")) {
-			xml = 
-			"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-			"<sampleResponse xmlns=\"urn:org.soitoolkit.refapps.sd.sample.schema:v1\">" +
-			"<value>" + value + "</value>" +
-			"</sampleResponse>";
-
-		} else if (msgType.equals("msg-error")) {
-			
-			String errorMessage = value;
-			xml = createFault(errorMessage);
-			
-		} else {
-
-			String errorMessage = "Unknown message type: " + msgType;
-			xml = createFault(errorMessage);
-
-		}
+//		} else {
+//			String errorMessage = "Unknown message type: " + msgType;
+//			xml = createFault(errorMessage);
+//		}
 
 		return xml;
-
 	}
 
 	private String createFault(String errorMessage) {

@@ -1,12 +1,8 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification;
 
 import static org.junit.Assert.assertEquals;
-import static org.soitoolkit.commons.mule.smooks.SmooksUtil.runSmooksTransformer;
-
-import java.io.IOException;
 
 import org.junit.Test;
-import org.mule.api.transformer.TransformerException;
 import org.soitoolkit.commons.mule.util.MiscUtil;
 
 public class ProcessNotificationResponseTransformerTest {
@@ -17,7 +13,6 @@ public class ProcessNotificationResponseTransformerTest {
 		// Specify input and expected result 
 
 		String input          = MiscUtil.readFileAsString("src/test/resources/testfiles/process-notification/response-input.csv");
-
 		String expectedResult = MiscUtil.readFileAsString("src/test/resources/testfiles/process-notification/response-expected-result.xml");
 		
 		// Create the transformer under test and let it perform the transformation
