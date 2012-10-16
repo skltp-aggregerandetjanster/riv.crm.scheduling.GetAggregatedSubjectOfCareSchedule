@@ -100,7 +100,13 @@
 
 	    <custom-transformer doc:name="Request List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestListTransformer"/>
 
-        <request-reply timeout="${AGGREGATED_SERVICE_TIMEOUT_MS}">  
+		<flow-ref name="request-reply-flow" doc:name="request-reply-flow"/>
+
+	</flow>
+	
+	<flow name="request-reply-flow" processingStrategy="synchronous">
+
+        <request-reply  doc:name="Request/Reply" timeout="${AGGREGATED_SERVICE_TIMEOUT_MS}">  
             <vm:outbound-endpoint path="splitter"> 
 	            <message-properties-transformer scope="outbound"> 
 	                <delete-message-property key="MULE_REPLYTO"/> 

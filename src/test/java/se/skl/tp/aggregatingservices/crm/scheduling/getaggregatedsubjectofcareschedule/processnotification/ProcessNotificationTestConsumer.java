@@ -8,10 +8,6 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
-import org.soitoolkit.refapps.sd.sample.schema.v1.Sample;
-import org.soitoolkit.refapps.sd.sample.schema.v1.SampleResponse;
-import org.soitoolkit.refapps.sd.sample.wsdl.v1.Fault;
-import org.soitoolkit.refapps.sd.sample.wsdl.v1.SampleInterface;
 
 import riv.itintegration.engagementindex._1.EngagementTransactionType;
 import riv.itintegration.engagementindex._1.EngagementType;
@@ -42,7 +38,7 @@ public class ProcessNotificationTestConsumer {
 		_service  = (ProcessNotificationResponderInterface) proxyFactory.create(); 
     }
 
-    public static void main(String[] args) throws Fault {
+    public static void main(String[] args) {
             String serviceAddress = getAddress("PROCESS-NOTIFICATION_INBOUND_URL");
             String logicalAddress = "HSA-1";
             String personnummer = "1234567890";
@@ -52,7 +48,7 @@ public class ProcessNotificationTestConsumer {
             log.info("Returned value = " + response.getResultCode());
     }
 
-    public ProcessNotificationResponseType callService(String logicalAddress, String id) throws Fault {
+    public ProcessNotificationResponseType callService(String logicalAddress, String id) {
             log.debug("Calling sample-soap-service with id = {}", id);
             ProcessNotificationType request = new ProcessNotificationType();
             EngagementTransactionType transaction = new EngagementTransactionType();

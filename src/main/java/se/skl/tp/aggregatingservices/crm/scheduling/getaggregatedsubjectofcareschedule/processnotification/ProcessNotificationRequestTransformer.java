@@ -8,7 +8,6 @@ import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
-import org.soitoolkit.refapps.sd.sample.schema.v1.Sample;
 
 import riv.itintegration.engagementindex._1.EngagementTransactionType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
