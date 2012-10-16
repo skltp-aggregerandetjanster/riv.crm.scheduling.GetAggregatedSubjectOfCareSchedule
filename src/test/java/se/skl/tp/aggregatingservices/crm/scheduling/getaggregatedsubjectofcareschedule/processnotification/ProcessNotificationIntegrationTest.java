@@ -7,10 +7,12 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_TIMEOUT;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Test;
+import org.mule.api.MuleEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
@@ -21,8 +23,11 @@ import org.soitoolkit.commons.mule.test.junit4.AbstractTestCase;
  
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
+import com.mulesoft.mule.cache.ObjectStoreCachingStrategy;
+
 import riv.itintegration.engagementindex._1.ResultCodeEnum;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
 
  
 public class ProcessNotificationIntegrationTest extends AbstractTestCase {
@@ -59,6 +64,8 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		return "soitoolkit-mule-jms-connector-activemq-embedded.xml," + 
   
 		"GetAggregatedSubjectOfCareSchedule-common.xml," +
+        "tidbokning-service.xml," +
+        "teststub-services/tidbokning-teststub-service.xml," +
         "process-notification-service.xml";
     }
 
@@ -85,14 +92,31 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
     }
 
 
-//    @Test
-//    public void test_ok() throws Fault {
-//    	String id = TEST_ID_ONE_BOOKING;
-//    	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
-//    	ProcessNotificationResponseType response = consumer.callService(LOGICAL_ADDRESS, id);
-//		assertEquals(ResultCodeEnum.OK,  response.getResultCode());
-//	}
-//
+    @Test
+    public void test_ok() {
+    	
+		Object obj = muleContext.getRegistry().lookupObject("caching_strategy");
+		ObjectStoreCachingStrategy oscs = (ObjectStoreCachingStrategy)obj;
+		CacheMemoryStoreImpl<MuleEvent> cache = (CacheMemoryStoreImpl<MuleEvent>)oscs.getStore();
+		cache.reset();
+
+		String id = TEST_ID_ONE_BOOKING;
+    	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
+    	ProcessNotificationResponseType response = consumer.callService(LOGICAL_ADDRESS, id, TEST_LOGICAL_ADDRESS_1);
+		assertEquals(ResultCodeEnum.OK,  response.getResultCode());
+		
+		try {
+			System.err.println("### START WAIT FOR BACKGROUND PROCESSING TO COMPLETE");
+			Thread.sleep(10000);
+			System.err.println("### OK NOW WE SHOULD BE DONE...");
+		} catch (InterruptedException e) {
+		}
+		
+		// Verify that the cache is updated
+		fail("NO CHECKS THAT VERIFIES THAT THE CACHE IS UPDATED, ADD IT HERE!!!");
+		
+	}
+
 //    @Test
 //	public void test_fault_invalidInput() throws Exception {
 //		try {

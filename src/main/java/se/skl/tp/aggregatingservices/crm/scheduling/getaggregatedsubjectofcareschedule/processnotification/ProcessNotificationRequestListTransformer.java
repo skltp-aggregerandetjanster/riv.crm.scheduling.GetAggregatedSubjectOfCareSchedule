@@ -11,16 +11,20 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
+import riv.itintegration.engagementindex._1.EngagementTransactionType;
 import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
+import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
 
 public class ProcessNotificationRequestListTransformer extends AbstractMessageTransformer {
 
 	private static final Logger log = LoggerFactory.getLogger(ProcessNotificationRequestListTransformer.class);
+	private static final JaxbUtil jaxbUtil = new JaxbUtil(ProcessNotificationType.class);
 
     /**
      * Message aware transformer that ...
@@ -42,15 +46,22 @@ public class ProcessNotificationRequestListTransformer extends AbstractMessageTr
 	 */
 	protected List<Object[]> pojoTransform(Object src, String encoding) throws TransformerException {
 
-		FindContentResponseType inResp = (FindContentResponseType)src;
-		List<EngagementType> inEngagements = inResp.getEngagement();
+		System.err.println("### PAYLOAD: " + src);
+
+		ProcessNotificationType s = (ProcessNotificationType) jaxbUtil.unmarshal(src);
+
+		List<EngagementTransactionType> txList = s.getEngagementTransaction();
+		for (EngagementTransactionType tx : txList) {
+			System.err.println("PNR: " + tx.getEngagement().getRegisteredResidentIdentification());
+		}
 		
-		log.info("### Got {} hits in the engagement index", inEngagements.size());
+		log.info("### Got {} updates in the engagement index notification", txList.size());
 
 		// Since we are using the GetSubjectOfCareSchedule that returns all bookings from a logical-address in one call we can reduce multiple hits in the index for the same logical-address to lower the number of calls required
 		Map<String, String> uniqueLogicalAddresses = new HashMap<String, String>();
-		for (EngagementType inEng : inEngagements) {
-			uniqueLogicalAddresses.put(inEng.getLogicalAddress(), inEng.getRegisteredResidentIdentification());
+		for (EngagementTransactionType tx : txList) {
+			uniqueLogicalAddresses.put(tx.getEngagement().getLogicalAddress(), tx.getEngagement().getRegisteredResidentIdentification());
+			System.err.println("PNR: " + tx.getEngagement().getRegisteredResidentIdentification() + " IN LOG-ADDR: " + tx.getEngagement().getLogicalAddress());
 		}
 
 

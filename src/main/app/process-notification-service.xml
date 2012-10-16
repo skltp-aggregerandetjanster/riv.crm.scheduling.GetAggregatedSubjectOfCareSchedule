@@ -87,8 +87,10 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
 
     <flow name="update-cache-flow" doc:name="jmsToJms-res-serviceFlow1">
 
-        <jms:inbound-endpoint queue="${PROCESS_NOTIFICATION_QUEUE}" connector-ref="soitoolkit-jms-connector" transformer-refs="jmsToStr" doc:name="JMS">
+        <jms:inbound-endpoint queue="${PROCESS_NOTIFICATION_QUEUE}" connector-ref="soitoolkit-jms-connector" transformer-refs="logMsgIn jmsToStr" doc:name="JMS">
+<!-- 
             <jms:transaction action="ALWAYS_BEGIN"/>
+ -->
         </jms:inbound-endpoint>
 
 <!-- 

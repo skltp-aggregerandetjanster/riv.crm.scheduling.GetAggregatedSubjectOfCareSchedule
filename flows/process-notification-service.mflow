@@ -153,7 +153,7 @@
             </lane>
         </compartment>
     </global-element>
-    <flow SubFlow="false" name="process-notification-service" entity-id="d76d2022-4768-463a-a10f-69afd05a02c9">
+    <flow SubFlow="false" name="process-notification-service" entity-id="3a9340ac-170c-41da-ba2c-93edff190ccb">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -353,7 +353,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="update-cache-flow" entity-id="c478c2d9-a308-40a9-95e8-43ffc52b1686">
+    <flow SubFlow="false" name="update-cache-flow" entity-id="86cf08ed-6753-4f26-ae71-c695410d4292">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -389,37 +389,32 @@
                     <property value="23" name="auxiliary;index"/>
                     <property value="soitoolkit-jms-connector" name="connector-ref"/>
                     <property name="ref"/>
-                    <property value="jmsToStr" name="transformer-refs"/>
+                    <property value="logMsgIn jmsToStr" name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
                     <property value="23" name="auxiliary;index"/>
                     <property value="23" name="auxiliary;index"/>
                     <property value="23" name="auxiliary;index"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/jms/transaction;0">
-                        <property value="ALWAYS_BEGIN" name="action"/>
-                        <property value="24" name="auxiliary;wrapIn"/>
-                        <property value="24" name="auxiliary;index"/>
-                    </property-collection>
                 </properties>
             </endpoint>
             <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Groovy" entity-id="Groovy#1">
                 <properties>
-                    <property value="25" name="auxiliary;index"/>
-                    <property value="25" name="auxiliary;index"/>
-                    <property value="25" name="auxiliary;index"/>
-                    <property value="25" name="auxiliary;index"/>
-                    <property value="25" name="auxiliary;index"/>
-                    <property value="25" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
                         <property value="println &quot;Try transform: $payload&quot;&#xA;message" name="text"/>
                         <property value="Groovy" name="engine"/>
-                        <property value="26" name="auxiliary;wrapIn"/>
-                        <property value="26" name="auxiliary;index"/>
+                        <property value="25" name="auxiliary;wrapIn"/>
+                        <property value="25" name="auxiliary;index"/>
                     </property-collection>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
                         <property value="println &quot;Try transform: $payload&quot;&#xA;message" name="text"/>
                         <property value="Groovy" name="engine"/>
-                        <property value="26" name="auxiliary;wrapIn"/>
-                        <property value="26" name="auxiliary;index"/>
+                        <property value="25" name="auxiliary;wrapIn"/>
+                        <property value="25" name="auxiliary;index"/>
                     </property-collection>
                 </properties>
             </pattern>
@@ -428,44 +423,44 @@
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
-                    <property value="28" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
                     <property name="mimeType"/>
-                    <property value="28" name="auxiliary;index"/>
-                    <property value="28" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
                     <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestListTransformer" name="class"/>
-                    <property value="28" name="auxiliary;index"/>
-                    <property value="28" name="auxiliary;index"/>
-                    <property value="28" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
                 </properties>
             </pattern>
             <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Groovy" entity-id="Groovy#2">
                 <properties>
-                    <property value="29" name="auxiliary;index"/>
-                    <property value="29" name="auxiliary;index"/>
-                    <property value="29" name="auxiliary;index"/>
-                    <property value="29" name="auxiliary;index"/>
-                    <property value="29" name="auxiliary;index"/>
-                    <property value="29" name="auxiliary;index"/>
+                    <property value="28" name="auxiliary;index"/>
+                    <property value="28" name="auxiliary;index"/>
+                    <property value="28" name="auxiliary;index"/>
+                    <property value="28" name="auxiliary;index"/>
+                    <property value="28" name="auxiliary;index"/>
+                    <property value="28" name="auxiliary;index"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
                         <property value="println &quot;Transform result: $payload&quot;&#xA;message" name="text"/>
                         <property value="Groovy" name="engine"/>
-                        <property value="30" name="auxiliary;wrapIn"/>
-                        <property value="30" name="auxiliary;index"/>
+                        <property value="29" name="auxiliary;wrapIn"/>
+                        <property value="29" name="auxiliary;index"/>
                     </property-collection>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
                         <property value="println &quot;Transform result: $payload&quot;&#xA;message" name="text"/>
                         <property value="Groovy" name="engine"/>
-                        <property value="30" name="auxiliary;wrapIn"/>
-                        <property value="30" name="auxiliary;index"/>
+                        <property value="29" name="auxiliary;wrapIn"/>
+                        <property value="29" name="auxiliary;index"/>
                     </property-collection>
                 </properties>
             </pattern>
             <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="request-reply-flow" entity-id="Flow Reference#1">
                 <properties>
                     <property value="request-reply-flow" name="name"/>
-                    <property value="32" name="auxiliary;index"/>
-                    <property value="32" name="auxiliary;index"/>
-                    <property value="32" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
+                    <property value="31" name="auxiliary;index"/>
                 </properties>
             </pattern>
             <scope type="http://www.mulesoft.org/schema/mule/core/rollback-exception-strategy" name="Rollback Exception Strategy" entity-id="Rollback Exception Strategy#2">
@@ -473,9 +468,9 @@
                     <property value="${SOITOOLKIT_MULE_AMQ_MAX_REDELIVERIES}" name="maxRedeliveryAttempts"/>
                     <property name="when"/>
                     <property name="enableNotifications"/>
-                    <property value="33" name="auxiliary;index"/>
-                    <property value="33" name="auxiliary;index"/>
-                    <property value="33" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
                 </properties>
                 <compartment entity-id="compartment#4">
                     <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#7">
@@ -485,9 +480,9 @@
     <pattern type="org.mule.tooling.ui.modules.core.pattern.globalXformRef" name="Log Warning" entity-id="Transformer Reference#4">
         <properties>
             <property value="logWarning" name="ref"/>
-            <property value="34" name="auxiliary;index"/>
-            <property value="34" name="auxiliary;index"/>
-            <property value="34" name="auxiliary;index"/>
+            <property value="33" name="auxiliary;index"/>
+            <property value="33" name="auxiliary;index"/>
+            <property value="33" name="auxiliary;index"/>
         </properties>
     </pattern>
 </lane>
@@ -495,31 +490,31 @@
                         </scope>
                         <scope type="http://www.mulesoft.org/schema/mule/core/on-redelivery-attempts-exceeded" name="Redelivery exhausted" entity-id="Redelivery exhausted#2">
                             <properties>
-<property value="35" name="auxiliary;index"/>
+<property value="34" name="auxiliary;index"/>
                             </properties>
                             <compartment entity-id="compartment#6">
 <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#8">
     <pattern type="org.mule.tooling.ui.modules.core.pattern.globalXformRef" name="Log Error" entity-id="Transformer Reference#3">
         <properties>
             <property value="logError" name="ref"/>
-            <property value="36" name="auxiliary;index"/>
-            <property value="36" name="auxiliary;index"/>
-            <property value="36" name="auxiliary;index"/>
+            <property value="35" name="auxiliary;index"/>
+            <property value="35" name="auxiliary;index"/>
+            <property value="35" name="auxiliary;index"/>
         </properties>
     </pattern>
     <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/jms/endpoint" name="JMS" entity-id="JMS#4">
         <properties>
             <property value="one-way" name="exchange-pattern"/>
             <property name="exchange-pattern"/>
-            <property value="37" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
             <property value="${PROCESS-NOTIFICATION_QUEUE_DLQ}" name="queue"/>
             <property name="topic"/>
-            <property value="37" name="auxiliary;index"/>
-            <property value="37" name="auxiliary;index"/>
-            <property value="37" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
             <property name="businessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
-            <property value="37" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
             <property name="address"/>
             <property name="mimeType"/>
             <property name="responseTimeout"/>
@@ -527,19 +522,19 @@
             <property name="durableName"/>
             <property name="disableTransportTransformer"/>
             <property name="disableTemporaryReplyToDestinations"/>
-            <property value="37" name="auxiliary;index"/>
-            <property value="37" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
             <property value="soitoolkit-jms-connector" name="connector-ref"/>
             <property name="ref"/>
             <property value="strToJms logMsgOut" name="transformer-refs"/>
             <property name="responseTransformer-refs"/>
-            <property value="37" name="auxiliary;index"/>
-            <property value="37" name="auxiliary;index"/>
-            <property value="37" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
+            <property value="36" name="auxiliary;index"/>
             <property-collection name="@http://www.mulesoft.org/schema/mule/jms/transaction;0">
                 <property value="ALWAYS_JOIN" name="action"/>
-                <property value="38" name="auxiliary;wrapIn"/>
-                <property value="38" name="auxiliary;index"/>
+                <property value="37" name="auxiliary;wrapIn"/>
+                <property value="37" name="auxiliary;index"/>
             </property-collection>
         </properties>
     </endpoint>

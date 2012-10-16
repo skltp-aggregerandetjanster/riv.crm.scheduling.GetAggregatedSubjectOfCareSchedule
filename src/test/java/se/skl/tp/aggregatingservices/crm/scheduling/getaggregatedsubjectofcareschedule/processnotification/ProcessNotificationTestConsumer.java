@@ -19,6 +19,7 @@ public class ProcessNotificationTestConsumer {
 
 	private static final Logger log = LoggerFactory.getLogger(ProcessNotificationTestConsumer.class);
 
+	@SuppressWarnings("unused")
 	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 
 	private ProcessNotificationResponderInterface _service = null;
@@ -40,22 +41,24 @@ public class ProcessNotificationTestConsumer {
 
     public static void main(String[] args) {
             String serviceAddress = getAddress("PROCESS-NOTIFICATION_INBOUND_URL");
-            String logicalAddress = "HSA-1";
+            String receiverLogicalAddress     = "HSA-1";
+            String sourceSystemLogicalAddress = "HSA-2";
             String personnummer = "1234567890";
 
             ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(serviceAddress);
-            ProcessNotificationResponseType response = consumer.callService(logicalAddress, personnummer);
+            ProcessNotificationResponseType response = consumer.callService(receiverLogicalAddress, personnummer, sourceSystemLogicalAddress);
             log.info("Returned value = " + response.getResultCode());
     }
 
-    public ProcessNotificationResponseType callService(String logicalAddress, String id) {
+    public ProcessNotificationResponseType callService(String receiverLogicalAddress, String id, String sourceSystemLogicalAddress) {
             log.debug("Calling sample-soap-service with id = {}", id);
             ProcessNotificationType request = new ProcessNotificationType();
             EngagementTransactionType transaction = new EngagementTransactionType();
             EngagementType e = new EngagementType();
             e.setRegisteredResidentIdentification(id);
-			transaction.setEngagement(e );
-			request.getEngagementTransaction().add(transaction );
-            return _service.processNotification(logicalAddress, request);
+            e.setLogicalAddress(sourceSystemLogicalAddress);
+			transaction.setEngagement(e);
+			request.getEngagementTransaction().add(transaction);
+            return _service.processNotification(receiverLogicalAddress, request);
     }	
 }

@@ -37,14 +37,16 @@ public class ProcessNotificationRequestTransformer extends AbstractMessageTransf
 		log.debug("Transforming xml payload: {}", src);
 		
 		Object[] oArr = (Object[])src;
-		String logicalAdress = (String)oArr[0].toString();
-		ProcessNotificationType s = (ProcessNotificationType) jaxbUtil.unmarshal(oArr[1]);
-
-		System.err.println(logicalAdress);
-		List<EngagementTransactionType> txList = s.getEngagementTransaction();
-		for (EngagementTransactionType tx : txList) {
-			System.err.println(tx.getEngagement().getRegisteredResidentIdentification());
-		}
-		return src;
+//		String logicalAdress = (String)oArr[0].toString();
+//		ProcessNotificationType s = (ProcessNotificationType) jaxbUtil.unmarshal(oArr[1]);
+//
+//		System.err.println("LA: " + logicalAdress);
+//		List<EngagementTransactionType> txList = s.getEngagementTransaction();
+//		for (EngagementTransactionType tx : txList) {
+//			System.err.println("PNR: " + tx.getEngagement().getRegisteredResidentIdentification());
+//		}
+		
+		// Return the second argument that corresponds to the ProcessNotification-Request (as an inputStream)
+		return oArr[1];
 	}
 }
