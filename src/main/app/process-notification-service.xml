@@ -41,7 +41,7 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
     <st-logger:config name="St_Logger" doc:name="St Logger"/>
  -->
 
-	<flow name="process-notification-service" doc:name="process-notification-service">
+	<flow name="process-notification-flow" doc:name="process-notification-flow">
 
 		<https:inbound-endpoint 
 			doc:name="Inbound"
@@ -64,7 +64,7 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
 	</flow>
 
 
-    <flow name="update-cache-flow" doc:name="jmsToJms-res-serviceFlow1">
+    <flow name="update-cache-flow" doc:name="update-cache-flow">
 
         <jms:inbound-endpoint doc:name="jms://processNotification" queue="${PROCESS_NOTIFICATION_QUEUE}" connector-ref="soitoolkit-jms-connector" transformer-refs="logMsgIn jmsToStr" >
 <!-- 

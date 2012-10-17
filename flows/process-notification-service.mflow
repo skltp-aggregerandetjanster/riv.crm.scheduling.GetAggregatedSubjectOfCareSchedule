@@ -70,7 +70,7 @@
             </property-collection>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="process-notification-service" entity-id="d8ba9ac4-382f-466f-bd89-c02b1f977868">
+    <flow SubFlow="false" name="process-notification-flow" entity-id="116bb7cf-e208-46bf-b24d-563d9c967154">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -270,7 +270,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="update-cache-flow" entity-id="1d96351b-c4b8-45c1-be5b-06bd6b46e8ed">
+    <flow SubFlow="false" name="update-cache-flow" entity-id="b59671ab-b5e6-4372-9774-b068a47a73a8">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -429,6 +429,7 @@
                 <property value="ALWAYS_JOIN" name="action"/>
                 <property value="27" name="auxiliary;wrapIn"/>
                 <property value="27" name="auxiliary;index"/>
+                <property value="true" name="isProcessed$$$$"/>
             </property-collection>
         </properties>
     </endpoint>
