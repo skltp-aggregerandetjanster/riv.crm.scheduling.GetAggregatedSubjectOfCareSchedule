@@ -41,44 +41,23 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
     <st-logger:config name="St_Logger" doc:name="St Logger"/>
  -->
 
-    <rollback-exception-strategy name="nnn_Rollback_Exception_Strategy" maxRedeliveryAttempts="${SOITOOLKIT_MULE_AMQ_MAX_REDELIVERIES}">
-
-		<transformer ref="logWarning" doc:name="Log Warning" />
-<!-- 
-        <st-logger:log-warning config-ref="St_Logger" doc:name="Log warning" message="Send failed, will retry in ${SOITOOLKIT_MULE_AMQ_REDELIVERY_DELAY} ms."/>
- -->
-
-        <on-redelivery-attempts-exceeded doc:name="Redelivery exhausted">
-
-			<transformer ref="logError" doc:name="Log Error" />
-<!-- 
-	        <st-logger:log-error config-ref="St_Logger" doc:name="Log error" message="Exceeded max no of retries, place payload on DLQ: ${${PROCESS-NOTIFICATION_QUEUE_DLQE}}"/>
- -->
-
-            <jms:outbound-endpoint queue="${PROCESS-NOTIFICATION_QUEUE_DLQ}" connector-ref="soitoolkit-jms-connector" transformer-refs="strToJms logMsgOut" doc:name="JMS">
-                <jms:transaction action="ALWAYS_JOIN"/>
-            </jms:outbound-endpoint>
-    
-        </on-redelivery-attempts-exceeded>
-
-    </rollback-exception-strategy>
-    
 	<flow name="process-notification-service" doc:name="process-notification-service">
 
 		<https:inbound-endpoint 
+			doc:name="Inbound"
             connector-ref="soitoolkit-https-connector"
 			address="${PROCESS-NOTIFICATION_INBOUND_URL}"
 			exchange-pattern="request-response"
 			transformer-refs="objToStr logReqIn"
-			responseTransformer-refs="createSoapFaultIfException logRespOut" doc:name="HTTP">		</https:inbound-endpoint>
+			responseTransformer-refs="createSoapFaultIfException logRespOut">		</https:inbound-endpoint>
 		<cxf:proxy-service  			service="ProcessNotificationResponderService"        	wsdlLocation="classpath:/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl"			namespace="urn:riv:itintegration:engagementindex:ProcessNotification:1:rivtabp21" doc:name="SOAP">		</cxf:proxy-service>
 
         <response>
-            <custom-transformer doc:name="transform-response" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationResponseTransformer"/>
+            <custom-transformer doc:name="Create Response" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationResponseTransformer"/>
         </response>
         
-        <custom-transformer doc:name="transform-request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestTransformer"/>
-		<jms:outbound-endpoint connector-ref="soitoolkit-jms-connector" queue="${PROCESS_NOTIFICATION_QUEUE}" transformer-refs="objToStr strToJms logReqOut" doc:name="JMS"/> 
+        <custom-transformer doc:name="Extract Request" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestTransformer"/>
+		<jms:outbound-endpoint doc:name="jms://processNotification" connector-ref="soitoolkit-jms-connector" queue="${PROCESS_NOTIFICATION_QUEUE}" transformer-refs="objToStr strToJms logReqOut" /> 
  <!-- 
  		<custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>
  -->
@@ -87,7 +66,7 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
 
     <flow name="update-cache-flow" doc:name="jmsToJms-res-serviceFlow1">
 
-        <jms:inbound-endpoint queue="${PROCESS_NOTIFICATION_QUEUE}" connector-ref="soitoolkit-jms-connector" transformer-refs="logMsgIn jmsToStr" doc:name="JMS">
+        <jms:inbound-endpoint doc:name="jms://processNotification" queue="${PROCESS_NOTIFICATION_QUEUE}" connector-ref="soitoolkit-jms-connector" transformer-refs="logMsgIn jmsToStr" >
 <!-- 
             <jms:transaction action="ALWAYS_BEGIN"/>
  -->
@@ -95,7 +74,6 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
 
 <!-- 
         <soitoolkitlogger:log-info config-ref="Soitoolkitlogger" message="msg-in: #[payload]" doc:name="Soitoolkitlogger"/>
- -->
 
         <scripting:component doc:name="Groovy">
             <scripting:script engine="Groovy">
@@ -103,9 +81,15 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
 message]]></scripting:text>
             </scripting:script>
         </scripting:component>
+ -->
 
-        <custom-transformer class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestListTransformer" doc:name="Java"/>
+        <response>
+            <custom-transformer doc:name="Update Cache" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.UpdateCacheTransformer"/>
+        </response>
 
+        <custom-transformer doc:name="Request List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestListTransformer" />
+
+<!-- 
         <scripting:component doc:name="Groovy">
             <scripting:script engine="Groovy">
                 <scripting:text><![CDATA[println "Transform result: $payload"
@@ -113,11 +97,10 @@ message]]></scripting:text>
             </scripting:script>
         </scripting:component>
 
-		<flow-ref name="request-reply-flow" doc:name="request-reply-flow"/>
-
-<!-- 
         <exception-strategy ref="Rollback_Exception_Strategy" doc:name="Reference Exception Strategy"/>
  -->
+
+		<flow-ref name="request-reply-flow" doc:name="request-reply-flow"/>
 
 	    <rollback-exception-strategy maxRedeliveryAttempts="${SOITOOLKIT_MULE_AMQ_MAX_REDELIVERIES}">
 	
@@ -133,7 +116,7 @@ message]]></scripting:text>
 		        <st-logger:log-error config-ref="St_Logger" doc:name="Log error" message="Exceeded max no of retries, place payload on DLQ: ${${PROCESS-NOTIFICATION_QUEUE_DLQE}}"/>
  -->
 	
-	            <jms:outbound-endpoint queue="${PROCESS-NOTIFICATION_QUEUE_DLQ}" connector-ref="soitoolkit-jms-connector" transformer-refs="strToJms logMsgOut" doc:name="JMS">
+	            <jms:outbound-endpoint queue="${PROCESS-NOTIFICATION_QUEUE_DLQ}" connector-ref="soitoolkit-jms-connector" transformer-refs="strToJms logMsgOut" doc:name="jms://processNotification.DLQ">
 	                <jms:transaction action="ALWAYS_JOIN"/>
 	            </jms:outbound-endpoint>
 	    

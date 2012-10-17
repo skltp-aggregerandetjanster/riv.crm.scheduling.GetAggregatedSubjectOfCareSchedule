@@ -1,14 +1,16 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification;
 
+import java.util.List;
+
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProcessNotificationRequestTransformer extends AbstractMessageTransformer {
+public class UpdateCacheTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(ProcessNotificationRequestTransformer.class);
+	private static final Logger log = LoggerFactory.getLogger(UpdateCacheTransformer.class);
 
     /**
      * Message aware transformer that ...
@@ -26,11 +28,16 @@ public class ProcessNotificationRequestTransformer extends AbstractMessageTransf
 	 */
 	protected Object pojoTransform(Object src, String encoding) throws TransformerException {
 
-		log.debug("Transforming xml payload: {}", src);
-		
-		Object[] oArr = (Object[])src;
+		@SuppressWarnings("unchecked")
+		List<Object> list = (List<Object>)src;
+		log.debug("Updating cache with kist of size: {}", list.size());
 
-		// Return the second argument that corresponds to the ProcessNotification-Request (as an inputStream)
-		return oArr[1];
+		for (Object object : list) {
+			Object[] arr = (Object[])object;
+			for (Object object2 : arr) {
+				System.err.println("*** " + object2.getClass().getName());				
+			}
+		}
+		return src;
 	}
 }

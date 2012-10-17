@@ -2,6 +2,9 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 
 import org.junit.Test;
 import org.soitoolkit.commons.mule.util.MiscUtil;
@@ -12,16 +15,18 @@ public class ProcessNotificationRequestTransformerTest {
 	public void testTransformer_ok() throws Exception {
 
 		// Specify input and expected result 
-		String input          = MiscUtil.readFileAsString("src/test/resources/testfiles/process-notification/request-input.xml");
-
-		String expectedResult = MiscUtil.readFileAsString("src/test/resources/testfiles/process-notification/request-expected-result.csv");
+		InputStream inputStream = new FileInputStream("src/test/resources/testfiles/process-notification/request-input.xml");
+		Object[] input = new Object[] {null, inputStream};
+		
+		String expectedResult = MiscUtil.readFileAsString("src/test/resources/testfiles/process-notification/request-input.xml");
 
 
 		// Create the transformer under test and let it perform the transformation
 
 		ProcessNotificationRequestTransformer transformer = new ProcessNotificationRequestTransformer();
-		String result = (String)transformer.pojoTransform(input, "UTF-8");
+		InputStream resultStream = (InputStream)transformer.pojoTransform(input, "UTF-8");
 
+		String result = MiscUtil.convertStreamToString(resultStream);
 
 		// Compare the result to the expected value
 		assertEquals(expectedResult, result);

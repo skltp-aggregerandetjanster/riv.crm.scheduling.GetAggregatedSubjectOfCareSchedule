@@ -1,8 +1,5 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification;
 
-import java.util.StringTokenizer;
-
-import org.mule.api.ExceptionPayload;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
@@ -51,6 +48,7 @@ public class ProcessNotificationResponseTransformer extends AbstractMessageTrans
 		return xml;
 	}
 
+	@SuppressWarnings("unused")
 	private String createFault(String errorMessage) {
 		return 
 		"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
