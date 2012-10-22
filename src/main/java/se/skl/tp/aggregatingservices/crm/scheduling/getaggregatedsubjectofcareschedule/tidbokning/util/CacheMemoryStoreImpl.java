@@ -34,6 +34,7 @@ public class CacheMemoryStoreImpl<T extends Serializable> extends InMemoryObject
 		String payload = (String)me.getMessage().getPayload();
 		String newPayload = updateProcessingStatusAsCached(payload);
 		me.getMessage().setPayload(newPayload);
+		log.debug("Id for obj to store: \"{}\"", id);
 		log.debug("Obj to store:\n{}", payload);
 		log.debug("Updated before storing in cache:\n{}", newPayload);
 		super.store(id, value);
@@ -84,7 +85,6 @@ public class CacheMemoryStoreImpl<T extends Serializable> extends InMemoryObject
 			namespaceMap.put("soap", "http://schemas.xmlsoap.org/soap/envelope/");
 			namespaceMap.put("hdr", "urn:riv:interoperability:headers:1");
 
-			// First verify that the dependency does not exist already
 			NodeList list = getXPathResult(doc, namespaceMap, "/soap:Envelope/soap:Header/hdr:ProcessingStatus/hdr:ProcessingStatusList/hdr:statusCode[text()='DataFromSource']");
 			log.debug("Found " + list.getLength() + " elements");
 

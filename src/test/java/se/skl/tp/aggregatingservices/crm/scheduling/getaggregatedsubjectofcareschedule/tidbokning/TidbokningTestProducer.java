@@ -43,32 +43,8 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 	public static final long TEST_LOGICAL_ADDRESS_2_RESPONSE_TIME = SERVICE_TIMOUT_MS - 1000; // Slow but below the timeout on system #2
 	public static final long TEST_LOGICAL_ADDRESS_3_RESPONSE_TIME = SERVICE_TIMOUT_MS + 1000; // Too slow on system #3, the timeout will kick in
 
-
-	private static final Map<String, GetSubjectOfCareScheduleResponseType> BOOKING_DB = new HashMap<String, GetSubjectOfCareScheduleResponseType>();
-	
-	static {
-		// Build a booking-db based on logical-address + subjectOfCare as key containing a number of bookings with unique booking-id's. 
-
-		
-		// Patient with one booking, id = TEST_ID_ONE_BOOKING
-		GetSubjectOfCareScheduleResponseType response = new GetSubjectOfCareScheduleResponseType();
-		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_ONE_BOOKING, TEST_BOOKING_ID_ONE_BOOKING));
-		BOOKING_DB.put(TEST_LOGICAL_ADDRESS_1 + "|" + TEST_ID_ONE_BOOKING, response);
-
-		// Patient with four bookings spread over three logical-addresses, where one is on a slow system, i.e. that cause timeouts
-		response = new GetSubjectOfCareScheduleResponseType();
-		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		BOOKING_DB.put(TEST_LOGICAL_ADDRESS_1 + "|" + TEST_ID_MANY_BOOKINGS, response);
-
-		response = new GetSubjectOfCareScheduleResponseType();
-		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
-		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
-		BOOKING_DB.put(TEST_LOGICAL_ADDRESS_2 + "|" + TEST_ID_MANY_BOOKINGS, response);
-
-		response = new GetSubjectOfCareScheduleResponseType();
-		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_3, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_4));
-		BOOKING_DB.put(TEST_LOGICAL_ADDRESS_3 + "|" + TEST_ID_MANY_BOOKINGS, response);
-	}
+	public static final String TEST_REASON_DEFAULT = "default reason";
+	public static final String TEST_REASON_UPDATED = "updated reason";
 
 	@Override
 	public GetSubjectOfCareScheduleResponseType getSubjectOfCareSchedule(String logicalAddress, ActorType actor, GetSubjectOfCareScheduleType request) {
@@ -101,7 +77,7 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 		} catch (InterruptedException e) {}
         
         // Lookup the response
-        GetSubjectOfCareScheduleResponseType response = BOOKING_DB.get(request.getHealthcareFacility() + "|" + request.getSubjectOfCare());
+        GetSubjectOfCareScheduleResponseType response = retreiveFromDb(request.getHealthcareFacility(), request.getSubjectOfCare());
         if (response == null) {
         	// Return an empty response object instead of null if nothing is found
         	response = new GetSubjectOfCareScheduleResponseType();
@@ -118,6 +94,60 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 		timeslot.setHealthcareFacility(logicalAddress);
 		timeslot.setSubjectOfCare(subjectOfCare);
 		timeslot.setBookingId(bookingId);
+		timeslot.setReason(TEST_REASON_DEFAULT);
 		return timeslot;
+	}
+
+	//
+	// A small db for timebookings for various test-source systems
+	//
+	private static Map<String, GetSubjectOfCareScheduleResponseType> BOOKING_DB = null;
+	// new HashMap<String, GetSubjectOfCareScheduleResponseType>();
+	
+	public static void initDb() {
+		System.err.println("### INIT-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+
+		// Start with resetting the db from old values.
+		resetDb();
+		
+		// Patient with one booking, id = TEST_ID_ONE_BOOKING
+		GetSubjectOfCareScheduleResponseType response = new GetSubjectOfCareScheduleResponseType();
+		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_ONE_BOOKING, TEST_BOOKING_ID_ONE_BOOKING));
+		storeInDb(TEST_LOGICAL_ADDRESS_1, TEST_ID_ONE_BOOKING, response);
+
+		// Patient with four bookings spread over three logical-addresses, where one is on a slow system, i.e. that cause timeouts
+		response = new GetSubjectOfCareScheduleResponseType();
+		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
+		storeInDb(TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, response);
+
+		response = new GetSubjectOfCareScheduleResponseType();
+		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
+		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
+		storeInDb(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, response);
+
+		response = new GetSubjectOfCareScheduleResponseType();
+		response.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_3, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_4));
+		storeInDb(TEST_LOGICAL_ADDRESS_3, TEST_ID_MANY_BOOKINGS, response);
+	}
+
+	static public void resetDb() {
+		System.err.println("### RESET-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+		BOOKING_DB = new HashMap<String, GetSubjectOfCareScheduleResponseType>();
+	}
+
+	static public void storeInDb(String logicalAddress, String subjectOfCareId, GetSubjectOfCareScheduleResponseType value) {
+		System.err.println("### STORE-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+		if (BOOKING_DB == null) {
+			initDb();
+		}
+		BOOKING_DB.put(logicalAddress + "|" + subjectOfCareId, value);
+	}
+	
+	static public GetSubjectOfCareScheduleResponseType retreiveFromDb(String logicalAddress, String subjectOfCareId) {
+		System.err.println("### RETREIVE-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+		if (BOOKING_DB == null) {
+			initDb();
+		}
+        return BOOKING_DB.get(logicalAddress + "|" + subjectOfCareId);
 	}
 }

@@ -1,18 +1,29 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification;
 
 import static org.junit.Assert.*;
+import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
+import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
+
+import java.util.HashMap;
+import java.util.Map;
  
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_TIMEOUT;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_REASON_DEFAULT;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_REASON_UPDATED;
 
+import javax.xml.ws.Holder;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Test;
 import org.mule.api.MuleEvent;
+import org.mule.api.store.ObjectDoesNotExistException;
+import org.mule.api.store.ObjectStoreException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
@@ -22,11 +33,18 @@ import org.soitoolkit.commons.mule.test.ActiveMqJmsTestUtil;
 import org.soitoolkit.commons.mule.test.junit4.AbstractTestCase;
  
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.mulesoft.mule.cache.ObjectStoreCachingStrategy;
 
 import riv.itintegration.engagementindex._1.ResultCodeEnum;
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
+import se.riv.crm.scheduling.v1.TimeslotType;
+import se.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestConsumer;
 import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
 
  
@@ -42,7 +60,8 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
  
 
 	private static final String LOGICAL_ADDRESS = "logical-address";
-	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("PROCESS-NOTIFICATION_INBOUND_URL");
+	private static final String DEFAULT_PROC_NOTIF_SERVICE_ADDRESS = getAddress("PROCESS-NOTIFICATION_INBOUND_URL");
+	private static final String DEFAULT_TIDBOKNING_SERVICE_ADDRESS = getAddress("TIDBOKNING_INBOUND_URL");
  
 
 	private static final String REQUEST_QUEUE   = rb.getString("PROCESS_NOTIFICATION_QUEUE");
@@ -66,6 +85,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		"GetAggregatedSubjectOfCareSchedule-common.xml," +
         "tidbokning-service.xml," +
         "teststub-services/tidbokning-teststub-service.xml," +
+		"teststub-services/engagemangsindex-teststub-service.xml," + 
         "process-notification-service.xml";
     }
 
@@ -101,22 +121,83 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		cache.reset();
 
 		String id = TEST_ID_ONE_BOOKING;
-    	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
+
+		try {
+			cache.retrieve(id);
+		} catch (ObjectStoreException e) {
+			assertSame(ObjectDoesNotExistException.class, e.getClass());
+		}
+		
+    	String expectedBookingId = TEST_BOOKING_ID_ONE_BOOKING;
+		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
+		do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
+		
+		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
+
+		ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_PROC_NOTIF_SERVICE_ADDRESS);
     	ProcessNotificationResponseType response = consumer.callService(LOGICAL_ADDRESS, id, TEST_LOGICAL_ADDRESS_1);
 		assertEquals(ResultCodeEnum.OK,  response.getResultCode());
 		
 		try {
-			System.err.println("### START WAIT FOR BACKGROUND PROCESSING TO COMPLETE");
-			Thread.sleep(10000);
-			System.err.println("### OK NOW WE SHOULD BE DONE...");
+			log.debug("Start waiting for background processing to complete");
+			Thread.sleep(3000);
+			log.debug("Ok, background processing should now be complete...");
 		} catch (InterruptedException e) {
 		}
 		
+		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
+
 		// Verify that the cache is updated
 //		fail("NO CHECKS THAT VERIFIES THAT THE CACHE IS UPDATED, ADD IT HERE!!!");
 		
 	}
 
+	public void assertReasonInResponse(CacheMemoryStoreImpl<MuleEvent> cache,
+			String id, String expectedReason) {
+		try {
+			MuleEvent msg = cache.retrieve(id);
+			Document doc = createDocument((String)msg.getMessage().getPayload());
+
+			Map<String, String> namespaceMap = new HashMap<String, String>();
+			namespaceMap.put("soap", "http://schemas.xmlsoap.org/soap/envelope/");
+			namespaceMap.put("resp", "urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1");
+			namespaceMap.put("sched", "urn:riv:crm:scheduling:1");
+
+			NodeList list = getXPathResult(doc, namespaceMap, "/soap:Envelope/soap:Body/resp:GetSubjectOfCareScheduleResponse/resp:timeslotDetail/sched:reason");
+			log.debug("Found " + list.getLength() + " elements");
+
+			assertEquals("Expected only one timeslot in the response", 1, list.getLength());
+			Node node = list.item(0);
+			assertEquals(expectedReason, node.getTextContent());
+		} catch (ObjectStoreException e) {
+			fail(e.getMessage());
+		}
+	}
+
+    //
+    // FIXME: Duplicate from TidbokningIntegrationTest.java!!!
+    //
+	private ProcessingStatusType do_test_ok_one_booking(String id,
+			String expectedBookingId, String expectedLogicalAddress) {
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_TIDBOKNING_SERVICE_ADDRESS);
+		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
+		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
+    	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);
+
+    	GetSubjectOfCareScheduleResponseType response = responseHolder.value;
+		assertEquals(1, response.getTimeslotDetail().size());
+		
+		TimeslotType timeslot = response.getTimeslotDetail().get(0);
+		assertEquals(id, timeslot.getSubjectOfCare());		
+		assertEquals(expectedBookingId, timeslot.getBookingId());		
+		assertEquals(expectedLogicalAddress, timeslot.getHealthcareFacility());		
+
+		ProcessingStatusType statusList = processingStatusHolder.value;
+		assertEquals(1, statusList.getProcessingStatusList().size());
+		return statusList;
+	}
+    
+    
 //    @Test
 //	public void test_fault_invalidInput() throws Exception {
 //		try {
@@ -148,5 +229,6 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 //		} catch (InterruptedException e) {}
 //    }
  
+    
 
 }
