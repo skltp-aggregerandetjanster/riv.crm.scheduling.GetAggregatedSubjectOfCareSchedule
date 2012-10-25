@@ -45,6 +45,7 @@ import se.riv.crm.scheduling.v1.TimeslotType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestConsumer;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer;
 import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
 
  
@@ -122,6 +123,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
 		String id = TEST_ID_ONE_BOOKING;
 
+		// Verify that the cache is missing an entry of the used id.
 		try {
 			cache.retrieve(id);
 		} catch (ObjectStoreException e) {
@@ -132,10 +134,17 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
 		do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
 		
+		// Verify that the cache has an entry of the used id with an expected initial state
 		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
 
+		// ACT SOURCE SYSTEM: Update the database in the source system
+		GetSubjectOfCareScheduleResponseType resp = TidbokningTestProducer.retreiveFromDb(expectedLogicalAddress, id);
+		System.err.println("DB VALUE: " + resp.getTimeslotDetail().get(0).getReason());
+		resp.getTimeslotDetail().get(0).setReason(TEST_REASON_UPDATED);
+
+		// ACT EI: Notify the aggregating service of the change
 		ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_PROC_NOTIF_SERVICE_ADDRESS);
-    	ProcessNotificationResponseType response = consumer.callService(LOGICAL_ADDRESS, id, TEST_LOGICAL_ADDRESS_1);
+    	ProcessNotificationResponseType response = consumer.callService(LOGICAL_ADDRESS, id, expectedLogicalAddress);
 		assertEquals(ResultCodeEnum.OK,  response.getResultCode());
 		
 		try {
@@ -144,12 +153,11 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 			log.debug("Ok, background processing should now be complete...");
 		} catch (InterruptedException e) {
 		}
-		
+
+		// Verify that the cache has been updated by the notification
+//		assertReasonInResponse(cache, id, TEST_REASON_UPDATED);
 		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
 
-		// Verify that the cache is updated
-//		fail("NO CHECKS THAT VERIFIES THAT THE CACHE IS UPDATED, ADD IT HERE!!!");
-		
 	}
 
 	public void assertReasonInResponse(CacheMemoryStoreImpl<MuleEvent> cache,

@@ -8,6 +8,9 @@ import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
+import se.riv.crm.scheduling.v1.TimeslotType;
+
 public class UpdateCacheTransformer extends AbstractMessageTransformer {
 
 	private static final Logger log = LoggerFactory.getLogger(UpdateCacheTransformer.class);
@@ -30,14 +33,24 @@ public class UpdateCacheTransformer extends AbstractMessageTransformer {
 
 		@SuppressWarnings("unchecked")
 		List<Object> list = (List<Object>)src;
-		log.debug("Updating cache with kist of size: {}", list.size());
+		log.debug("Updating cache with list of size: {}", list.size());
 
 		for (Object object : list) {
 			Object[] arr = (Object[])object;
 			for (Object object2 : arr) {
-				System.err.println("*** " + object2.getClass().getName());				
+				System.err.println("*** Type: " + object2.getClass().getName());				
+				System.err.println("*** Value: [" + object2 + "]");				
 			}
+			String logicalAddress = (String)arr[0];
+			GetSubjectOfCareScheduleResponseType resp = (GetSubjectOfCareScheduleResponseType)arr[1]; 
+			List<TimeslotType> timebookings = resp.getTimeslotDetail();
+			
+//			for (TimeslotType timeslot : timebookings) {
+//				String subjectOfCareId = resp.getTimeslotDetail().get(0);
+//			}
+			
 		}
+		
 		return src;
 	}
 }

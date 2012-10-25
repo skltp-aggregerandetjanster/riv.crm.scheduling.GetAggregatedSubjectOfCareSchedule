@@ -15,6 +15,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -40,6 +42,25 @@ public class CacheMemoryStoreImpl<T extends Serializable> extends InMemoryObject
 		super.store(id, value);
 	}
 	
+	/**
+	 * Updates the cache, both processing status and the actual response, for the specified logicalAddress and subjectOfCareId
+	 * 
+	 * @param logicalAddress
+	 * @param subjectOfCareId
+	 */
+	public void partialUpdate(String logicalAddress, String subjectOfCareId, GetSubjectOfCareScheduleResponseType updatedResponse) {
+		
+		// 1. Enhance updateProcessingStatusAsCached so that only a specific logicalAddress is updaated
+		
+		// 2. Update the GetSubjectOfCareScheduleResponse for the specified logicalAddress
+		//    - Get the response as a JAXB object 
+		//    - Remove any timeslot related to the logicalAddress
+		//    - Add the new timeslots for the logicalAddress
+		//    - Marshall the JAXB object
+		//    - Add it to the cached result
+
+	}
+
 	/**
 	 * Update processing status:
 	 * 1. Status Code: DataFromSource --> DataFromCache
