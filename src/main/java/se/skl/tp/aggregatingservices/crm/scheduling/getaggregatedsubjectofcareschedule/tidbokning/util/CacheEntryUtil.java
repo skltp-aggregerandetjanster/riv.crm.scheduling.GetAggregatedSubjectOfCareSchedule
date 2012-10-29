@@ -5,6 +5,7 @@ import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
 import static org.soitoolkit.commons.xml.XPathUtil.getXml;
 import static org.soitoolkit.commons.xml.XPathUtil.getBuilder;
 
+
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,17 +17,22 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.mule.api.MuleEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.riv.interoperability.headers.v1.ObjectFactory;
 
 public class CacheEntryUtil {
 	
 	private static final Logger log = LoggerFactory.getLogger(CacheEntryUtil.class);
 	private static final Map<String, String> namespaceMap = new HashMap<String, String>();
+	private static final JaxbUtil ju = new JaxbUtil(ProcessingStatusType.class);
+	private static final ObjectFactory of = new ObjectFactory();
 
 	static {
 		namespaceMap.put("soap", "http://schemas.xmlsoap.org/soap/envelope/");
@@ -39,12 +45,32 @@ public class CacheEntryUtil {
 		this.cachedObject = cachedObject;
 	}
 	
-	public ProcessingStatusType getProcessingStatus () {
-		return null;	
+	public ProcessingStatusType getProcessingStatus() {
+		Node processingStatusNode = getProcessingStatusNode();
+		ProcessingStatusType processingStatus = (ProcessingStatusType)ju.unmarshal(processingStatusNode);
+		return processingStatus;
 	}
 
 	public void setProcessingStatus (ProcessingStatusType processingStatus) {
-		Document doc = getSoapEnvelope();
+		String processingStatusXml = ju.marshal(of.createProcessingStatus(processingStatus));
+
+		try {
+			DocumentBuilder docBuilder = getBuilder();
+			Node newProcessingStatusNode = docBuilder.parse(new InputSource(new StringReader(processingStatusXml))).getDocumentElement();
+
+			Document doc = getSoapEnvelope();
+			newProcessingStatusNode = doc.importNode(newProcessingStatusNode, true);
+			
+			Node oldProcessingStatusNode = getProcessingStatusNode();
+			Node soapHeaderNode = oldProcessingStatusNode.getParentNode();
+			
+			soapHeaderNode.replaceChild(newProcessingStatusNode, oldProcessingStatusNode);
+			updateSoapEnvelope(getXml(doc));
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	
 	}
 
 	public String getSoapBody() {
@@ -95,6 +121,14 @@ public class CacheEntryUtil {
 
 		Node bodyNode = list.item(0);
 		return bodyNode;
+	}
+
+	private Node getProcessingStatusNode() {
+		NodeList list = getXPathResult(getSoapEnvelope(), namespaceMap, "/soap:Envelope/soap:Header/hdr:ProcessingStatus");
+		log.debug("Found " + list.getLength() + " elements");
+
+		Node processingStatusNode = list.item(0);
+		return processingStatusNode;
 	}
 	
 	private void updateSoapEnvelope(String xml) {

@@ -13,15 +13,21 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.createResponse;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.validation.constraints.AssertTrue;
 
 import org.junit.Test;
 import org.mule.api.MuleEvent;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
+import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.ObjectFactory;
 import se.riv.crm.scheduling.v1.TimeslotType;
+import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
+import se.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class CacheEntryUtilTest {
 
@@ -29,14 +35,59 @@ public class CacheEntryUtilTest {
 	
 	private JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class);
 	private ObjectFactory of = new ObjectFactory();
+	private ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("yyyyMMddHHmmss");
 
 	/**
-	 * Verify basic functionality of the CacheEntry
+	 * Verify basic functionality of the CacheEntry regarding the processing status part
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testPartialUpdateCache_basic() throws Exception {
+	public void testPartialUpdateCache_processingStatus_basic() throws Exception {
+
+		// Create a CacheEntry for a simple response
+		MuleEvent e = testUtil.getMockedMuleEvent();		
+		e.getMessage().setPayload(TestUtil.singleXml);
+		CacheEntryUtil ce = new CacheEntryUtil(e);
+
+		// Assert the expected processing status
+		ProcessingStatusType processingStatus = ce.getProcessingStatus();
+		List<ProcessingStatusRecordType> psList = processingStatus.getProcessingStatusList();
+		assertEquals(1, psList.size());
+		ProcessingStatusRecordType ps = psList.get(0);
+
+		Date now = new Date();
+		String lastSuccSynchString = ps.getLastSuccessfulSynch();
+		Date lastSuccSynch = df.parse(lastSuccSynchString);
+		assertTrue(lastSuccSynch.before(now));  
+		
+		// Update the processing status
+		String nowString = df.format(now);
+		ps.setLastSuccessfulSynch(nowString);
+		ce.setProcessingStatus(processingStatus);
+
+		// Assert that the update is reflected in the cacheEntry
+		ProcessingStatusType updatedProcessingStatus = ce.getProcessingStatus();
+		List<ProcessingStatusRecordType> updatedPsList = updatedProcessingStatus.getProcessingStatusList();
+		assertEquals(1, updatedPsList.size());
+		ProcessingStatusRecordType updatedPs = psList.get(0);
+		
+		assertEquals(nowString, updatedPs.getLastSuccessfulSynch());
+		
+		// Also assert that the update is reflected in the origin MuleEvent, e.g. that the old synch date is replace by the new
+		String updatedPayload = (String)e.getMessage().getPayload();
+		assertTrue(updatedPayload.contains(nowString));
+		assertFalse(updatedPayload.contains(lastSuccSynchString));
+		
+	}
+
+	/**
+	 * Verify basic functionality of the CacheEntry regarding the body part
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testPartialUpdateCache_bodyPart_basic() throws Exception {
 
 		// Create a CacheEntry for a simple response
 		MuleEvent e = testUtil.getMockedMuleEvent();		
@@ -64,7 +115,7 @@ public class CacheEntryUtilTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testPartialUpdateCache_complex() throws Exception {
+	public void testPartialUpdateCache_bodyPart_complex() throws Exception {
 
 		// Create a CacheEntry for a complex response, i.e. from many different logicalAdresses for one and the same subjectOfCareId
 		MuleEvent e = testUtil.getMockedMuleEvent();		
