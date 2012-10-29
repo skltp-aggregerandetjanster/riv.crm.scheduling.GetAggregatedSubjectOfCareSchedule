@@ -50,7 +50,7 @@ public class CacheMemoryStoreImpl<T extends Serializable> extends InMemoryObject
 	 */
 	public void partialUpdate(String logicalAddress, String subjectOfCareId, GetSubjectOfCareScheduleResponseType updatedResponse) {
 		
-		// 1. Enhance updateProcessingStatusAsCached so that only a specific logicalAddress is updaated
+		// 1. Enhance updateProcessingStatusAsCached so that only a specific logicalAddress is updated
 		
 		// 2. Update the GetSubjectOfCareScheduleResponse for the specified logicalAddress
 		//    - Get the response as a JAXB object 

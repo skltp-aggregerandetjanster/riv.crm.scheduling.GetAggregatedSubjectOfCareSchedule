@@ -18,7 +18,7 @@
 
 			<sec:trustManagers>
 				<sec:keyStore type="JKS" password="password"
-					file="src/test/certs/truststore.jks" />
+					file="src/test/certs/client-truststore.jks" />
 			</sec:trustManagers>
 			<sec:keyManagers keyPassword="password">
 				<sec:keyStore type="JKS" password="password"

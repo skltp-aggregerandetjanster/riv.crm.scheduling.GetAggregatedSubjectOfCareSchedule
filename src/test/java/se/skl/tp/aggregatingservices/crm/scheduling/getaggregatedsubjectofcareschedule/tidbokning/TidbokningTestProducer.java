@@ -32,6 +32,7 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_2  = "1003";
 	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_3  = "1004";
 	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_4  = "1004";
+	public static final String TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1  = "2001";
 	public static final String TEST_BOOKING_ID_FAULT_INVALID_ID = "1005";
 
 
@@ -89,7 +90,8 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
         return response;
 	}
 
-	static private TimeslotType createResponse(String logicalAddress, String subjectOfCare, String bookingId) {
+	// Let's share this method with other testclasses... 
+	static public TimeslotType createResponse(String logicalAddress, String subjectOfCare, String bookingId) {
 		TimeslotType timeslot = new TimeslotType();
 		timeslot.setHealthcareFacility(logicalAddress);
 		timeslot.setSubjectOfCare(subjectOfCare);
