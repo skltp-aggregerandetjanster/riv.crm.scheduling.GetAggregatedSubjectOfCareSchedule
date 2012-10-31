@@ -5,6 +5,7 @@ import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE_SYNCH_FAILED;
 
 import java.util.Date;
+import java.util.List;
 
 import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
@@ -15,8 +16,17 @@ import se.riv.interoperability.headers.v1.StatusCodeEnum;
 
 public class ProcessingStatusUtil {
 
-	private ProcessingStatusType ps = new ProcessingStatusType();
+	private final ProcessingStatusType ps;
+
 	private ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("yyyyMMddHHmmss");
+
+	public ProcessingStatusUtil() {
+		ps = new ProcessingStatusType();
+	}
+
+	public ProcessingStatusUtil(ProcessingStatusType ps) {
+		this.ps = ps;
+	}
 
 	public ProcessingStatusType getStatus() {
 		return ps;
@@ -82,4 +92,44 @@ public class ProcessingStatusUtil {
 		// Finally add the new record to the list
 		ps.getProcessingStatusList().add(status);
 	}
+
+	/**
+	 * Updates processing status when a new entry is stored in the cache as:
+	 * 1. Status Code: DataFromSource --> DataFromCache
+	 * 2. isResponseFromCache: false --> true 
+	 */	
+	public void updateProcessingStatusAsCached() {
+		List<ProcessingStatusRecordType> psList = ps.getProcessingStatusList();
+		for (ProcessingStatusRecordType psr : psList) {
+			if (psr.getStatusCode() == StatusCodeEnum.DATA_FROM_SOURCE) {
+				psr.setStatusCode(StatusCodeEnum.DATA_FROM_CACHE);
+				psr.setIsResponseFromCache(true);
+			}
+		}
+	}
+
+	/**
+	 * Updates the processing status for the specified logicalAddress after an successful update of its state (i.e. as a response to a notification from EI)
+	 * 
+	 * Set the following state:
+	 * +--------------------------+---------------------+-------------------+--------------------------+-----------------------+----------------------------+
+	 * | Status Code              | isResponseFromCache | isResponseInSynch | lastSuccessfulSynch      | lastUnsuccessfulSynch | lastUnsuccessfulSynchError |
+	 * +--------------------------+---------------------+-------------------+--------------------------+-----------------------+----------------------------+
+	 * | DataFromCache            | True                | True              | Last time for succ. call | Empty                 | Empty                      |
+	 * +--------------------------+---------------------+-------------------+--------------------------+-----------------------+----------------------------+
+	 */	
+	public void updateProcessingStatusAsCacheUpdated(String logicalAddress) {
+		List<ProcessingStatusRecordType> psList = ps.getProcessingStatusList();
+		for (ProcessingStatusRecordType psr : psList) {
+			if (psr.getLogicalAddress().equals(logicalAddress)) {
+				psr.setStatusCode(StatusCodeEnum.DATA_FROM_CACHE);
+				psr.setIsResponseFromCache(true);
+				psr.setIsResponseInSynch(true);
+				psr.setLastSuccessfulSynch(df.format(new Date()));
+				psr.setLastUnsuccessfulSynch(null);
+				psr.setLastUnsuccessfulSynchError(null);
+			}
+		}
+	}
+
 }
