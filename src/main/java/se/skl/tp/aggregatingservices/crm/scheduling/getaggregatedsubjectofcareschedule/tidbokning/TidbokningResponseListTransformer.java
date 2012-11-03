@@ -49,8 +49,6 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 	
 	private static final Map<String, String> namespaceMap = new HashMap<String, String>();
 	
-	ThreadSafeSimpleDateFormat DF = new ThreadSafeSimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
 	static {
 		namespaceMap.put("soap",    "http://schemas.xmlsoap.org/soap/envelope/");
 		namespaceMap.put("it-int",  "urn:riv:itintegration:registry:1");

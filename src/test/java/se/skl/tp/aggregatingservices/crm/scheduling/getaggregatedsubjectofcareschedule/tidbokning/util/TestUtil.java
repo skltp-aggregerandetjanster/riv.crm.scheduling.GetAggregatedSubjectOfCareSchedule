@@ -5,13 +5,24 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
+import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
+
+import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
+import se.riv.crm.scheduling.v1.TimeslotType;
+import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
+import se.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class TestUtil {
 
+	private ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("yyyyMMddHHmmss");
+	
 	public static final String singleXmlBody = 
 	  "<ns3:GetSubjectOfCareScheduleResponse xmlns=\"urn:riv:crm:scheduling:1\" xmlns:ns2=\"urn:riv:crm:scheduling:1.1\" xmlns:ns3=\"urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1\" xmlns:ns4=\"urn:riv:interoperability:headers:1\">" +
 	    "<ns3:timeslotDetail>" +
@@ -95,6 +106,9 @@ public class TestUtil {
     private MuleMessage muleMessage;
     private Object payload;
 
+    /*
+     * This method needs to be a instance method and not a static method since it uses the member variables muleMessage and payload to keep state in the mock-instance
+     */
     public MuleEvent getMockedMuleEvent() {
 		MuleEvent e = mock(MuleEvent.class);
 		
@@ -134,4 +148,35 @@ public class TestUtil {
 		return e;
 	}
 
+	public boolean exitsTimeslot(GetSubjectOfCareScheduleResponseType response, String healthcareFacility, String subjectOfCare, String bookingId) {
+
+		boolean exists = false;
+		for (TimeslotType timeslot : response.getTimeslotDetail()) {
+			if (timeslot.getHealthcareFacility().equals(healthcareFacility) &&
+				timeslot.getSubjectOfCare().equals(subjectOfCare) &&
+				timeslot.getBookingId().equals(bookingId)) {
+			
+				exists = true;
+			}
+		}
+		return exists;
+	}
+
+	public ProcessingStatusRecordType getProcessingStatusRecord(ProcessingStatusType ps, String logicalAddress) {
+
+		for (ProcessingStatusRecordType psr : ps.getProcessingStatusList()) {
+			if (psr.getLogicalAddress().equals(logicalAddress)) {
+				return psr;
+			}
+		}
+		return null;
+	}
+	
+	public Date parseDate(String processingStatusDate) throws ParseException {
+		return df.parse(processingStatusDate);
+	}
+	
+	public String formatDate(Date date) {
+		return df.format(date);
+	}
 }

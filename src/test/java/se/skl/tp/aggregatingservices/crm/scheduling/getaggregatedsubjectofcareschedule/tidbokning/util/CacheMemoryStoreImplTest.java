@@ -1,18 +1,35 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.*;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.AssertTrue;
 
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
 import org.mule.api.MuleEvent;
 import org.mule.util.StringUtils;
+import org.mvel2.ast.AssertNode;
+import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
+import se.riv.crm.scheduling.v1.TimeslotType;
+import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
+import se.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.riv.interoperability.headers.v1.StatusCodeEnum;
 
 public class CacheMemoryStoreImplTest {
 
 	TestUtil testUtil = new TestUtil();
+	JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class);
 
 	@Test
 	public void testUpdateProcessingStatus_single_ok() throws Exception {
@@ -66,40 +83,126 @@ public class CacheMemoryStoreImplTest {
 	}
 
 
-//	@Test
+	@Test
 	public void testPartialUpdateCache() throws Exception {
+		
+		Date now = new Date();
+
+		// Setup a cache with some initial data
 		CacheMemoryStoreImpl<Serializable> c = new CacheMemoryStoreImpl<Serializable>();
-		
 		MuleEvent e = testUtil.getMockedMuleEvent();		
-		
 		e.getMessage().setPayload(TestUtil.multiXml);
 		c.store("222222222222", e);
 		
-		// Ensure that the xml has the expected input,
+		// Ensure that the cache has the expected input,
 		// i.e. when read from cache before the notification
 		MuleEvent eventBeforeUpdate = (MuleEvent)c.retrieve("222222222222");
-		String inputXml = (String)eventBeforeUpdate.getMessage().getPayload();
-		
-		assertEquals(0, StringUtils.countMatches(inputXml, "<ns4:statusCode>DataFromSource</ns4:statusCode>"));
-		assertEquals(1, StringUtils.countMatches(inputXml, "<ns4:statusCode>NoDataSynchFailed</ns4:statusCode>"));
-		assertEquals(1, StringUtils.countMatches(inputXml, "<ns4:isResponseFromCache>false</ns4:isResponseFromCache>"));
-		assertEquals(2, StringUtils.countMatches(inputXml, "<ns4:statusCode>DataFromCache</ns4:statusCode>"));
-		assertEquals(2, StringUtils.countMatches(inputXml, "<ns4:isResponseFromCache>true</ns4:isResponseFromCache>"));
+		CacheEntryUtil ceBefore = new CacheEntryUtil(eventBeforeUpdate);
 
+		// First verify the initial payload of the cache
+		GetSubjectOfCareScheduleResponseType response = (GetSubjectOfCareScheduleResponseType)ju.unmarshal(ceBefore.getSoapBody());
+		assertEquals(3, response.getTimeslotDetail().size());
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
+
+		// Next verify the processing status
+		ProcessingStatusType ps = ceBefore.getProcessingStatus();
+		assertEquals(3, ps.getProcessingStatusList().size());
+
+		ProcessingStatusRecordType ps1 = testUtil.getProcessingStatusRecord(ps, TEST_LOGICAL_ADDRESS_1);
+		assertEquals(StatusCodeEnum.DATA_FROM_CACHE, ps1.getStatusCode());
+		assertTrue(ps1.isIsResponseFromCache());
+		assertTrue(ps1.isIsResponseInSynch());
+		assertNotNull(ps1.getLastSuccessfulSynch());
+		// Verify that the last update is in the past
+		assertTrue(ps1.getLastSuccessfulSynch().compareTo(testUtil.formatDate(now)) < 0);
+		
+		ProcessingStatusRecordType ps2 = testUtil.getProcessingStatusRecord(ps, TEST_LOGICAL_ADDRESS_2);
+		assertEquals(StatusCodeEnum.DATA_FROM_CACHE, ps2.getStatusCode());
+		assertTrue(ps2.isIsResponseFromCache());
+		assertTrue(ps2.isIsResponseInSynch());
+		assertNotNull(ps2.getLastSuccessfulSynch());
+		// Verify that the last update is in the past
+		assertTrue(ps2.getLastSuccessfulSynch().compareTo(testUtil.formatDate(now)) < 0);
+		
+		ProcessingStatusRecordType ps3 = testUtil.getProcessingStatusRecord(ps, TEST_LOGICAL_ADDRESS_3);
+		assertEquals(StatusCodeEnum.NO_DATA_SYNCH_FAILED, ps3.getStatusCode());
+		assertFalse(ps3.isIsResponseFromCache());
+		assertFalse(ps3.isIsResponseInSynch());
+		assertNotNull(ps3.getLastUnsuccessfulSynch());
+		// Verify that the last failed update is in the past
+		assertTrue(ps3.getLastUnsuccessfulSynch().compareTo(testUtil.formatDate(now)) < 0);
+		
+//		String inputXml = (String)eventBeforeUpdate.getMessage().getPayload();
+//		
+//		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS för TEST_LOGICAL_ADDRESS_2
+//		assertEquals(0, StringUtils.countMatches(inputXml, "<statusCode>DataFromSource</statusCode>"));
+//		assertEquals(1, StringUtils.countMatches(inputXml, "<statusCode>NoDataSynchFailed</statusCode>"));
+//		assertEquals(1, StringUtils.countMatches(inputXml, "<isResponseFromCache>false</isResponseFromCache>"));
+//		assertEquals(2, StringUtils.countMatches(inputXml, "<statusCode>DataFromCache</statusCode>"));
+//		assertEquals(2, StringUtils.countMatches(inputXml, "<isResponseFromCache>true</isResponseFromCache>"));
+//
+//		// TODO: Kolla payload, bookinid, logicalAddress och pnr
+		
+		// Create a imaginary new response for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_ID_MANY_BOOKINGS:
+		// - Remove booking TEST_BOOKING_ID_MANY_BOOKINGS_2, 
+		// - Remove booking TEST_BOOKING_ID_MANY_BOOKINGS_3
+		// - Add    booking TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1
 		GetSubjectOfCareScheduleResponseType updatedResponse = new GetSubjectOfCareScheduleResponseType();
-		c.partialUpdate("HSA-ID-1<", "222222222222", updatedResponse);
+		updatedResponse.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
 		
-		// Ensure that the xml has the expected updates
+		// Update the cache with the new result
+		c.partialUpdate(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, updatedResponse);
+		
+		
+		// Ensure that the cache has the expected updates
 		MuleEvent eventAfterUpdate = (MuleEvent)c.retrieve("222222222222");
-		String updatedXml = (String)eventAfterUpdate.getMessage().getPayload();
+//		String updatedXml = (String)eventAfterUpdate.getMessage().getPayload();
+////		System.err.println("AFT: " + eventAfterUpdate.getMessage().getPayload());
+//
+//		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS för TEST_LOGICAL_ADDRESS_2
+//		assertEquals(0, StringUtils.countMatches(updatedXml, "<statusCode>DataFromSource</statusCode>"));
+//		assertEquals(1, StringUtils.countMatches(updatedXml, "<statusCode>NoDataSynchFailed</statusCode>"));
+//		assertEquals(1, StringUtils.countMatches(updatedXml, "<isResponseFromCache>false</isResponseFromCache>"));
+//		assertEquals(2, StringUtils.countMatches(updatedXml, "<statusCode>DataFromCache</statusCode>"));
+//		assertEquals(2, StringUtils.countMatches(updatedXml, "<isResponseFromCache>true</isResponseFromCache>"));
+		
+		CacheEntryUtil ceAfter = new CacheEntryUtil(eventAfterUpdate);
 
-		assertEquals(0, StringUtils.countMatches(updatedXml, "<ns4:statusCode>DataFromSource</ns4:statusCode>"));
-		assertEquals(1, StringUtils.countMatches(updatedXml, "<ns4:statusCode>NoDataSynchFailed</ns4:statusCode>"));
-		assertEquals(1, StringUtils.countMatches(updatedXml, "<ns4:isResponseFromCache>false</ns4:isResponseFromCache>"));
-		assertEquals(2, StringUtils.countMatches(updatedXml, "<ns4:statusCode>DataFromCache</ns4:statusCode>"));
-		assertEquals(2, StringUtils.countMatches(updatedXml, "<ns4:isResponseFromCache>true</ns4:isResponseFromCache>"));
+		// First verify the payload of the cache after the update
+		response = (GetSubjectOfCareScheduleResponseType)ju.unmarshal(ceAfter.getSoapBody());
+		assertEquals(2, response.getTimeslotDetail().size());
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
+
+
+		// Next verify the processing status
+		ps = ceAfter.getProcessingStatus();
+		assertEquals(3, ps.getProcessingStatusList().size());
+
+		ps1 = testUtil.getProcessingStatusRecord(ps, TEST_LOGICAL_ADDRESS_1);
+		assertEquals(StatusCodeEnum.DATA_FROM_CACHE, ps1.getStatusCode());
+		assertTrue(ps1.isIsResponseFromCache());
+		assertTrue(ps1.isIsResponseInSynch());
+		assertNotNull(ps1.getLastSuccessfulSynch());
+		// Verify that the last update is in the past
+		assertTrue(ps1.getLastSuccessfulSynch().compareTo(testUtil.formatDate(now)) < 0);
 		
+		ps2 = testUtil.getProcessingStatusRecord(ps, TEST_LOGICAL_ADDRESS_2);
+		assertEquals(StatusCodeEnum.DATA_FROM_CACHE, ps2.getStatusCode());
+		assertTrue(ps2.isIsResponseFromCache());
+		assertTrue(ps2.isIsResponseInSynch());
+		assertNotNull(ps2.getLastSuccessfulSynch());
+		// Verify that the last update was done in the update of the cache
+		assertTrue(ps2.getLastSuccessfulSynch().compareTo(testUtil.formatDate(now)) >= 0);
 		
+		ps3 = testUtil.getProcessingStatusRecord(ps, TEST_LOGICAL_ADDRESS_3);
+		assertEquals(StatusCodeEnum.NO_DATA_SYNCH_FAILED, ps3.getStatusCode());
+		assertFalse(ps3.isIsResponseFromCache());
+		assertFalse(ps3.isIsResponseInSynch());
+		assertNotNull(ps3.getLastUnsuccessfulSynch());
+		// Verify that the last failed update is in the past
+		assertTrue(ps3.getLastUnsuccessfulSynch().compareTo(testUtil.formatDate(now)) < 0);
 	}
-	
 }

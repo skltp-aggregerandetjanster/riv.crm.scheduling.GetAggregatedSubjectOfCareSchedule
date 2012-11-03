@@ -89,7 +89,7 @@ public class CacheMemoryStoreImpl<T extends Serializable> extends InMemoryObject
 			// Create a new empty response and add
 			// 1. the updated time slots for the specified logical address
 			// 2. the time slots from the cached response from other logical addresses
-			GetSubjectOfCareScheduleResponseType newResponse = (GetSubjectOfCareScheduleResponseType)ju.unmarshal(ce.getSoapBody());
+			GetSubjectOfCareScheduleResponseType newResponse = new GetSubjectOfCareScheduleResponseType();
 			List<TimeslotType> newTimeslots = newResponse.getTimeslotDetail();
 
 			// 1...
@@ -106,8 +106,8 @@ public class CacheMemoryStoreImpl<T extends Serializable> extends InMemoryObject
 			String xml = ju.marshal(of.createGetSubjectOfCareScheduleResponse(newResponse));
 			ce.setSoapBody(xml);
 
-			// Update the cache. TODO Is this really required? If not how is the cache notified about the update???
-			store(subjectOfCareId, (T)event);
+//			// Update the cache. TODO Is this really required? If not how is the cache notified about the update???
+//			store(subjectOfCareId, (T)event);
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);

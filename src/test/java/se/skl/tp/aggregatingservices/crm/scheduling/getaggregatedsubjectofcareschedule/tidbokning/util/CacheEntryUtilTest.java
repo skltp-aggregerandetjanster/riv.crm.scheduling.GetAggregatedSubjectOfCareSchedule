@@ -35,7 +35,6 @@ public class CacheEntryUtilTest {
 	
 	private JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class);
 	private ObjectFactory of = new ObjectFactory();
-	private ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("yyyyMMddHHmmss");
 
 	/**
 	 * Verify basic functionality of the CacheEntry regarding the processing status part
@@ -58,11 +57,11 @@ public class CacheEntryUtilTest {
 
 		Date now = new Date();
 		String lastSuccSynchString = ps.getLastSuccessfulSynch();
-		Date lastSuccSynch = df.parse(lastSuccSynchString);
+		Date lastSuccSynch = testUtil.parseDate(lastSuccSynchString);
 		assertTrue(lastSuccSynch.before(now));  
 		
 		// Update the processing status
-		String nowString = df.format(now);
+		String nowString = testUtil.formatDate(now);
 		ps.setLastSuccessfulSynch(nowString);
 		ce.setProcessingStatus(processingStatus);
 
@@ -128,9 +127,9 @@ public class CacheEntryUtilTest {
 
 		// Verify its initial content
 		assertEquals(3, timeslots.size());
-		assertTrue(exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		assertTrue(exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
-		assertTrue(exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
 
 		// Create a imaginary new response for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_ID_MANY_BOOKINGS:
 		// - Remove booking TEST_BOOKING_ID_MANY_BOOKINGS_2, 
@@ -158,9 +157,9 @@ public class CacheEntryUtilTest {
 
 		// Verify its updated content
 		assertEquals(3, updatedTimeslots.size());
-		assertTrue(exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		assertTrue(exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
-		assertTrue(exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
+		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
+		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
+		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
 		
 		// Verify that the actual payload in the mule event also is updated, e.g. that:
 		// 1. Booking TEST_BOOKING_ID_MANY_BOOKINGS_2 is gone
@@ -168,19 +167,5 @@ public class CacheEntryUtilTest {
 		String updatedPayload = (String)e.getMessage().getPayload();
 		assertFalse(updatedPayload.contains("<bookingId>" + TEST_BOOKING_ID_MANY_BOOKINGS_2 + "</bookingId"));
 		assertTrue(updatedPayload.contains("<bookingId>" + TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1 + "</bookingId"));
-	}
-	
-	private boolean exitsTimeslot(GetSubjectOfCareScheduleResponseType response, String healthcareFacility, String subjectOfCare, String bookingId) {
-
-		boolean exists = false;
-		for (TimeslotType timeslot : response.getTimeslotDetail()) {
-			if (timeslot.getHealthcareFacility().equals(healthcareFacility) &&
-				timeslot.getSubjectOfCare().equals(subjectOfCare) &&
-				timeslot.getBookingId().equals(bookingId)) {
-			
-				exists = true;
-			}
-		}
-		return exists;
 	}
 }
