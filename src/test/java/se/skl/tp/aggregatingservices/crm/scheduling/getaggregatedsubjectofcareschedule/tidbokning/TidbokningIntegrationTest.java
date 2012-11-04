@@ -23,6 +23,7 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_3;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1_RESPONSE_TIME;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheUtil.getCache;
 
 import java.io.Serializable;
 import java.util.List;
@@ -81,18 +82,12 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 	protected void doSetUp() throws Exception {
 		super.doSetUp();
 
-		doResetCache("caching_strategy");
+		CacheMemoryStoreImpl<MuleEvent> cache = getCache(muleContext);
+		cache.reset();
 
 		doSetUpJms();
   
      }
-
-	private void doResetCache(String cachingStrategyBeanName) {
-		Object obj = muleContext.getRegistry().lookupObject(cachingStrategyBeanName);
-		ObjectStoreCachingStrategy oscs = (ObjectStoreCachingStrategy)obj;
-		CacheMemoryStoreImpl<MuleEvent> cache = (CacheMemoryStoreImpl<MuleEvent>)oscs.getStore();
-		cache.reset();
-	}
 
 	private void doSetUpJms() {
 		// TODO: Fix lazy init of JMS connection et al so that we can create jmsutil in the declaration

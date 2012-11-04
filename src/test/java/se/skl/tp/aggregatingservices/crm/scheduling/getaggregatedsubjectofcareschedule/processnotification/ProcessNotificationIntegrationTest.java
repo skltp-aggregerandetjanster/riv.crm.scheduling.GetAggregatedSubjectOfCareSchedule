@@ -3,6 +3,7 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
 import static org.junit.Assert.*;
 import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
 import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheUtil.getCache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,9 +117,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
     @Test
     public void test_ok() {
     	
-		Object obj = muleContext.getRegistry().lookupObject("caching_strategy");
-		ObjectStoreCachingStrategy oscs = (ObjectStoreCachingStrategy)obj;
-		CacheMemoryStoreImpl<MuleEvent> cache = (CacheMemoryStoreImpl<MuleEvent>)oscs.getStore();
+		CacheMemoryStoreImpl<MuleEvent> cache = getCache(muleContext);
 		cache.reset();
 
 		String id = TEST_ID_ONE_BOOKING;
@@ -155,8 +154,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		}
 
 		// Verify that the cache has been updated by the notification
-//		assertReasonInResponse(cache, id, TEST_REASON_UPDATED);
-		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
+		assertReasonInResponse(cache, id, TEST_REASON_UPDATED);
 
 	}
 

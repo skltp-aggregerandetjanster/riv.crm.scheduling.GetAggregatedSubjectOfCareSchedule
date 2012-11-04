@@ -2,6 +2,7 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
 
 import java.util.List;
 
+import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheUtil;
 
 public class UpdateCacheTransformer extends AbstractMessageTransformer {
 
@@ -22,7 +25,6 @@ public class UpdateCacheTransformer extends AbstractMessageTransformer {
     public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
 
         // Perform any message aware processing here, otherwise delegate as much as possible to pojoTransform() for easier unit testing
-
         return pojoTransform(message.getPayload(), outputEncoding);
     }
 
@@ -35,22 +37,39 @@ public class UpdateCacheTransformer extends AbstractMessageTransformer {
 		List<Object> list = (List<Object>)src;
 		log.debug("Updating cache with list of size: {}", list.size());
 
+		// The payload is a aggregated list of responses from the calls made to the journal systems
+		// Each entry in the list is an result of a JAXWS call with an array och result objects
+		// The first array entry is the logicalAdress of the called system, 
+		// The second array element is the actual response, i.e. an GetSubjectOfCareScheduleResponseType object. 
+		// TODO: Change the ProcessNotificationRequestTransformer to produce a list of requests one per cached logical-address and subjectOfCareId and apply a splitter to the flow to produce separate JMS Messages where each one can be handeled sparately in a synchronous flow with standard retry logic.
 		for (Object object : list) {
+
 			Object[] arr = (Object[])object;
-			for (Object object2 : arr) {
-				System.err.println("*** Type: " + object2.getClass().getName());				
-				System.err.println("*** Value: [" + object2 + "]");				
+			GetSubjectOfCareScheduleResponseType updatedResponse = (GetSubjectOfCareScheduleResponseType)arr[1]; 
+
+			// TODO: Assuming one and the same logical-address and subjectOfCareId for now.
+			List<TimeslotType> timebookings = updatedResponse.getTimeslotDetail();
+			if (timebookings.size() > 0) {
+				TimeslotType ts = timebookings.get(0);
+				String logicalAddress = ts.getHealthcareFacility();
+				String subjectOfCareId = ts.getSubjectOfCare();
+				
+				if (log.isDebugEnabled()) {
+					log.debug("Perform a partial update of the cache for logical address {} and subject of care id {} with {} entries.",  
+						new Object[] {logicalAddress, subjectOfCareId, timebookings.size()});
+				}
+				getCache().partialUpdate(logicalAddress, subjectOfCareId, updatedResponse);
 			}
-			String logicalAddress = (String)arr[0];
-			GetSubjectOfCareScheduleResponseType resp = (GetSubjectOfCareScheduleResponseType)arr[1]; 
-			List<TimeslotType> timebookings = resp.getTimeslotDetail();
-			
-//			for (TimeslotType timeslot : timebookings) {
-//				String subjectOfCareId = resp.getTimeslotDetail().get(0);
-//			}
-			
 		}
-		
 		return src;
+	}
+
+	// TODO: Should we inject the cache instead? Then we have to specify the cache-name in the inject annotation, is that ok?
+	private CacheMemoryStoreImpl<MuleEvent> cache = null;
+	private CacheMemoryStoreImpl<MuleEvent> getCache() {
+		if (cache == null) {
+			cache = CacheUtil.getCache(muleContext);
+		}
+		return cache;
 	}
 }
