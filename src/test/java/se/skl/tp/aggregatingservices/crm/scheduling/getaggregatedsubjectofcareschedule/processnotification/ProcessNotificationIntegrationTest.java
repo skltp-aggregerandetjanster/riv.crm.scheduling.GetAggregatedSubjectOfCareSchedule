@@ -138,7 +138,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
 		// ACT SOURCE SYSTEM: Update the database in the source system
 		GetSubjectOfCareScheduleResponseType resp = TidbokningTestProducer.retreiveFromDb(expectedLogicalAddress, id);
-		System.err.println("DB VALUE: " + resp.getTimeslotDetail().get(0).getReason());
+		log.debug("DB VALUE: {}", resp.getTimeslotDetail().get(0).getReason());
 		resp.getTimeslotDetail().get(0).setReason(TEST_REASON_UPDATED);
 
 		// ACT EI: Notify the aggregating service of the change

@@ -46,13 +46,13 @@ public class ProcessNotificationRequestListTransformer extends AbstractMessageTr
 	 */
 	protected List<Object[]> pojoTransform(Object src, String encoding) throws TransformerException {
 
-		System.err.println("### PAYLOAD: " + src);
+		log.debug("PAYLOAD: {}", src);
 
 		ProcessNotificationType s = (ProcessNotificationType) jaxbUtil.unmarshal(src);
 
 		List<EngagementTransactionType> txList = s.getEngagementTransaction();
 		for (EngagementTransactionType tx : txList) {
-			System.err.println("PNR: " + tx.getEngagement().getRegisteredResidentIdentification());
+			log.debug("PNR: {}", tx.getEngagement().getRegisteredResidentIdentification());
 		}
 		
 		log.info("### Got {} updates in the engagement index notification", txList.size());
@@ -61,7 +61,7 @@ public class ProcessNotificationRequestListTransformer extends AbstractMessageTr
 		Map<String, String> uniqueLogicalAddresses = new HashMap<String, String>();
 		for (EngagementTransactionType tx : txList) {
 			uniqueLogicalAddresses.put(tx.getEngagement().getLogicalAddress(), tx.getEngagement().getRegisteredResidentIdentification());
-			System.err.println("PNR: " + tx.getEngagement().getRegisteredResidentIdentification() + " IN LOG-ADDR: " + tx.getEngagement().getLogicalAddress());
+			log.debug("PNR: {}, IN LOG-ADDR: {}", tx.getEngagement().getRegisteredResidentIdentification(), tx.getEngagement().getLogicalAddress());
 		}
 
 

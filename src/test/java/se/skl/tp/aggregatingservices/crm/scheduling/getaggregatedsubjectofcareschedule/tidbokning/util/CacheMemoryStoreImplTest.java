@@ -159,7 +159,6 @@ public class CacheMemoryStoreImplTest {
 		// Ensure that the cache has the expected updates
 		MuleEvent eventAfterUpdate = (MuleEvent)c.retrieve("222222222222");
 //		String updatedXml = (String)eventAfterUpdate.getMessage().getPayload();
-////		System.err.println("AFT: " + eventAfterUpdate.getMessage().getPayload());
 //
 //		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS för TEST_LOGICAL_ADDRESS_2
 //		assertEquals(0, StringUtils.countMatches(updatedXml, "<statusCode>DataFromSource</statusCode>"));

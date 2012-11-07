@@ -73,34 +73,16 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
         </jms:inbound-endpoint>
 
 <!-- 
-        <soitoolkitlogger:log-info config-ref="Soitoolkitlogger" message="msg-in: #[payload]" doc:name="Soitoolkitlogger"/>
-
-        <scripting:component doc:name="Groovy">
-            <scripting:script engine="Groovy">
-                <scripting:text><![CDATA[println "Try transform: $payload"
-message]]></scripting:text>
-            </scripting:script>
-        </scripting:component>
- -->
-
         <response>
             <custom-transformer doc:name="Update Cache" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.UpdateCacheTransformer"/>
         </response>
+ -->
 
         <custom-transformer doc:name="Request List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.ProcessNotificationRequestListTransformer" />
 
-<!-- 
-        <scripting:component doc:name="Groovy">
-            <scripting:script engine="Groovy">
-                <scripting:text><![CDATA[println "Transform result: $payload"
-message]]></scripting:text>
-            </scripting:script>
-        </scripting:component>
-
-        <exception-strategy ref="Rollback_Exception_Strategy" doc:name="Reference Exception Strategy"/>
- -->
-
 		<flow-ref name="request-reply-flow" doc:name="request-reply-flow"/>
+
+        <custom-transformer doc:name="Update Cache" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification.UpdateCacheTransformer"/>
 
 	    <rollback-exception-strategy maxRedeliveryAttempts="${SOITOOLKIT_MULE_AMQ_MAX_REDELIVERIES}">
 	
@@ -115,7 +97,6 @@ message]]></scripting:text>
 <!-- 
 		        <st-logger:log-error config-ref="St_Logger" doc:name="Log error" message="Exceeded max no of retries, place payload on DLQ: ${${PROCESS-NOTIFICATION_QUEUE_DLQE}}"/>
  -->
-	
 	            <jms:outbound-endpoint queue="${PROCESS-NOTIFICATION_QUEUE_DLQ}" connector-ref="soitoolkit-jms-connector" transformer-refs="strToJms logMsgOut" doc:name="jms://processNotification.DLQ">
 	                <jms:transaction action="ALWAYS_JOIN"/>
 	            </jms:outbound-endpoint>

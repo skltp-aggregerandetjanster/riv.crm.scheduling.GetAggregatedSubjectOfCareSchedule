@@ -107,7 +107,7 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 	// new HashMap<String, GetSubjectOfCareScheduleResponseType>();
 	
 	public static void initDb() {
-		System.err.println("### INIT-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+		log.debug("### INIT-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
 
 		// Start with resetting the db from old values.
 		resetDb();
@@ -133,12 +133,12 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 	}
 
 	static public void resetDb() {
-		System.err.println("### RESET-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+		log.debug("### RESET-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
 		BOOKING_DB = new HashMap<String, GetSubjectOfCareScheduleResponseType>();
 	}
 
 	static public void storeInDb(String logicalAddress, String subjectOfCareId, GetSubjectOfCareScheduleResponseType value) {
-		System.err.println("### STORE-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+		log.debug("### STORE-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
 		if (BOOKING_DB == null) {
 			initDb();
 		}
@@ -146,7 +146,7 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 	}
 	
 	static public GetSubjectOfCareScheduleResponseType retreiveFromDb(String logicalAddress, String subjectOfCareId) {
-		System.err.println("### RETREIVE-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
+		log.debug("### RETREIVE-DB INIT CALLED NOW, DB == NULL? " + (BOOKING_DB == null));
 		if (BOOKING_DB == null) {
 			initDb();
 		}

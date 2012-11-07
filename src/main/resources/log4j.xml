@@ -80,13 +80,13 @@
 		<level value="INFO" />
 	</logger>
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</logger>
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util">
 		<level value="INFO" />
 	</logger>
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</logger>
 
     <!-- Message logging using soi-toolkit LogTransformer class -->

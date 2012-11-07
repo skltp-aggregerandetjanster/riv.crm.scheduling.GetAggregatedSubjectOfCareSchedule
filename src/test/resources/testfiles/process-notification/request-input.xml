@@ -1,4 +1,13 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<sample xmlns="urn:org.soitoolkit.refapps.sd.sample.schema:v1">
-	<id>1234567890</id>
-</sample>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:ProcessNotification
+	xmlns:ns2="urn:riv:itintegration:engagementindex:ProcessNotificationResponder:1"
+	xmlns="urn:riv:itintegration:engagementindex:1">
+	<ns2:engagementTransaction>
+		<deleteFlag>false</deleteFlag>
+		<engagement>
+			<registeredResidentIdentification>111111111111
+			</registeredResidentIdentification>
+			<logicalAddress>HSA-ID-1</logicalAddress>
+		</engagement>
+	</ns2:engagementTransaction>
+</ns2:ProcessNotification>

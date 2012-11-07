@@ -156,9 +156,6 @@
 		</https:outbound-endpoint>
  
         <catch-exception-strategy doc:name="Catch Exception Strategy">
-<!-- 
-        	SKALL RETURNERA ETT FÄRDIGT ERROR-REPORT OBJECT
- -->
             <custom-transformer doc:name="Error Handler" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningHandleErrorTransformer"/>
 	        <vm:outbound-endpoint path="aggregate" doc:name="vm://aggregate"/>
         </catch-exception-strategy>
@@ -167,34 +164,8 @@
 
     <flow name="aggregation-flow" doc:name="aggregation-flow">
         <vm:inbound-endpoint exchange-pattern="one-way" path="aggregate" doc:name="vm://aggregate"/>
-<!-- 
-        <scripting:component doc:name="Groovy">
-            <scripting:script engine="Groovy">
-                <scripting:text><![CDATA[
-println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + ", agg-in-correlationId: $message.correlationId"
-println "agg-in-correlationGroupSize: $message.correlationGroupSize"
-println "agg-in-payload: " + payload.class.name
-System.err.println("agg-in-p: " + message.getInboundProperty('logical-address'))
-
-return message]]></scripting:text>
-            </scripting:script>
-        </scripting:component>
- -->
 
         <collection-aggregator timeout="${AGGREGATE_TIMEOUT_MS}" failOnTimeout="false" doc:name="Collection Aggregator"/>
-
-<!-- 
-        <scripting:component doc:name="Groovy">
-            <scripting:script engine="Groovy">
-                <scripting:text><![CDATA[println new Date().format('yyyy-MM-dd HH:mm:ss.SSS') + ", agg-out-correlationId: $message.correlationId"
-println "agg-out-correlationGroupSize: $message.correlationGroupSize"
-
-String p = "### RESULT: " + payload.toString()
-println new Date().toString() + ": aggregation result: $p"
-return message]]></scripting:text>
-            </scripting:script>
-        </scripting:component>
- -->
 
         <vm:outbound-endpoint path="reply" doc:name="vm://reply"/>
     </flow>
