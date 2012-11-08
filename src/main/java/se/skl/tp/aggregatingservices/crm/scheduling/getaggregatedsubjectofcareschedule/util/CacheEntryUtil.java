@@ -1,18 +1,15 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util;
+package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util;
 
 import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
+import static org.soitoolkit.commons.xml.XPathUtil.getBuilder;
 import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
 import static org.soitoolkit.commons.xml.XPathUtil.getXml;
-import static org.soitoolkit.commons.xml.XPathUtil.getBuilder;
-
 
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.mule.api.MuleEvent;
 import org.slf4j.Logger;
@@ -23,9 +20,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
-import se.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.riv.interoperability.headers.v1.ObjectFactory;
+import se.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class CacheEntryUtil {
 	

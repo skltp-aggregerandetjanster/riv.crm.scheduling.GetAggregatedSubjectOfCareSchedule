@@ -5,8 +5,7 @@
 	<ns2:engagementTransaction>
 		<deleteFlag>false</deleteFlag>
 		<engagement>
-			<registeredResidentIdentification>111111111111
-			</registeredResidentIdentification>
+			<registeredResidentIdentification>111111111111</registeredResidentIdentification>
 			<logicalAddress>HSA-ID-1</logicalAddress>
 		</engagement>
 	</ns2:engagementTransaction>

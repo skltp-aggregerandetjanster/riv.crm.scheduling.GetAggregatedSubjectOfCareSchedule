@@ -39,7 +39,7 @@
 	<queued-asynchronous-processing-strategy name="tidbokning-workers-processing-strategy" maxThreads="50"/>    
 
     <ee:object-store-caching-strategy name="caching_strategy" keyGenerationExpression="#[payload]" doc:name="Caching Strategy">
-        <custom-object-store class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl">
+        <custom-object-store class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheMemoryStoreImpl">
         	<spring:property name="maxEntries" value="${CACHE_MAX_ENTRIES}"/>
         	<spring:property name="entryTTL" value="${CACHE_TTL_MS}"/>
         	<spring:property name="expirationInterval" value="${CACHE_EXPIRATION_INTERVAL_MS}"/>
@@ -130,7 +130,7 @@
         <vm:outbound-endpoint path="worker" doc:name="vm://worker"/>
     </flow>
     
-	<custom-transformer name="Fix1" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.Fix1Transformer"/>
+	<custom-transformer name="toObjArr" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.ObjectArrayTransformer"/>
 
     
     <flow name="worker-flow" processingStrategy="tidbokning-workers-processing-strategy" doc:name="worker-flow">
@@ -146,7 +146,7 @@
 			exchange-pattern="request-response"
 			responseTimeout="${SERVICE_TIMEOUT_MS}"
 			transformer-refs="logReqOut"
-			responseTransformer-refs="logRespIn Fix1">
+			responseTransformer-refs="logRespIn toObjArr">
 	        <cxf:jaxws-client 
 	        	port="GetSubjectOfCareScheduleResponderPort" 
 	        	operation="GetSubjectOfCareSchedule" 

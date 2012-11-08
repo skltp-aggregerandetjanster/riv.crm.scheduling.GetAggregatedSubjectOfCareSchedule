@@ -1,5 +1,9 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification;
 
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.CATEGORIZATION_BOOKING;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.SERVICE_DOMAIN_SCHEDULING;
+
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.stream.XMLStreamReader;
@@ -10,9 +14,9 @@ import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
-import org.soitoolkit.commons.mule.util.XmlUtil;
 
 import riv.itintegration.engagementindex._1.EngagementTransactionType;
+import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
 
@@ -47,15 +51,30 @@ public class ProcessNotificationRequestTransformer extends AbstractMessageTransf
 		Object request = oArr[1];
 		XMLStreamReader xsr = (XMLStreamReader)request;
 		ProcessNotificationType pn = (ProcessNotificationType)jaxbUtil.unmarshal(xsr);
-		List<EngagementTransactionType> txList = pn.getEngagementTransaction();
-		for (EngagementTransactionType tx : txList) {
-			System.err.println("LA: " + tx.getEngagement().getLogicalAddress());
+		Iterator<EngagementTransactionType> txIterator = pn.getEngagementTransaction().iterator();
+
+		log.info("Filtering process notification with {} transactions from EI, ...", pn.getEngagementTransaction().size());
+		while (txIterator.hasNext()) {
+			EngagementType e = txIterator.next().getEngagement();
+		
+			// Only keep ProcessNotifications for SERVICE_DOMAIN_SCHEDULING and CATEGORIZATION_BOOKING
+			if (e.getServiceDomain() != null && e.getCategorization() != null && 
+				e.getServiceDomain().equals(SERVICE_DOMAIN_SCHEDULING) && e.getCategorization().equals(CATEGORIZATION_BOOKING)) {
+				
+				if (log.isInfoEnabled()) {
+					log.info("Keep process notification for logical address {}, subjectOfCareId {} and bookingId {}", 
+						new Object[] {e.getLogicalAddress(), e.getRegisteredResidentIdentification(), e.getBusinessObjectInstanceIdentifier()});
+				}
+			} else {
+				txIterator.remove();
+				log.info("Remove process notification for service domain {} and categorization {}", e.getServiceDomain(), e.getCategorization());
+			}
 		}
 
 		Object returnArg = jaxbUtil.marshal(of.createProcessNotification(pn));
 
 		// Object returnArg = XmlUtil.convertXMLStreamReaderToString(xsr, xsr.getEncoding());
-		System.err.println("### encoding: " + xsr.getEncoding() + ", obj: " + returnArg);
+		log.debug("### encoding: {}, obj: ", xsr.getEncoding(), returnArg);
 		
 		return returnArg;
 	}

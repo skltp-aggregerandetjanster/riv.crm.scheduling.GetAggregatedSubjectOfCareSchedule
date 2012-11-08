@@ -1,18 +1,19 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.engagemangsindex;
 
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_FAULT_INVALID_ID;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_4;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_FAULT_INVALID_ID;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_3;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.engagemangsindex.FindContentRequestTransformer.SERVICE_DOMAIN_SCHEDULING;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.SERVICE_DOMAIN_SCHEDULING;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.CATEGORIZATION_BOOKING;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,7 +99,7 @@ public class EngagemangsindexTestProducer implements FindContentResponderInterfa
 		
 		EngagementType e = new EngagementType();
 		e.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
-		e.setCategorization("Booking");
+		e.setCategorization(CATEGORIZATION_BOOKING);
 		e.setLogicalAddress(receiverLogicalAddress);
 		e.setRegisteredResidentIdentification(registeredResidentIdentification);
 		e.setBusinessObjectInstanceIdentifier(bookingId);

@@ -18,7 +18,6 @@ import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.module.xml.stax.MapNamespaceContext;
 import org.mule.module.xml.stax.ReversibleXMLStreamReader;
-import org.mule.module.xml.util.XMLUtils;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +28,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
-import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
 
 public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
-
-	public static final String SERVICE_DOMAIN_SCHEDULING = "riv:crm:scheduling";
-	public static final String HSA_ID_NATIONELLT_EI = "HSA-ID-NATIONELLT-EI";
 
 	private static final Logger log = LoggerFactory.getLogger(GetSubjectOfCareIdTransformer.class);
 	private static final JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleType.class);

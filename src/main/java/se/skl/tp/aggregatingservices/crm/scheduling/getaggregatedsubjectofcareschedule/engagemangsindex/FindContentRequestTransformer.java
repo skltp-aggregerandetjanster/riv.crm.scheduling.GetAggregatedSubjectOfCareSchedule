@@ -1,43 +1,22 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.engagemangsindex;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.HSA_ID_NATIONELLT_EI;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.SERVICE_DOMAIN_SCHEDULING;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
-import org.mule.module.xml.stax.MapNamespaceContext;
-import org.mule.module.xml.stax.ReversibleXMLStreamReader;
-import org.mule.module.xml.util.XMLUtils;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
-import org.soitoolkit.commons.mule.util.XmlUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
 
 public class FindContentRequestTransformer extends AbstractMessageTransformer {
 
-	public static final String SERVICE_DOMAIN_SCHEDULING = "riv:crm:scheduling";
-	public static final String HSA_ID_NATIONELLT_EI = "HSA-ID-NATIONELLT-EI";
-
 	private static final Logger log = LoggerFactory.getLogger(FindContentRequestTransformer.class);
-	private static final JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleType.class);
 	private static final Map<String, String> namespaceMap = new HashMap<String, String>();
 	
 	static {

@@ -1,8 +1,8 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util;
+package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util;
 
-import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE_SYNCH_FAILED;
+import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 
 import java.util.Date;
 import java.util.List;

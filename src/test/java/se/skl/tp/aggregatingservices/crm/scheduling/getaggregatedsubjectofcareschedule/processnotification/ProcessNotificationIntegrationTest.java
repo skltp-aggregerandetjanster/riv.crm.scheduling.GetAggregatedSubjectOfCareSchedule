@@ -1,25 +1,22 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
 import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheUtil.getCache;
-
-import java.util.HashMap;
-import java.util.Map;
- 
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_TIMEOUT;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_REASON_DEFAULT;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_REASON_UPDATED;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheUtil.getCache;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.ws.Holder;
-import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Test;
 import org.mule.api.MuleEvent;
@@ -29,16 +26,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
 import org.soitoolkit.commons.mule.test.ActiveMqJmsTestUtil;
- 
- 
 import org.soitoolkit.commons.mule.test.junit4.AbstractTestCase;
- 
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.mulesoft.mule.cache.ObjectStoreCachingStrategy;
 
 import riv.itintegration.engagementindex._1.ResultCodeEnum;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
@@ -47,7 +39,7 @@ import se.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestConsumer;
 import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheMemoryStoreImpl;
 
  
 public class ProcessNotificationIntegrationTest extends AbstractTestCase {
@@ -57,8 +49,8 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 	
 
 	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
-	private static final long   SERVICE_TIMOUT_MS = Long.parseLong(rb.getString("SERVICE_TIMEOUT_MS"));
-	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Response timed out (" + SERVICE_TIMOUT_MS + "ms) waiting for message response id ";
+//	private static final long   SERVICE_TIMOUT_MS = Long.parseLong(rb.getString("SERVICE_TIMEOUT_MS"));
+//	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Response timed out (" + SERVICE_TIMOUT_MS + "ms) waiting for message response id ";
  
 
 	private static final String LOGICAL_ADDRESS = "logical-address";

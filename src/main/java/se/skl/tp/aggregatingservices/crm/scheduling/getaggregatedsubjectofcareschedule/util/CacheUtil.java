@@ -1,4 +1,4 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util;
+package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util;
 
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;

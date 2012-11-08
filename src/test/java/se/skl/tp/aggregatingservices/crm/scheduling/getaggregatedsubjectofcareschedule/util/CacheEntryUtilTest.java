@@ -1,4 +1,4 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util;
+package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,12 +16,9 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.AssertTrue;
-
 import org.junit.Test;
 import org.mule.api.MuleEvent;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
-import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.ObjectFactory;

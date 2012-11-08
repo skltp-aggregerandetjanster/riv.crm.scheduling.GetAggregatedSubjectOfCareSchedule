@@ -6,9 +6,9 @@ import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Fix1Transformer extends AbstractMessageTransformer {
+public class ObjectArrayTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(Fix1Transformer.class);
+	private static final Logger log = LoggerFactory.getLogger(ObjectArrayTransformer.class);
 
     /**
      * Message aware transformer that ...
@@ -18,7 +18,7 @@ public class Fix1Transformer extends AbstractMessageTransformer {
 
     	String logicalAddress = message.getInvocationProperty("logical-address");
     	
-    	log.debug("Add logical-address to the payload as an ibject-array, {}", logicalAddress);
+    	log.debug("Add logical-address to the payload as an object-array, {}", logicalAddress);
 
     	return new Object[] {logicalAddress, message.getPayload()};
 	}

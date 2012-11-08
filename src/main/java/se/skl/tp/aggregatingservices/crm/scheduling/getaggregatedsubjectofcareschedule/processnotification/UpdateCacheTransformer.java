@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheUtil;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheMemoryStoreImpl;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheUtil;
 
 public class UpdateCacheTransformer extends AbstractMessageTransformer {
 

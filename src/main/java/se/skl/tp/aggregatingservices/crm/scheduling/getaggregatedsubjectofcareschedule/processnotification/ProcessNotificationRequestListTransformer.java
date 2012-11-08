@@ -14,11 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
 import riv.itintegration.engagementindex._1.EngagementTransactionType;
-import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
-import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
 
 public class ProcessNotificationRequestListTransformer extends AbstractMessageTransformer {

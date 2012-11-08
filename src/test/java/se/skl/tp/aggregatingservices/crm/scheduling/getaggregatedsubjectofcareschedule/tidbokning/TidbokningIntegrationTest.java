@@ -5,10 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static se.riv.interoperability.headers.v1.CausingAgentEnum.VIRTUALIZATION_PLATFORM;
-import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
+import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.NO_DATA_SYNCH_FAILED;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
@@ -16,20 +15,17 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_TIMEOUT;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1_RESPONSE_TIME;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_3;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1_RESPONSE_TIME;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheUtil.getCache;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheUtil.getCache;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.ws.Holder;
-import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Test;
 import org.mule.api.MuleEvent;
@@ -39,15 +35,13 @@ import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
 import org.soitoolkit.commons.mule.test.ActiveMqJmsTestUtil;
 import org.soitoolkit.commons.mule.test.junit4.AbstractTestCase;
 
-import com.mulesoft.mule.cache.ObjectStoreCachingStrategy;
-
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
 import se.riv.interoperability.headers.v1.CausingAgentEnum;
 import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.CacheMemoryStoreImpl;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheMemoryStoreImpl;
 
  
 public class TidbokningIntegrationTest extends AbstractTestCase {

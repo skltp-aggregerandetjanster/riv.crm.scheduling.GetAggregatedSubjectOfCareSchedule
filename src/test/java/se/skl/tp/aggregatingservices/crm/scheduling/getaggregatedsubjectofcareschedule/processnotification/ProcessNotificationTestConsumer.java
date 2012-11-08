@@ -3,17 +3,17 @@ package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcares
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
 
 import java.net.URL;
+
 import org.apache.cxf.bus.spring.SpringBusFactory;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
-import riv.itintegration.engagementindex._1.EngagementTransactionType;
-import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.itintegration.engagementindex.processnotification.v1.rivtabp21.ProcessNotificationResponderInterface;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.TestUtil;
 
 public class ProcessNotificationTestConsumer {
 
@@ -23,6 +23,7 @@ public class ProcessNotificationTestConsumer {
 	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 
 	private ProcessNotificationResponderInterface _service = null;
+	private TestUtil tu = new TestUtil();
 	    
     public ProcessNotificationTestConsumer(String serviceAddress) {
 		JaxWsProxyFactoryBean proxyFactory = new JaxWsProxyFactoryBean();
@@ -52,13 +53,9 @@ public class ProcessNotificationTestConsumer {
 
     public ProcessNotificationResponseType callService(String receiverLogicalAddress, String id, String sourceSystemLogicalAddress) {
             log.debug("Calling sample-soap-service with id = {}", id);
+            String bookingId = "9876";
             ProcessNotificationType request = new ProcessNotificationType();
-            EngagementTransactionType transaction = new EngagementTransactionType();
-            EngagementType e = new EngagementType();
-            e.setRegisteredResidentIdentification(id);
-            e.setLogicalAddress(sourceSystemLogicalAddress);
-			transaction.setEngagement(e);
-			request.getEngagementTransaction().add(transaction);
+			request.getEngagementTransaction().add(tu.createEngagementTransaction(id, sourceSystemLogicalAddress, bookingId));
             return _service.processNotification(receiverLogicalAddress, request);
-    }	
+    }
 }

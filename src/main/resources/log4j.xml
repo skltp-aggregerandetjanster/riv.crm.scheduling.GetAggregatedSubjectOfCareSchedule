@@ -82,7 +82,7 @@
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer">
 		<level value="INFO" />
 	</logger>
-	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util">
+	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util">
 		<level value="INFO" />
 	</logger>
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification">

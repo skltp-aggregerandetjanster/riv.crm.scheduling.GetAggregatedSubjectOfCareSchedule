@@ -70,15 +70,15 @@
             <property name="mimeType"/>
             <property value="34" name="auxiliary;index"/>
             <property value="34" name="auxiliary;index"/>
-            <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.Fix1Transformer" name="class"/>
+            <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.ObjectArrayTransformer" name="class"/>
             <property value="34" name="auxiliary;index"/>
-            <property value="Fix1" name="name"/>
+            <property value="toObjArr" name="name"/>
             <property value="34" name="auxiliary;index"/>
             <property value="34" name="auxiliary;index"/>
             <property value="34" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="cache-flow" entity-id="de2405fa-1994-4004-8919-3cc6f24cb84c">
+    <flow SubFlow="false" name="cache-flow" entity-id="7bdc4a7d-afc7-4131-b067-61bb3c61e34f">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -256,7 +256,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="main-flow" entity-id="76155619-3b34-48b2-90f6-4f34c292a52b">
+    <flow SubFlow="false" name="main-flow" entity-id="3390fdda-f467-4f36-b6e3-9e87da55d5d0">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -422,7 +422,7 @@
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="request-reply-flow" entity-id="4f125c41-f645-4ebd-a654-8ed9d69905c0">
+    <flow SubFlow="false" name="request-reply-flow" entity-id="1b8c1133-5758-4565-9ea8-818c2563d146">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -446,7 +446,7 @@
             </unknown>
         </lane>
     </flow>
-    <flow SubFlow="false" name="splitter-flow" entity-id="059aa13b-f4ed-4db7-8b77-513de03adbbe">
+    <flow SubFlow="false" name="splitter-flow" entity-id="d7f3b8b8-2215-46b6-bdd0-6f45f58a471f">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -553,7 +553,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="worker-flow" entity-id="acd35c58-0875-4c4c-956a-daa63866d8f5">
+    <flow SubFlow="false" name="worker-flow" entity-id="6fdc7c4f-a38d-45f8-83c9-5eeeb9cd7379">
         <properties>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy2"/>
             <property value="tidbokning-workers-processing-strategy" name="processingStrategy"/>
@@ -640,7 +640,7 @@
                     <property value="soitoolkit-https-connector" name="connector-ref-outbound"/>
                     <property name="ref"/>
                     <property value="logReqOut" name="transformer-refs"/>
-                    <property value="logRespIn Fix1" name="responseTransformer-refs"/>
+                    <property value="logRespIn toObjArr" name="responseTransformer-refs"/>
                     <property value="38" name="auxiliary;index"/>
                     <property value="38" name="auxiliary;index"/>
                     <property name="user"/>
@@ -674,7 +674,7 @@
                     <property value="soitoolkit-https-connector" name="connector-ref"/>
                     <property name="ref"/>
                     <property value="logReqOut" name="transformer-refs"/>
-                    <property value="logRespIn Fix1" name="responseTransformer-refs"/>
+                    <property value="logRespIn toObjArr" name="responseTransformer-refs"/>
                     <property value="38" name="auxiliary;index"/>
                     <property value="38" name="auxiliary;index"/>
                     <property name="user"/>
@@ -746,7 +746,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="aggregation-flow" entity-id="601c7ef7-f1a2-4b62-8486-e6ea2297416a">
+    <flow SubFlow="false" name="aggregation-flow" entity-id="84a5b26f-341c-497c-b68d-7356cd6b813a">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

@@ -1,9 +1,11 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util;
+package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.CATEGORIZATION_BOOKING;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.SERVICE_DOMAIN_SCHEDULING;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -14,6 +16,8 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
+import riv.itintegration.engagementindex._1.EngagementTransactionType;
+import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
 import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
@@ -172,6 +176,21 @@ public class TestUtil {
 		return null;
 	}
 	
+	public EngagementTransactionType createEngagementTransaction(String subjectofCareId, String logicalAddress, String bookingId) {
+		EngagementTransactionType transaction = new EngagementTransactionType();
+		EngagementType e = new EngagementType();
+		e.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
+		e.setCategorization(CATEGORIZATION_BOOKING);
+		e.setRegisteredResidentIdentification(subjectofCareId);
+		e.setLogicalAddress(logicalAddress);
+		e.setBusinessObjectInstanceIdentifier(bookingId);
+		e.setCreationTime("20111010T100000");
+		e.setUpdateTime("20111010T100000");
+		
+		transaction.setEngagement(e);
+		return transaction;
+	}	
+
 	public Date parseDate(String processingStatusDate) throws ParseException {
 		return df.parse(processingStatusDate);
 	}

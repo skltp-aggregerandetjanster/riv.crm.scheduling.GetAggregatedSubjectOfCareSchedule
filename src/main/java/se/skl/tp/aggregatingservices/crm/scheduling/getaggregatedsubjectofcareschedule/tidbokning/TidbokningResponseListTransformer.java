@@ -28,7 +28,6 @@ import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
-import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -38,7 +37,7 @@ import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCa
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.ObjectFactory;
 import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.util.ProcessingStatusUtil;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.ProcessingStatusUtil;
 
 public class TidbokningResponseListTransformer extends AbstractMessageTransformer {
 
