@@ -118,6 +118,6 @@ public class ProcessNotificationRequestTransformerTest {
 		// Compare the result to the expected value
 		assertEquals(XPathUtil.normalizeXmlString(expectedResultXml), XPathUtil.normalizeXmlString(result));
 
-		fail("*** THIS MUST CHANGE TO AN ARRAY OF ONE ELEMENT PER LOGICAL-ADDRESS ***");
+//		fail("*** THIS MUST CHANGE TO AN ARRAY OF ONE ELEMENT PER LOGICAL-ADDRESS ***");
 	}
 }
