@@ -45,7 +45,7 @@ public class TidbokningRequestListTransformer extends AbstractMessageTransformer
 		FindContentResponseType inResp = (FindContentResponseType)src;
 		List<EngagementType> inEngagements = inResp.getEngagement();
 		
-		log.info("### Got {} hits in the engagement index", inEngagements.size());
+		log.info("Got {} hits in the engagement index", inEngagements.size());
 
 		// Since we are using the GetSubjectOfCareSchedule that returns all bookings from a logical-address in one call we can reduce multiple hits in the index for the same logical-address to lower the number of calls required
 		Map<String, String> uniqueLogicalAddresses = new HashMap<String, String>();
@@ -64,6 +64,8 @@ public class TidbokningRequestListTransformer extends AbstractMessageTransformer
 			String logicalAdress = entry.getKey();
 			String subjectOfCare = entry.getValue();
 
+			log.info("Calling source system using logical address {} for subject of care id {}", logicalAdress, subjectOfCare);
+
 			// FIX ME. Get Actor from some invocation variable
 			ActorType actor = new ActorType();
 			actor.setActorId("999");
@@ -78,7 +80,7 @@ public class TidbokningRequestListTransformer extends AbstractMessageTransformer
 			reqList.add(reqArr);
 		}
 
-		log.info("Transformed payload: {}", reqList);
+		log.debug("Transformed payload: {}", reqList);
 
 		return reqList;
 	}

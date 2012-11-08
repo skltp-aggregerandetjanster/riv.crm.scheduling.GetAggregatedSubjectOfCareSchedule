@@ -66,8 +66,8 @@ public class EngagemangsindexTestProducer implements FindContentResponderInterfa
 
 	@Override
 	public FindContentResponseType findContent(String logicalAdress, FindContentType request) {
-		
-		log.info("### Engagemengsindex fick en fråga om FindContentResponseType received the request: {}", request.getRegisteredResidentIdentification());
+
+		log.info("### Engagemengsindex.findContent() received a request for subject of care id: {}", request.getRegisteredResidentIdentification());
 
 		String id = request.getRegisteredResidentIdentification();
 

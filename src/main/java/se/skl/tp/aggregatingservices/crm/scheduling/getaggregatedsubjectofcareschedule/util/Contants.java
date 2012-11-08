@@ -1,9 +1,14 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util;
 
+import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
+
 public class Contants {
+
+	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 
 	public static final String SERVICE_DOMAIN_SCHEDULING = "riv:crm:scheduling";
 	public static final String CATEGORIZATION_BOOKING = "Booking";
-	public static final String HSA_ID_NATIONELLT_EI = "HSA-ID-NATIONELLT-EI"; // FIX ME!!!! Property???
-	
+
+	public static final String ENGAGEMANGSINDEX_HSA_ID = rb.getString("ENGAGEMANGSINDEX_HSA_ID");
+
 }

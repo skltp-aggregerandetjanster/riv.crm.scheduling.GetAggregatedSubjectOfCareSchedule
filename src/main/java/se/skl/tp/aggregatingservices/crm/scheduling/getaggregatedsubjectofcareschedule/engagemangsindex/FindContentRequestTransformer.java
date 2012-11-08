@@ -1,6 +1,6 @@
 package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.engagemangsindex;
 
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.HSA_ID_NATIONELLT_EI;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.ENGAGEMANGSINDEX_HSA_ID;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.SERVICE_DOMAIN_SCHEDULING;
 
 import java.util.HashMap;
@@ -52,8 +52,10 @@ public class FindContentRequestTransformer extends AbstractMessageTransformer {
 		reqOut.setRegisteredResidentIdentification(subjectofCareId);
 		reqOut.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
 		
-		Object[] reqOutList = new Object[] {HSA_ID_NATIONELLT_EI, reqOut};
+		Object[] reqOutList = new Object[] {ENGAGEMANGSINDEX_HSA_ID, reqOut};
 
+		log.info("Calling EI using logical address {} for subject of care id {}", ENGAGEMANGSINDEX_HSA_ID, subjectofCareId);
+		
 		log.debug("Transformed payload: {}, pid: {}", reqOutList, reqOut.getRegisteredResidentIdentification());
 		
 		return reqOutList;

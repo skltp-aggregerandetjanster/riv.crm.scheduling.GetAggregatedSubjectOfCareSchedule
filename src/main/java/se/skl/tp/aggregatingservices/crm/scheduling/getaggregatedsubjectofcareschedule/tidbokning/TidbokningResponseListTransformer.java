@@ -121,6 +121,15 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
         	}
 		}
         
+        if (log.isInfoEnabled()) {
+    		String subjectOfCareId = "";
+        	if (aggregatedResponse.getTimeslotDetail().size() > 0) {
+        		subjectOfCareId = aggregatedResponse.getTimeslotDetail().get(0).getSubjectOfCare();
+        	}
+        	log.info("Returning {} aggregated schedules from {} source systems for subject of care id {}", 
+        		new Object[] {aggregatedResponse.getTimeslotDetail().size(), psu.getStatus().getProcessingStatusList().size() ,subjectOfCareId});
+        }
+        
         // Since the class GetSubjectOfCareScheduleResponseType don't have an @XmlRootElement annotation
         // we need to use the ObjectFactory to add it.
         String xml = jaxbUtil.marshal(OF.createGetSubjectOfCareScheduleResponse(aggregatedResponse));

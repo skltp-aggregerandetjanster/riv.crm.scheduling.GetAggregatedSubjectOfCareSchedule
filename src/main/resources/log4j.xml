@@ -73,19 +73,6 @@
 	</logger>
 
 	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule">
-		<level value="WARN" />
-	</logger>
-
-	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestConsumer">
-		<level value="INFO" />
-	</logger>
-	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer">
-		<level value="INFO" />
-	</logger>
-	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util">
-		<level value="INFO" />
-	</logger>
-	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.processnotification">
 		<level value="INFO" />
 	</logger>
 

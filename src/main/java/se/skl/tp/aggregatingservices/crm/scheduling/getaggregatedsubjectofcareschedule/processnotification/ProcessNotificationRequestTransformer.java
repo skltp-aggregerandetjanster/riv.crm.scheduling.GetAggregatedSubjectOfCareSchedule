@@ -4,7 +4,6 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.Contants.SERVICE_DOMAIN_SCHEDULING;
 
 import java.util.Iterator;
-import java.util.List;
 
 import javax.xml.stream.XMLStreamReader;
 
