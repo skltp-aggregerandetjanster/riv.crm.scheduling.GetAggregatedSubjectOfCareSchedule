@@ -137,7 +137,7 @@ public class CacheMemoryStoreImplTest {
 		
 //		String inputXml = (String)eventBeforeUpdate.getMessage().getPayload();
 //		
-//		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS för TEST_LOGICAL_ADDRESS_2
+//		// TODO: GÃ–R OM TILL JAVA TESTER + KOLLA TS fï¿½r TEST_LOGICAL_ADDRESS_2
 //		assertEquals(0, StringUtils.countMatches(inputXml, "<statusCode>DataFromSource</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(inputXml, "<statusCode>NoDataSynchFailed</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(inputXml, "<isResponseFromCache>false</isResponseFromCache>"));
@@ -161,7 +161,7 @@ public class CacheMemoryStoreImplTest {
 		MuleEvent eventAfterUpdate = (MuleEvent)c.retrieve("222222222222");
 //		String updatedXml = (String)eventAfterUpdate.getMessage().getPayload();
 //
-//		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS för TEST_LOGICAL_ADDRESS_2
+//		// TODO: GÃ–R OM TILL JAVA TESTER + KOLLA TS fï¿½r TEST_LOGICAL_ADDRESS_2
 //		assertEquals(0, StringUtils.countMatches(updatedXml, "<statusCode>DataFromSource</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(updatedXml, "<statusCode>NoDataSynchFailed</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(updatedXml, "<isResponseFromCache>false</isResponseFromCache>"));

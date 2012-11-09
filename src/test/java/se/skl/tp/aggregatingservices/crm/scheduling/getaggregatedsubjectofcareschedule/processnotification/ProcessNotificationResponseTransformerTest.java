@@ -29,7 +29,7 @@ public class ProcessNotificationResponseTransformerTest {
 	public void testTransformer_fault() throws Exception {
 
 		// Specify input and expected result 
-		// FIX ME: For the moment we donät have ny negative test, go with the positive results...
+		// FIX ME: For the moment we don't have ny negative test, go with the positive results...
 		String expectedResult = MiscUtil.readFileAsString("src/test/resources/testfiles/process-notification/response-expected-result.xml");
 //		String expectedResult = MiscUtil.readFileAsString("src/test/resources/testfiles/process-notification/fault-response-expected-result.xml");
 		
