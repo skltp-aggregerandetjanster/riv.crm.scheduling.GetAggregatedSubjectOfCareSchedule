@@ -13,7 +13,7 @@ import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import se.riv.itintegration.engagementindex.processnotification.v1.rivtabp21.ProcessNotificationResponderInterface;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.TestUtil;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.MyTestUtil;
 
 public class ProcessNotificationTestConsumer {
 
@@ -23,7 +23,7 @@ public class ProcessNotificationTestConsumer {
 	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 
 	private ProcessNotificationResponderInterface _service = null;
-	private TestUtil tu = new TestUtil();
+	private MyTestUtil tu = new MyTestUtil();
 	    
     public ProcessNotificationTestConsumer(String serviceAddress) {
 		JaxWsProxyFactoryBean proxyFactory = new JaxWsProxyFactoryBean();

@@ -24,11 +24,11 @@ import riv.itintegration.engagementindex._1.EngagementTransactionType;
 import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.TestUtil;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.MyTestUtil;
 
 public class ProcessNotificationRequestTransformerTest {
 
-	private TestUtil tu = new TestUtil();
+	private MyTestUtil tu = new MyTestUtil();
 	private JaxbUtil jaxbUtil = new JaxbUtil(ProcessNotificationType.class);
 	private ObjectFactory of = new ObjectFactory();
 

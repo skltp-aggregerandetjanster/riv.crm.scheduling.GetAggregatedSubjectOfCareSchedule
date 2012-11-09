@@ -29,13 +29,13 @@ import se.riv.interoperability.headers.v1.StatusCodeEnum;
 
 public class CacheMemoryStoreImplTest {
 
-	TestUtil testUtil = new TestUtil();
+	MyTestUtil testUtil = new MyTestUtil();
 	JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class);
 
 	@Test
 	public void testUpdateProcessingStatus_single_ok() throws Exception {
 	
-		String inputXml = TestUtil.singleXml;
+		String inputXml = MyTestUtil.singleXml;
 		MuleEvent event = testUtil.getMockedMuleEvent();		
 		event.getMessage().setPayload(inputXml);
 
@@ -60,7 +60,7 @@ public class CacheMemoryStoreImplTest {
 	@Test
 	public void testUpdateProcessingStatus_multiple_ok() throws Exception {
 	
-		String inputXml = TestUtil.multiXml;
+		String inputXml = MyTestUtil.multiXml;
 		MuleEvent event = testUtil.getMockedMuleEvent();		
 		event.getMessage().setPayload(inputXml);
 		
@@ -92,7 +92,7 @@ public class CacheMemoryStoreImplTest {
 		// Setup a cache with some initial data
 		CacheMemoryStoreImpl<Serializable> c = new CacheMemoryStoreImpl<Serializable>();
 		MuleEvent e = testUtil.getMockedMuleEvent();		
-		e.getMessage().setPayload(TestUtil.multiXml);
+		e.getMessage().setPayload(MyTestUtil.multiXml);
 		c.store("222222222222", e);
 		
 		// Ensure that the cache has the expected input,

@@ -28,7 +28,7 @@ import se.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class CacheEntryUtilTest {
 
-	private TestUtil testUtil = new TestUtil();
+	private MyTestUtil testUtil = new MyTestUtil();
 	
 	private JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class);
 	private ObjectFactory of = new ObjectFactory();
@@ -43,7 +43,7 @@ public class CacheEntryUtilTest {
 
 		// Create a CacheEntry for a simple response
 		MuleEvent e = testUtil.getMockedMuleEvent();		
-		e.getMessage().setPayload(TestUtil.singleXml);
+		e.getMessage().setPayload(MyTestUtil.singleXml);
 		CacheEntryUtil ce = new CacheEntryUtil(e);
 
 		// Assert the expected processing status
@@ -87,11 +87,11 @@ public class CacheEntryUtilTest {
 
 		// Create a CacheEntry for a simple response
 		MuleEvent e = testUtil.getMockedMuleEvent();		
-		e.getMessage().setPayload(TestUtil.singleXml);
+		e.getMessage().setPayload(MyTestUtil.singleXml);
 		CacheEntryUtil ce = new CacheEntryUtil(e);
 
 		// Assert the expected body-part
-		assertEquals(normalizeXmlString(TestUtil.singleXmlBody), normalizeXmlString(ce.getSoapBody()));
+		assertEquals(normalizeXmlString(MyTestUtil.singleXmlBody), normalizeXmlString(ce.getSoapBody()));
 		
 		// Update the body
 		String newBodyXml = "<ns1:GetSubjectOfCareScheduleResponse xmlns:ns1=\"urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1\"/>";
@@ -115,7 +115,7 @@ public class CacheEntryUtilTest {
 
 		// Create a CacheEntry for a complex response, i.e. from many different logicalAdresses for one and the same subjectOfCareId
 		MuleEvent e = testUtil.getMockedMuleEvent();		
-		e.getMessage().setPayload(TestUtil.multiXml);
+		e.getMessage().setPayload(MyTestUtil.multiXml);
 		CacheEntryUtil ce = new CacheEntryUtil(e);
 
 		// Get the current total response from the cache entry (for this subjectOfCareId)

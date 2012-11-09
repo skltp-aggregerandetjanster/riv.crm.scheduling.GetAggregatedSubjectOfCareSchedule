@@ -23,7 +23,7 @@ import se.riv.crm.scheduling.v1.TimeslotType;
 import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
 
-public class TestUtil {
+public class MyTestUtil {
 
 	private ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("yyyyMMddHHmmss");
 	
