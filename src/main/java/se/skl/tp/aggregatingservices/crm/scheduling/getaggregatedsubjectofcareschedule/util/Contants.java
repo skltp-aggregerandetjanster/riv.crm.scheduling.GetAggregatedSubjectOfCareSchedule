@@ -4,7 +4,7 @@ import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
 public class Contants {
 
-	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
+	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config-override", "GetAggregatedSubjectOfCareSchedule-config");
 
 	public static final String SERVICE_DOMAIN_SCHEDULING = "riv:crm:scheduling";
 	public static final String CATEGORIZATION_BOOKING = "Booking";
