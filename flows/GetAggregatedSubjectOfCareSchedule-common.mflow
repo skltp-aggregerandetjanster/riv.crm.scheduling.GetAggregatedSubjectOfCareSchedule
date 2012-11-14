@@ -155,7 +155,7 @@
         </properties>
     </global-element>
     <global-unknown index="22" description="false" entity-id="global-unknown#2">
-        <content>&lt;rest:config xmlns:rest=&quot;http://www.mulesoft.org/schema/mule/rest&quot;/&gt;</content>
+        <content>&lt;rest-router:config xmlns:rest-router=&quot;http://www.mulesoft.org/schema/mule/rest-router&quot;/&gt;</content>
     </global-unknown>
     <global-element type="http://www.springframework.org/schema/beans/import" name="Import" entity-id="Import#3">
         <properties>
