@@ -10,10 +10,11 @@ import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.NO_DATA_SYNCH_FAILED;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ZERO_BOOKINGS;
+import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
@@ -95,6 +96,11 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 
 
     @Test
+    public void test_ok_zero_bookings() {
+    	do_test_ok_zero_bookings(TEST_ID_ZERO_BOOKINGS);		
+    }
+
+    @Test
     public void test_ok_one_booking() {
     	String id = TEST_ID_ONE_BOOKING;
     	String expectedBookingId = TEST_BOOKING_ID_ONE_BOOKING;
@@ -104,6 +110,20 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		
 		assertProcessingStatusDataFromSource(statusList.getProcessingStatusList().get(0), expectedLogicalAddress);
     }
+
+	private ProcessingStatusType do_test_ok_zero_bookings(String id) {
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
+		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
+		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
+    	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);
+
+    	GetSubjectOfCareScheduleResponseType response = responseHolder.value;
+		assertEquals(0, response.getTimeslotDetail().size());
+		
+		ProcessingStatusType statusList = processingStatusHolder.value;
+		assertEquals(0, statusList.getProcessingStatusList().size());
+		return statusList;
+	}
 
 	private ProcessingStatusType do_test_ok_one_booking(String id,
 			String expectedBookingId, String expectedLogicalAddress) {

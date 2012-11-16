@@ -98,7 +98,22 @@
 
 	    <custom-transformer doc:name="Request List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestListTransformer"/>
 
-		<flow-ref name="request-reply-flow" doc:name="request-reply-flow"/>
+        <choice doc:name="Choice">
+            <when expression="payload.size() == 0">
+                <processor-chain>
+                    <scripting:component doc:name="Set empty result">
+                        <scripting:script engine="Groovy">
+                            <scripting:text><![CDATA[return []]]></scripting:text>
+                        </scripting:script>
+                    </scripting:component>
+                </processor-chain>
+            </when>
+            <otherwise>
+                <processor-chain>
+					<flow-ref name="request-reply-flow" doc:name="request-reply-flow"/>
+                </processor-chain>
+            </otherwise>
+        </choice>
 
 	</flow>
 	

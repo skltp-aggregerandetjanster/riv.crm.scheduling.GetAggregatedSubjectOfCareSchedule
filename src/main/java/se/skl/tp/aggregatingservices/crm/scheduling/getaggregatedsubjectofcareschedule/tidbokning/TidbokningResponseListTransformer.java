@@ -82,12 +82,16 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
      */
     public Object pojoTransform(Object src, String outputEncoding) throws TransformerException {
         log.debug("Transforming payload: {}", src);
-        
-		@SuppressWarnings("unchecked")
+
+        @SuppressWarnings("unchecked")
 		List<Object> listSrc = (List<Object>)src;
 
-		log.debug("TidbokningResponseListTransformer is transforming {} rows", listSrc.size());
-        log.debug("TidbokningResponseListTransformer type of first element {}", listSrc.get(0).getClass().getName());
+        if (log.isDebugEnabled()) {
+			log.debug("TidbokningResponseListTransformer is transforming {} rows", listSrc.size());
+	        if (listSrc.size() > 0) {
+	        	log.debug("TidbokningResponseListTransformer type of first element {}", listSrc.get(0).getClass().getName());
+	        }
+        }
 
         ProcessingStatusUtil psu = new ProcessingStatusUtil();
         GetSubjectOfCareScheduleResponseType aggregatedResponse = new GetSubjectOfCareScheduleResponseType();
@@ -172,8 +176,8 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 		}
 
 		xml = getXml(respDoc);
-        
-        log.debug("Transforming result: {}", xml);
+
+		log.debug("Transforming result: {}", xml);
 
         return xml;
 	}

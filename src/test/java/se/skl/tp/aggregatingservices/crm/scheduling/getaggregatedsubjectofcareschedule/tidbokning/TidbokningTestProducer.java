@@ -22,6 +22,7 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
     private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 	private static final long SERVICE_TIMOUT_MS = Long.parseLong(rb.getString("SERVICE_TIMEOUT_MS"));
 
+	public static final String TEST_ID_ZERO_BOOKINGS = "000000000000";
 	public static final String TEST_ID_ONE_BOOKING   = "111111111111";
 	public static final String TEST_ID_MANY_BOOKINGS = "222222222222";
 	public static final String TEST_ID_FAULT_INVALID_ID = "-1";
