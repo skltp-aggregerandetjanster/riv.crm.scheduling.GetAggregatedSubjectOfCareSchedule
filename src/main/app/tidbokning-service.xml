@@ -61,9 +61,9 @@ TODO: Mule EE dependency
 		</https:inbound-endpoint>
 
 		<cxf:proxy-service 
-			service="GetAggregatedSubjectOfCareScheduleResponderService"
-			wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetAggregatedSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl"
-			namespace="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareSchedule:1:rivtabp21"
+			service="GetSubjectOfCareScheduleResponderService"
+			wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl"
+			namespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21"
 			payload="envelope">
 		</cxf:proxy-service>
 		

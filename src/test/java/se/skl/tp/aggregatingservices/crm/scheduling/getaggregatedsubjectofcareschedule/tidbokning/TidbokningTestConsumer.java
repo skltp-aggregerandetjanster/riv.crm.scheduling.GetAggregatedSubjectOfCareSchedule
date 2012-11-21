@@ -12,7 +12,7 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import se.riv.crm.scheduling.getaggregatedsubjectofcareschedule.v1.rivtabp21.GetAggregatedSubjectOfCareScheduleResponderInterface;
+import se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21.GetSubjectOfCareScheduleResponderInterface;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.interoperability.headers.v1.ActorType;
@@ -23,7 +23,7 @@ public class TidbokningTestConsumer {
 
 	private static final Logger log = LoggerFactory.getLogger(TidbokningTestConsumer.class);
 
-	private GetAggregatedSubjectOfCareScheduleResponderInterface _service = null;
+	private GetSubjectOfCareScheduleResponderInterface _service = null;
 
 	public static void main(String[] args) {
 		String serviceAddress = getAddress("TIDBOKNING_INBOUND_URL");
@@ -52,7 +52,7 @@ public class TidbokningTestConsumer {
 	
 	public TidbokningTestConsumer(String serviceAddress) {
 		JaxWsProxyFactoryBean proxyFactory = new JaxWsProxyFactoryBean();
-		proxyFactory.setServiceClass(GetAggregatedSubjectOfCareScheduleResponderInterface.class);
+		proxyFactory.setServiceClass(GetSubjectOfCareScheduleResponderInterface.class);
 		proxyFactory.setAddress(serviceAddress);
 		
 		//Used for HTTPS
@@ -61,12 +61,9 @@ public class TidbokningTestConsumer {
 		if (cxfConfig != null) {
 			proxyFactory.setBus(bf.createBus(cxfConfig));
 		}
-		
-		_service  = (GetAggregatedSubjectOfCareScheduleResponderInterface) proxyFactory.create(); 
 
-		
-		
-		
+		_service  = (GetSubjectOfCareScheduleResponderInterface) proxyFactory.create(); 
+
 //		try {
 //            URL url =  new URL(serviceAddress + "?wsdl");
 //            _service = new GetAggregatedSubjectOfCareScheduleResponderService(url).getGetAggregatedSubjectOfCareScheduleResponderPort();
@@ -85,7 +82,8 @@ public class TidbokningTestConsumer {
 		
 		GetSubjectOfCareScheduleType request = new GetSubjectOfCareScheduleType();
 		request.setSubjectOfCare(id);
-		
-		_service.getAggregatedSubjectOfCareSchedule(logicalAddress, actor, request, processingStatusHolder, responseHolder);
+
+		GetSubjectOfCareScheduleResponseType response = _service.getSubjectOfCareSchedule(logicalAddress, actor, request);
+		responseHolder.value = response;
 	}
 }
