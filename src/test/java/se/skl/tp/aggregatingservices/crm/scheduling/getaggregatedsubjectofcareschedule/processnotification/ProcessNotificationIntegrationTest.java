@@ -109,24 +109,28 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
     @Test
     public void test_ok() {
     	
-		CacheMemoryStoreImpl<MuleEvent> cache = getCache(muleContext);
-		cache.reset();
+//		TODO: Mule EE dependency
+//		CacheMemoryStoreImpl<MuleEvent> cache = getCache(muleContext);
+//		cache.reset();
 
 		String id = TEST_ID_ONE_BOOKING;
 
-		// Verify that the cache is missing an entry of the used id.
-		try {
-			cache.retrieve(id);
-		} catch (ObjectStoreException e) {
-			assertSame(ObjectDoesNotExistException.class, e.getClass());
-		}
+//		TODO: Mule EE dependency
+//		// Verify that the cache is missing an entry of the used id.
+//		try {
+//			cache.retrieve(id);
+//			fail("Expected cache miss here");
+//		} catch (ObjectStoreException e) {
+//			assertSame(ObjectDoesNotExistException.class, e.getClass());
+//		}
 		
     	String expectedBookingId = TEST_BOOKING_ID_ONE_BOOKING;
 		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
 		do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
 		
-		// Verify that the cache has an entry of the used id with an expected initial state
-		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
+//		TODO: Mule EE dependency
+//		// Verify that the cache has an entry of the used id with an expected initial state
+//		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
 
 		// ACT SOURCE SYSTEM: Update the database in the source system
 		GetSubjectOfCareScheduleResponseType resp = TidbokningTestProducer.retreiveFromDb(expectedLogicalAddress, id);
@@ -145,8 +149,9 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		} catch (InterruptedException e) {
 		}
 
-		// Verify that the cache has been updated by the notification
-		assertReasonInResponse(cache, id, TEST_REASON_UPDATED);
+//		TODO: Mule EE dependency
+//		// Verify that the cache has been updated by the notification
+//		assertReasonInResponse(cache, id, TEST_REASON_UPDATED);
 
 	}
 

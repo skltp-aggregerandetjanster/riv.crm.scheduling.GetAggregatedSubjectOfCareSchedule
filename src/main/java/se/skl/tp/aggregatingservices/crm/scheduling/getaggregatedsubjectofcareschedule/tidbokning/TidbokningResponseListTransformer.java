@@ -177,6 +177,7 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 
 		xml = getXml(respDoc);
 
+//		System.err.println("RESPONSE: " + xml);
 		log.debug("Transforming result: {}", xml);
 
         return xml;

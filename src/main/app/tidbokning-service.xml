@@ -4,7 +4,6 @@
 	xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:spring="http://www.springframework.org/schema/beans"
-	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" 
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
 	xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc"
@@ -20,7 +19,6 @@
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.mulesoft.org/schema/mule/core      http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-		http://www.mulesoft.org/schema/mule/ee/core   http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
 		http://www.mulesoft.org/schema/mule/vm        http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 		http://www.mulesoft.org/schema/mule/jdbc      http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd
 		http://www.mulesoft.org/schema/mule/cxf       http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
@@ -34,8 +32,15 @@
 		http://www.mulesoft.org/schema/mule/xml       http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 	">
 
+<!-- 
+TODO: Mule EE dependency
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" 
+		http://www.mulesoft.org/schema/mule/ee/core   http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+ -->
+
 	<queued-asynchronous-processing-strategy name="tidbokning-workers-processing-strategy" maxThreads="50"/>    
 
+<!-- TODO: Mule EE dependency
     <ee:object-store-caching-strategy name="caching_strategy" keyGenerationExpression="#[payload]" doc:name="Caching Strategy">
         <custom-object-store class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheMemoryStoreImpl">
         	<spring:property name="maxEntries" value="${CACHE_MAX_ENTRIES}"/>
@@ -43,7 +48,7 @@
         	<spring:property name="expirationInterval" value="${CACHE_EXPIRATION_INTERVAL_MS}"/>
         </custom-object-store>
     </ee:object-store-caching-strategy>
-    
+-->    
 	<flow name="cache-flow">
 
 		<https:inbound-endpoint
@@ -64,10 +69,12 @@
 		
 	    <custom-transformer doc:name="Extract SubjectOfCare Id" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
 
-        <ee:cache doc:name="Cache" cachingStrategy-ref="caching_strategy">
-			<flow-ref name="main-flow" doc:name="main-flow"/>
-		</ee:cache>
+		<flow-ref name="main-flow" doc:name="main-flow"/>
 
+<!-- TODO: Mule EE dependency
+        <ee:cache doc:name="Cache" cachingStrategy-ref="caching_strategy">
+		</ee:cache>
+-->
 	</flow>
 	
 	<flow name="main-flow" processingStrategy="synchronous">

@@ -62,7 +62,7 @@ public class ProcessNotificationRequestTransformerTest {
 	}
 
 	/**
-	 * Test that a multiple notifications with mixed bookings and non-booking are filtered correctly
+	 * Test that multiple notifications with mixed bookings and non-booking are filtered correctly
 	 * 
 	 * @throws Exception
 	 */
@@ -111,7 +111,6 @@ public class ProcessNotificationRequestTransformerTest {
 		String expectedResultXml = jaxbUtil.marshal(of.createProcessNotification(expectedResult));
 
 		// Create the transformer under test and let it perform the transformation
-
 		ProcessNotificationRequestTransformer transformer = new ProcessNotificationRequestTransformer();
 		String result = (String)transformer.pojoTransform(input, "UTF-8");
 
