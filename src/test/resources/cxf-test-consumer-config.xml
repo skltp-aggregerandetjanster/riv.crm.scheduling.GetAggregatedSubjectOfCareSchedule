@@ -41,7 +41,15 @@
 		</http:tlsClientParameters>
 	</http:conduit>
 
-	<cxf:bus>
+    <bean id="soapHeaderInterceptor" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.SoapHeaderCxfInterceptor"/>
+
+    <!-- We are adding the interceptors to the bus as we will have only one endpoint/service/bus. -->
+
+    <cxf:bus>
+        <cxf:inInterceptors>
+            <ref bean="soapHeaderInterceptor"/>
+        </cxf:inInterceptors>
+
 		<cxf:features>
 			<cxf:logging />
 		</cxf:features>

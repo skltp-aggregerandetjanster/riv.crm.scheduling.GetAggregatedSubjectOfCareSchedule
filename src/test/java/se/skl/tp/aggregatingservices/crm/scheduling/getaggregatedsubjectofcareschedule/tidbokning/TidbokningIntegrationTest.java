@@ -109,8 +109,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
     	
     	ProcessingStatusType statusList = do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
 		
-//		TODO: Re-enable ProcessingStatus - tests
-//		assertProcessingStatusDataFromSource(statusList.getProcessingStatusList().get(0), expectedLogicalAddress);
+		assertProcessingStatusDataFromSource(statusList.getProcessingStatusList().get(0), expectedLogicalAddress);
     }
 
 	private ProcessingStatusType do_test_ok_zero_bookings(String id) {
@@ -122,9 +121,8 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
     	GetSubjectOfCareScheduleResponseType response = responseHolder.value;
 		assertEquals(0, response.getTimeslotDetail().size());
 		
-//		TODO: Re-enable ProcessingStatus - tests
-		ProcessingStatusType statusList = null; // processingStatusHolder.value;
-//		assertEquals(0, statusList.getProcessingStatusList().size());
+		ProcessingStatusType statusList = processingStatusHolder.value;
+		assertEquals(0, statusList.getProcessingStatusList().size());
 		return statusList;
 	}
 
@@ -144,8 +142,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		assertEquals(expectedLogicalAddress, timeslot.getHealthcareFacility());		
 
 		ProcessingStatusType statusList = processingStatusHolder.value;
-//		TODO: Re-enable ProcessingStatus - tests
-//		assertEquals(1, statusList.getProcessingStatusList().size());
+		assertEquals(1, statusList.getProcessingStatusList().size());
 		return statusList;
 	}
 
@@ -178,14 +175,13 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 
     
     	// Verify the Processing Status
-//		TODO: Re-enable ProcessingStatus - tests
-//		List<ProcessingStatusRecordType> statusList = processingStatusHolder.value.getProcessingStatusList();
-//		assertEquals(3, statusList.size());
-//		
-//		
-//		assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
-//		assertProcessingStatusDataFromSource(statusList.get(1), TEST_LOGICAL_ADDRESS_2);
-//		assertProcessingStatusNoDataSynchFailed(statusList.get(2), TEST_LOGICAL_ADDRESS_3, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_TIMEOUT_MSG);
+		List<ProcessingStatusRecordType> statusList = processingStatusHolder.value.getProcessingStatusList();
+		assertEquals(3, statusList.size());
+		
+		
+		assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
+		assertProcessingStatusDataFromSource(statusList.get(1), TEST_LOGICAL_ADDRESS_2);
+		assertProcessingStatusNoDataSynchFailed(statusList.get(2), TEST_LOGICAL_ADDRESS_3, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_TIMEOUT_MSG);
     }
 
     @Test
@@ -201,11 +197,10 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		assertEquals(0, response.getTimeslotDetail().size());
 		
     	// Verify the Processing Status
-//		TODO: Re-enable ProcessingStatus - tests
-//		List<ProcessingStatusRecordType> statusList = processingStatusHolder.value.getProcessingStatusList();
-//		assertEquals(1, statusList.size());
-//		
-//		assertProcessingStatusNoDataSynchFailed(statusList.get(0), TEST_LOGICAL_ADDRESS_1, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_INVALID_ID_MSG);
+		List<ProcessingStatusRecordType> statusList = processingStatusHolder.value.getProcessingStatusList();
+		assertEquals(1, statusList.size());
+		
+		assertProcessingStatusNoDataSynchFailed(statusList.get(0), TEST_LOGICAL_ADDRESS_1, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_INVALID_ID_MSG);
 	}
 
 //	TODO: Mule EE dependency

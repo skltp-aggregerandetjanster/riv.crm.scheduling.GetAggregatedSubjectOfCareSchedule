@@ -4,11 +4,14 @@ import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjecto
 import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 
 import java.net.URL;
+import java.util.List;
 
 import javax.xml.ws.Holder;
 
 import org.apache.cxf.bus.spring.SpringBusFactory;
+import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,13 +21,14 @@ import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCa
 import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.SoapHeaderCxfInterceptor;
 
 public class TidbokningTestConsumer {
 
 	private static final Logger log = LoggerFactory.getLogger(TidbokningTestConsumer.class);
 
 	private GetSubjectOfCareScheduleResponderInterface _service = null;
-
+	
 	public static void main(String[] args) {
 		String serviceAddress = getAddress("TIDBOKNING_INBOUND_URL");
 		String personnummer = TEST_ID_ONE_BOOKING;
@@ -55,7 +59,7 @@ public class TidbokningTestConsumer {
 		proxyFactory.setServiceClass(GetSubjectOfCareScheduleResponderInterface.class);
 		proxyFactory.setAddress(serviceAddress);
 		
-		//Used for HTTPS
+		// Used for HTTPS
 		SpringBusFactory bf = new SpringBusFactory();
 		URL cxfConfig = TidbokningTestConsumer.class.getClassLoader().getResource("cxf-test-consumer-config.xml");
 		if (cxfConfig != null) {
@@ -71,9 +75,9 @@ public class TidbokningTestConsumer {
 //            throw new RuntimeException("Malformed URL Exception: " + e.getMessage());
 //        }
 	}
-	
+
 	public void callService(String logicalAddress, String id, Holder<ProcessingStatusType> processingStatusHolder, Holder<GetSubjectOfCareScheduleResponseType> responseHolder) {
-		
+
 		log.debug("Calling GetSubjectOfCareSchedule-soap-service with id = {}", id);
 		
 		ActorType actor = new ActorType();
@@ -85,5 +89,7 @@ public class TidbokningTestConsumer {
 
 		GetSubjectOfCareScheduleResponseType response = _service.getSubjectOfCareSchedule(logicalAddress, actor, request);
 		responseHolder.value = response;
+		
+		processingStatusHolder.value = SoapHeaderCxfInterceptor.getLastFoundProcessingStatus();
 	}
 }

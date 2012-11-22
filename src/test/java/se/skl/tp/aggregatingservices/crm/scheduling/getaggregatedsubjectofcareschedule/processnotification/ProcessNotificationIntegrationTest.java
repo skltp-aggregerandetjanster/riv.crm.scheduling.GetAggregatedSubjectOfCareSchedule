@@ -197,8 +197,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
 		ProcessingStatusType statusList = processingStatusHolder.value;
 
-//		TODO: Re-enable ProcessingStatus - tests
-//		assertEquals(1, statusList.getProcessingStatusList().size());
+		assertEquals(1, statusList.getProcessingStatusList().size());
 		return statusList;
 	}
     
