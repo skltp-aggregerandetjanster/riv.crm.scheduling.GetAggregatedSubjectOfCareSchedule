@@ -1,0 +1,35 @@
+/GetAggregatedSubjectOfCareSchedule/src/test/java/se/skl/tp/aggregatingservices/crm/scheduling/getaggregatedsubjectofcareschedule/
+
+- engagemangsindex/EngagemangsindexTestProducer.java
+		EngagementType e = new EngagementType();
+		e.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
+		e.setCategorization(CATEGORIZATION_BOOKING);
+
+- processnotification/ProcessNotificationIntegrationTest.java
+		private static final String DEFAULT_TIDBOKNING_SERVICE_ADDRESS = getAddress("TIDBOKNING_INBOUND_URL");
+		
+		protected String getConfigResources() {
+			"GetAggregatedSubjectOfCareSchedule-common.xml," +
+        	"tidbokning-service.xml," +
+        	"teststub-services/tidbokning-teststub-service.xml," +
+    	}
+		
+
+- processnotification/ProcessNotificationRequestTransformerTest.java		
+		request.getEngagementTransaction().add(tu.createEngagementTransaction(TEST_ID_ONE_BOOKING, TEST_LOGICAL_ADDRESS_1, TEST_BOOKING_ID_ONE_BOOKING));
+		
+- processnotification/ProcessNotificationResponseTransformerTest.java
+  NADA!!!
+  
+  	
+- processnotification/ProcessNotificationTestConsumer.java
+	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
+
+    public ProcessNotificationResponseType callService(String receiverLogicalAddress, String id, String sourceSystemLogicalAddress) {
+            log.debug("Calling sample-soap-service with id = {}", id);
+            String bookingId = "9876";
+            ProcessNotificationType request = new ProcessNotificationType();
+			request.getEngagementTransaction().add(tu.createEngagementTransaction(id, sourceSystemLogicalAddress, bookingId));
+            return _service.processNotification(receiverLogicalAddress, request);
+    }
+  		
