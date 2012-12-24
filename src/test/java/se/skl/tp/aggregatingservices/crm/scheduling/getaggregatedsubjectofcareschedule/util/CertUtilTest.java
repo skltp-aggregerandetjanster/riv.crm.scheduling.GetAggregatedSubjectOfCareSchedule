@@ -51,7 +51,8 @@ public class CertUtilTest {
 //	        e.printStackTrace();
 //	    }		 
 
-			final X509Certificate certificate = PemConverter.buildCertificate(pemCertContent);
+	        // TODO: Try to revert it...
+	//		final X509Certificate certificate = PemConverter.buildCertificate(pemCertContent);
 	
 	}
 }
