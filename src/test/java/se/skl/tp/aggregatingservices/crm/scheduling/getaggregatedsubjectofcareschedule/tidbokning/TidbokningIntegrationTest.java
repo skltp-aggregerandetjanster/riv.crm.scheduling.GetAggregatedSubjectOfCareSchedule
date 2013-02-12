@@ -53,7 +53,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 	private static final String LOGICAL_ADDRESS = "logical-address";
 	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Read timed out";
 	private static final String EXPECTED_ERR_INVALID_ID_MSG = "Invalid Id: -1";
-	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("TIDBOKNING_INBOUND_URL");
+	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("SERVICE_INBOUND_URL");
   
 	private static final String ERROR_LOG_QUEUE = "SOITOOLKIT.LOG.ERROR";
 	private AbstractJmsTestUtil jmsUtil = null;

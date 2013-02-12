@@ -2,7 +2,7 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="tidbokning">
     <global-element type="http://www.mulesoft.org/schema/mule/core/queued-asynchronous-processing-strategy" name="Queued Asynchronous Processing Strategy" entity-id="Queued Asynchronous Processing Strategy#1">
         <properties>
-            <property value="tidbokning-workers-processing-strategy" name="name"/>
+            <property value="worker-flow-processing-strategy" name="name"/>
             <property value="50" name="maxThreads"/>
             <property name="minThreads"/>
             <property name="threadTTL"/>
@@ -33,7 +33,7 @@
             <property value="36" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="cache-flow" entity-id="8e513e2f-eeaf-431e-8aff-1677193e03b5">
+    <flow SubFlow="false" name="cache-flow" entity-id="30c89303-7c46-40d6-9816-91b8fa8c85d8">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -65,7 +65,7 @@
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
                     <property value="3" name="auxiliary;index"/>
-                    <property value="${TIDBOKNING_INBOUND_URL}" name="address"/>
+                    <property value="${SERVICE_INBOUND_URL}" name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
@@ -100,7 +100,7 @@
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
                     <property value="3" name="auxiliary;index"/>
-                    <property value="${TIDBOKNING_INBOUND_URL}" name="address"/>
+                    <property value="${SERVICE_INBOUND_URL}" name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
@@ -133,8 +133,8 @@
                     <property value="4" name="auxiliary;index"/>
                     <property name="bindingId"/>
                     <property name="port"/>
-                    <property value="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" name="namespace"/>
-                    <property value="GetSubjectOfCareScheduleResponderService" name="service"/>
+                    <property value="${SERVICE_INBOUND_NAMESPACE}" name="namespace"/>
+                    <property value="${SERVICE_INBOUND_NAME}" name="service"/>
                     <property name="onException"/>
                     <property name="serviceClass"/>
                     <property name="validationEnabled"/>
@@ -147,7 +147,7 @@
                     <property value="4" name="auxiliary;index"/>
                     <property value="4" name="auxiliary;index"/>
                     <property name="mtomEnabled"/>
-                    <property value="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl" name="wsdlLocation"/>
+                    <property value="${SERVICE_INBOUND_WSDL}" name="wsdlLocation"/>
                     <property name="enableMuleSoapHeaders"/>
                     <property value="4" name="auxiliary;index"/>
                     <property value="4" name="auxiliary;index"/>
@@ -164,7 +164,7 @@
                     <property value="4" name="auxiliary;index"/>
                 </properties>
             </pattern>
-            <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="Extract SubjectOfCare Id" entity-id="Java#2">
+            <pattern type="org.mule.tooling.ui.modules.core.pattern.customTransformer" name="Extract Query Object" entity-id="Java#2">
                 <properties>
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
@@ -189,7 +189,7 @@
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="main-flow" entity-id="5fbc367d-a8bc-4cc0-b380-cbef5c7c3523">
+    <flow SubFlow="false" name="main-flow" entity-id="cb93e283-d7c6-4107-9fff-0299681ee1fa">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -347,11 +347,11 @@
             </pattern>
             <splitter index="15" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
                 <properties>
-                    <property-collection name="d3e69fd5-1484-4604-b094-6e1743b632e1">
+                    <property-collection name="27899091-afea-49f6-b49e-089b55eb2dfe">
                         <property value="true" name="choice.otherwise"/>
                         <property-collection name="choice.attributes"/>
                     </property-collection>
-                    <property-collection name="d05e71b7-3f9c-4fe6-a067-c2089e9705f2">
+                    <property-collection name="a0ad479b-7c21-4609-a3e0-0fc61a1d6d05">
                         <property value="payload.size() == 0" name="choice.expression"/>
                         <property-collection name="choice.attributes">
                             <property value="payload.size() == 0" name="expression"/>
@@ -360,7 +360,7 @@
                 </properties>
                 <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#3">
-                    <lane isChoiceOtherwiseLane="false" index="17" hadOnlyOneElement="false" entity-id="d05e71b7-3f9c-4fe6-a067-c2089e9705f2">
+                    <lane isChoiceOtherwiseLane="false" index="17" hadOnlyOneElement="false" entity-id="a0ad479b-7c21-4609-a3e0-0fc61a1d6d05">
                         <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Set empty result" entity-id="Groovy#1">
                             <properties>
 <property value="18" name="auxiliary;index"/>
@@ -384,7 +384,7 @@
                             </properties>
                         </pattern>
                     </lane>
-                    <lane isChoiceOtherwiseLane="true" index="22" hadOnlyOneElement="false" entity-id="d3e69fd5-1484-4604-b094-6e1743b632e1">
+                    <lane isChoiceOtherwiseLane="true" index="22" hadOnlyOneElement="false" entity-id="27899091-afea-49f6-b49e-089b55eb2dfe">
                         <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="request-reply-flow" entity-id="Flow Reference#2">
                             <properties>
 <property value="request-reply-flow" name="name"/>
@@ -398,7 +398,7 @@
             </splitter>
         </lane>
     </flow>
-    <flow SubFlow="false" name="request-reply-flow" entity-id="f8742b32-cd43-443a-83c8-887eb68eb542">
+    <flow SubFlow="false" name="request-reply-flow" entity-id="e3710a54-61c6-4882-a838-4997229973b5">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -422,7 +422,7 @@
             </unknown>
         </lane>
     </flow>
-    <flow SubFlow="false" name="splitter-flow" entity-id="2e808d9f-174a-466a-9675-bb36f4280a65">
+    <flow SubFlow="false" name="splitter-flow" entity-id="bb5f3fc6-c256-46d3-8fac-bdabe86b73fc">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -529,10 +529,10 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="worker-flow" entity-id="6f1e8754-e8bf-458a-b125-23b116238abf">
+    <flow SubFlow="false" name="worker-flow" entity-id="fda22f78-f279-4626-bbf7-8d3247a466f4">
         <properties>
-            <property value="tidbokning-workers-processing-strategy" name="processingStrategy2"/>
-            <property value="tidbokning-workers-processing-strategy" name="processingStrategy"/>
+            <property value="worker-flow-processing-strategy" name="processingStrategy2"/>
+            <property value="worker-flow-processing-strategy" name="processingStrategy"/>
             <property value="37" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
@@ -603,7 +603,7 @@
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
                     <property value="40" name="auxiliary;index"/>
-                    <property value="${TIDBOKNING_OUTBOUND_URL}" name="address"/>
+                    <property value="${SERVICE_OUTBOUND_URL}" name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
@@ -638,7 +638,7 @@
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
                     <property value="40" name="auxiliary;index"/>
-                    <property value="${TIDBOKNING_OUTBOUND_URL}" name="address"/>
+                    <property value="${SERVICE_OUTBOUND_URL}" name="address"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
@@ -722,7 +722,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="aggregation-flow" entity-id="35567380-ad8c-4b91-9b64-f7bad508409f">
+    <flow SubFlow="false" name="aggregation-flow" entity-id="35619a15-1d46-4f38-8bb7-6b92fb390f72">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

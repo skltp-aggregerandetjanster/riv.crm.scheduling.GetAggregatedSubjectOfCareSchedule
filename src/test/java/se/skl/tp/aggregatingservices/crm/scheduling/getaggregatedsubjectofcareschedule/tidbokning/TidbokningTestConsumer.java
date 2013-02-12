@@ -30,7 +30,7 @@ public class TidbokningTestConsumer {
 	private GetSubjectOfCareScheduleResponderInterface _service = null;
 	
 	public static void main(String[] args) {
-		String serviceAddress = getAddress("TIDBOKNING_INBOUND_URL");
+		String serviceAddress = getAddress("SERVICE_INBOUND_URL");
 		String personnummer = TEST_ID_ONE_BOOKING;
 
 		TidbokningTestConsumer consumer = new TidbokningTestConsumer(serviceAddress);

@@ -55,7 +55,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
 	private static final String LOGICAL_ADDRESS = "logical-address";
 	private static final String DEFAULT_PROC_NOTIF_SERVICE_ADDRESS = getAddress("PROCESS-NOTIFICATION_INBOUND_URL");
-	private static final String DEFAULT_TIDBOKNING_SERVICE_ADDRESS = getAddress("TIDBOKNING_INBOUND_URL");
+	private static final String DEFAULT_TIDBOKNING_SERVICE_ADDRESS = getAddress("SERVICE_INBOUND_URL");
  
 
 	private static final String REQUEST_QUEUE   = rb.getString("PROCESS_NOTIFICATION_QUEUE");

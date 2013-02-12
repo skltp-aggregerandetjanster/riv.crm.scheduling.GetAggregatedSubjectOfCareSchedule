@@ -38,7 +38,7 @@ TODO: Mule EE dependency
 		http://www.mulesoft.org/schema/mule/ee/core   http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
  -->
 
-	<queued-asynchronous-processing-strategy name="tidbokning-workers-processing-strategy" maxThreads="50"/>    
+	<queued-asynchronous-processing-strategy name="worker-flow-processing-strategy" maxThreads="50"/>    
 
 <!-- TODO: Mule EE dependency
     <ee:object-store-caching-strategy name="caching_strategy" keyGenerationExpression="#[payload]" doc:name="Caching Strategy">
@@ -54,20 +54,20 @@ TODO: Mule EE dependency
 		<https:inbound-endpoint
 			doc:name="Inbound"
             connector-ref="soitoolkit-https-connector"
-			address="${TIDBOKNING_INBOUND_URL}"
+			address="${SERVICE_INBOUND_URL}"
 			exchange-pattern="request-response"
 			transformer-refs="objToStr logReqIn"
 			responseTransformer-refs="createSoapFaultIfException logRespOut">
 		</https:inbound-endpoint>
 
 		<cxf:proxy-service 
-			service="GetSubjectOfCareScheduleResponderService"
-			wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl"
-			namespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21"
+            wsdlLocation="${SERVICE_INBOUND_WSDL}"
+			service="${SERVICE_INBOUND_NAME}"
+			namespace="${SERVICE_INBOUND_NAMESPACE}"
 			payload="envelope">
 		</cxf:proxy-service>
 		
-	    <custom-transformer doc:name="Extract SubjectOfCare Id" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
+	    <custom-transformer doc:name="Extract Query Object" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
 
 		<flow-ref name="main-flow" doc:name="main-flow"/>
 
@@ -153,7 +153,7 @@ TODO: Mule EE dependency
 	<custom-transformer name="toObjArr" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.ObjectArrayTransformer"/>
 
     
-    <flow name="worker-flow" processingStrategy="tidbokning-workers-processing-strategy" doc:name="worker-flow">
+    <flow name="worker-flow" processingStrategy="worker-flow-processing-strategy" doc:name="worker-flow">
         <vm:inbound-endpoint exchange-pattern="one-way" path="worker" doc:name="vm://worker"/>
 
 		<!-- Save the incoming logical-address in a variable so that is can be added to the response in the <response> - element -->
@@ -162,16 +162,16 @@ TODO: Mule EE dependency
 		<https:outbound-endpoint 
 			doc:name="Outbound"
             connector-ref="soitoolkit-https-connector"
-			address="${TIDBOKNING_OUTBOUND_URL}" 
+			address="${SERVICE_OUTBOUND_URL}" 
 			exchange-pattern="request-response"
 			responseTimeout="${SERVICE_TIMEOUT_MS}"
 			transformer-refs="logReqOut"
 			responseTransformer-refs="logRespIn toObjArr">
 	        <cxf:jaxws-client 
-	        	port="GetSubjectOfCareScheduleResponderPort" 
-	        	operation="GetSubjectOfCareSchedule" 
-	        	clientClass="se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21.GetSubjectOfCareScheduleResponderService"
-	        	wsdlLocation="classpath:/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl"
+	        	port="${SERVICE_OUTBOUND_PORT}" 
+	        	operation="${SERVICE_OUTBOUND_OPERATION}" 
+	        	clientClass="${SERVICE_OUTBOUND_CLIENT_CLASS}"
+	        	wsdlLocation="${SERVICE_OUTBOUND_WSDL}"
 	        />
 		</https:outbound-endpoint>
  
