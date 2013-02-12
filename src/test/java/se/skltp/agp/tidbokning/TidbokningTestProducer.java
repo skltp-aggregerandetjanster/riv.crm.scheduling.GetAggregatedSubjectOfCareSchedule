@@ -1,4 +1,4 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning;
+package se.skltp.agp.tidbokning;
 
 import java.util.HashMap;
 import java.util.Map;

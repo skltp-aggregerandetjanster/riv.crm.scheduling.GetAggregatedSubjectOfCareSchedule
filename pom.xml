@@ -255,7 +255,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
-                                    <mainClass>se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer</mainClass>
+                                    <mainClass>se.skltp.agp.MuleServer</mainClass>
                                     <classpathScope>test</classpathScope>
                                 </configuration>
                             </execution>

@@ -5,13 +5,13 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
 import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_REASON_DEFAULT;
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer.TEST_REASON_UPDATED;
+import static se.skltp.agp.MuleServer.getAddress;
 import static se.skltp.agp.cache.CacheUtil.getCache;
+import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
+import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
+import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_REASON_DEFAULT;
+import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_REASON_UPDATED;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +37,9 @@ import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCa
 import se.riv.crm.scheduling.v1.TimeslotType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestConsumer;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer;
 import se.skltp.agp.cache.CacheMemoryStoreImpl;
+import se.skltp.agp.tidbokning.TidbokningTestConsumer;
+import se.skltp.agp.tidbokning.TidbokningTestProducer;
 
  
 public class ProcessNotificationIntegrationTest extends AbstractTestCase {

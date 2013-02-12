@@ -1,6 +1,6 @@
 package se.skltp.agp.ei.processnotification;
 
-import static se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleMuleServer.getAddress;
+import static se.skltp.agp.MuleServer.getAddress;
 
 import java.net.URL;
 

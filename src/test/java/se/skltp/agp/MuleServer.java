@@ -1,23 +1,17 @@
-package se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule;
+package se.skltp.agp;
 
- 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.StandaloneMuleServer;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
+public class MuleServer {
 
-public class GetAggregatedSubjectOfCareScheduleMuleServer {
-
-
-	public static final String MULE_SERVER_ID   = "GetAggregatedSubjectOfCareSchedule";
- 
-
-	private static final Logger logger = LoggerFactory.getLogger(GetAggregatedSubjectOfCareScheduleMuleServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(MuleServer.class);
     private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
+	public static final String MULE_SERVER_ID = rb.getString("MULE_SERVER_ID");
 
 	public static void main(String[] args) throws Exception {
-	
  
         // Configure the mule-server:
         //

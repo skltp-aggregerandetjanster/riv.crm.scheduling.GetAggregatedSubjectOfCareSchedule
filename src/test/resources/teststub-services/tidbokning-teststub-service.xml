@@ -17,7 +17,7 @@
 	<simple-service 
 		name="tidbokning-teststub-service"
         address="${TESTSTUB_SERVICE_INBOUND_URL}?connector=soitoolkit-https-connector" 
-        component-class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningTestProducer"
+        component-class="se.skltp.agp.tidbokning.TidbokningTestProducer"
         type="jax-ws" />
 
 </mule>
