@@ -25,7 +25,7 @@
             <property name="mimeType"/>
             <property value="36" name="auxiliary;index"/>
             <property value="36" name="auxiliary;index"/>
-            <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.ObjectArrayTransformer" name="class"/>
+            <property value="se.skltp.agp.service.transformers.ObjectArrayTransformer" name="class"/>
             <property value="36" name="auxiliary;index"/>
             <property value="toObjArr" name="name"/>
             <property value="36" name="auxiliary;index"/>
@@ -33,7 +33,7 @@
             <property value="36" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="cache-flow" entity-id="30c89303-7c46-40d6-9816-91b8fa8c85d8">
+    <flow SubFlow="false" name="cache-flow" entity-id="a07e446d-9539-45cd-acb0-bc44560b473f">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -173,7 +173,7 @@
                     <property name="mimeType"/>
                     <property value="5" name="auxiliary;index"/>
                     <property value="5" name="auxiliary;index"/>
-                    <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer" name="class"/>
+                    <property value="se.skltp.agp.service.transformers.GetSubjectOfCareIdTransformer" name="class"/>
                     <property value="5" name="auxiliary;index"/>
                     <property value="5" name="auxiliary;index"/>
                     <property value="5" name="auxiliary;index"/>
@@ -189,7 +189,7 @@
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="main-flow" entity-id="cb93e283-d7c6-4107-9fff-0299681ee1fa">
+    <flow SubFlow="false" name="main-flow" entity-id="7abb2efc-30ac-431d-9d3c-a2690fb692f8">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -213,7 +213,7 @@
 <property name="mimeType"/>
 <property value="9" name="auxiliary;index"/>
 <property value="9" name="auxiliary;index"/>
-<property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer" name="class"/>
+<property value="se.skltp.agp.service.transformers.TidbokningResponseListTransformer" name="class"/>
 <property value="9" name="auxiliary;index"/>
 <property value="9" name="auxiliary;index"/>
 <property value="9" name="auxiliary;index"/>
@@ -339,7 +339,7 @@
                     <property name="mimeType"/>
                     <property value="14" name="auxiliary;index"/>
                     <property value="14" name="auxiliary;index"/>
-                    <property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestListTransformer" name="class"/>
+                    <property value="se.skltp.agp.service.transformers.TidbokningRequestListTransformer" name="class"/>
                     <property value="14" name="auxiliary;index"/>
                     <property value="14" name="auxiliary;index"/>
                     <property value="14" name="auxiliary;index"/>
@@ -347,20 +347,20 @@
             </pattern>
             <splitter index="15" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
                 <properties>
-                    <property-collection name="27899091-afea-49f6-b49e-089b55eb2dfe">
-                        <property value="true" name="choice.otherwise"/>
-                        <property-collection name="choice.attributes"/>
-                    </property-collection>
-                    <property-collection name="a0ad479b-7c21-4609-a3e0-0fc61a1d6d05">
+                    <property-collection name="0c9523df-759a-427e-9478-9e185706e576">
                         <property value="payload.size() == 0" name="choice.expression"/>
                         <property-collection name="choice.attributes">
                             <property value="payload.size() == 0" name="expression"/>
                         </property-collection>
                     </property-collection>
+                    <property-collection name="edb49cff-7022-4ab5-a4e2-34d5131eb8bf">
+                        <property value="true" name="choice.otherwise"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
                 </properties>
                 <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#3">
-                    <lane isChoiceOtherwiseLane="false" index="17" hadOnlyOneElement="false" entity-id="a0ad479b-7c21-4609-a3e0-0fc61a1d6d05">
+                    <lane isChoiceOtherwiseLane="false" index="17" hadOnlyOneElement="false" entity-id="0c9523df-759a-427e-9478-9e185706e576">
                         <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Set empty result" entity-id="Groovy#1">
                             <properties>
 <property value="18" name="auxiliary;index"/>
@@ -384,7 +384,7 @@
                             </properties>
                         </pattern>
                     </lane>
-                    <lane isChoiceOtherwiseLane="true" index="22" hadOnlyOneElement="false" entity-id="27899091-afea-49f6-b49e-089b55eb2dfe">
+                    <lane isChoiceOtherwiseLane="true" index="22" hadOnlyOneElement="false" entity-id="edb49cff-7022-4ab5-a4e2-34d5131eb8bf">
                         <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="request-reply-flow" entity-id="Flow Reference#2">
                             <properties>
 <property value="request-reply-flow" name="name"/>
@@ -398,7 +398,7 @@
             </splitter>
         </lane>
     </flow>
-    <flow SubFlow="false" name="request-reply-flow" entity-id="e3710a54-61c6-4882-a838-4997229973b5">
+    <flow SubFlow="false" name="request-reply-flow" entity-id="f183cb15-cd19-4fdf-a4c4-11f402ec551f">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -422,7 +422,7 @@
             </unknown>
         </lane>
     </flow>
-    <flow SubFlow="false" name="splitter-flow" entity-id="bb5f3fc6-c256-46d3-8fac-bdabe86b73fc">
+    <flow SubFlow="false" name="splitter-flow" entity-id="6d6415dc-a859-48ff-b530-648a3b382130">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -529,7 +529,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="worker-flow" entity-id="fda22f78-f279-4626-bbf7-8d3247a466f4">
+    <flow SubFlow="false" name="worker-flow" entity-id="a05ee945-437c-42b3-a0b9-295430212f6f">
         <properties>
             <property value="worker-flow-processing-strategy" name="processingStrategy2"/>
             <property value="worker-flow-processing-strategy" name="processingStrategy"/>
@@ -683,7 +683,7 @@
 <property name="mimeType"/>
 <property value="43" name="auxiliary;index"/>
 <property value="43" name="auxiliary;index"/>
-<property value="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningHandleErrorTransformer" name="class"/>
+<property value="se.skltp.agp.service.transformers.TidbokningHandleErrorTransformer" name="class"/>
 <property value="43" name="auxiliary;index"/>
 <property value="43" name="auxiliary;index"/>
 <property value="43" name="auxiliary;index"/>
@@ -722,7 +722,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="aggregation-flow" entity-id="35619a15-1d46-4f38-8bb7-6b92fb390f72">
+    <flow SubFlow="false" name="aggregation-flow" entity-id="c2b30019-4a7d-4d94-b8c0-28fb0cca3304">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

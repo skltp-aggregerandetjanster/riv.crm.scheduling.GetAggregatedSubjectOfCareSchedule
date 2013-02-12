@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="engagemangsindex-teststub-service">
+    <global-unknown index="1" unknownName="engagemangsindex-teststub-service" description="false" entity-id="global-unknown#1">
+        <content>&lt;simple-service xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;engagemangsindex-teststub-service&quot; address=&quot;${ENGAGEMANGSINDEX_TESTSTUB_INBOUND_URL}?connector=soitoolkit-https-connector&quot; component-class=&quot;se.skltp.agp.ei.findcontent.EngagemangsindexTestProducer&quot; type=&quot;jax-ws&quot;/&gt;</content>
+    </global-unknown>
+</mule-configuration>

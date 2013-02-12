@@ -42,7 +42,7 @@ TODO: Mule EE dependency
 
 <!-- TODO: Mule EE dependency
     <ee:object-store-caching-strategy name="caching_strategy" keyGenerationExpression="#[payload]" doc:name="Caching Strategy">
-        <custom-object-store class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.CacheMemoryStoreImpl">
+        <custom-object-store class="se.skltp.agp.cache.CacheMemoryStoreImpl">
         	<spring:property name="maxEntries" value="${CACHE_MAX_ENTRIES}"/>
         	<spring:property name="entryTTL" value="${CACHE_TTL_MS}"/>
         	<spring:property name="expirationInterval" value="${CACHE_EXPIRATION_INTERVAL_MS}"/>
@@ -67,7 +67,7 @@ TODO: Mule EE dependency
 			payload="envelope">
 		</cxf:proxy-service>
 		
-	    <custom-transformer doc:name="Extract Query Object" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.GetSubjectOfCareIdTransformer"/>
+	    <custom-transformer doc:name="Extract Query Object" class="se.skltp.agp.service.transformers.GetSubjectOfCareIdTransformer"/>
 
 		<flow-ref name="main-flow" doc:name="main-flow"/>
 
@@ -80,10 +80,10 @@ TODO: Mule EE dependency
 	<flow name="main-flow" processingStrategy="synchronous">
 
         <response>
-            <custom-transformer doc:name="Response List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningResponseListTransformer"/>
+            <custom-transformer doc:name="Response List Transformer" class="se.skltp.agp.service.transformers.TidbokningResponseListTransformer"/>
         </response>
 
-	    <custom-transformer doc:name="Find Content Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.engagemangsindex.FindContentRequestTransformer"/>
+	    <custom-transformer doc:name="Find Content Transformer" class="se.skltp.agp.ei.findcontent.FindContentRequestTransformer"/>
 
         <enricher target="#[payload]">
 			<https:outbound-endpoint 
@@ -103,7 +103,7 @@ TODO: Mule EE dependency
 			</https:outbound-endpoint>
         </enricher>
 
-	    <custom-transformer doc:name="Request List Transformer" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningRequestListTransformer"/>
+	    <custom-transformer doc:name="Request List Transformer" class="se.skltp.agp.service.transformers.TidbokningRequestListTransformer"/>
 
         <choice doc:name="Choice">
             <when expression="payload.size() == 0">
@@ -150,7 +150,7 @@ TODO: Mule EE dependency
         <vm:outbound-endpoint path="worker" doc:name="vm://worker"/>
     </flow>
     
-	<custom-transformer name="toObjArr" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.ObjectArrayTransformer"/>
+	<custom-transformer name="toObjArr" class="se.skltp.agp.service.transformers.ObjectArrayTransformer"/>
 
     
     <flow name="worker-flow" processingStrategy="worker-flow-processing-strategy" doc:name="worker-flow">
@@ -176,7 +176,7 @@ TODO: Mule EE dependency
 		</https:outbound-endpoint>
  
         <catch-exception-strategy doc:name="Catch Exception Strategy">
-            <custom-transformer doc:name="Error Handler" class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.tidbokning.TidbokningHandleErrorTransformer"/>
+            <custom-transformer doc:name="Error Handler" class="se.skltp.agp.service.transformers.TidbokningHandleErrorTransformer"/>
 	        <vm:outbound-endpoint path="aggregate" doc:name="vm://aggregate"/>
         </catch-exception-strategy>
     </flow>

@@ -21,7 +21,7 @@ import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCa
 import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
-import se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.util.SoapHeaderCxfInterceptor;
+import se.skltp.agp.cache.SoapHeaderCxfInterceptor;
 
 public class TidbokningTestConsumer {
 

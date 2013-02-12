@@ -16,7 +16,7 @@
 	<simple-service 
 		name="engagemangsindex-teststub-service"
         address="${ENGAGEMANGSINDEX_TESTSTUB_INBOUND_URL}?connector=soitoolkit-https-connector" 
-        component-class="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.engagemangsindex.EngagemangsindexTestProducer"
+        component-class="se.skltp.agp.ei.findcontent.EngagemangsindexTestProducer"
         type="jax-ws" />
  
 </mule>
