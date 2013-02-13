@@ -21,28 +21,30 @@ import org.mule.module.xml.stax.ReversibleXMLStreamReader;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import org.soitoolkit.commons.mule.util.XmlUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
+import se.skltp.agp.service.api.QueryObjectFactory;
 
-public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
+public class CreateQueryObjectTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(GetSubjectOfCareIdTransformer.class);
-	private static final JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleType.class);
+	private static final Logger log = LoggerFactory.getLogger(CreateQueryObjectTransformer.class);
 	private static final Map<String, String> namespaceMap = new HashMap<String, String>();
-	
+
 	static {
 		namespaceMap.put("soap",    "http://schemas.xmlsoap.org/soap/envelope/");
 		namespaceMap.put("it-int",  "urn:riv:itintegration:registry:1");
 		namespaceMap.put("interop", "urn:riv:interoperability:headers:1");
-		namespaceMap.put("service", "urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1");
 	}
-	
-    /**
+
+	private QueryObjectFactory queryObjectFactory;
+	public void setQueryObjectFactory(QueryObjectFactory queryObjectFactory) {
+		this.queryObjectFactory = queryObjectFactory;
+	}
+
+	/**
      * Message aware transformer that ...
      */
     @Override
@@ -57,7 +59,7 @@ public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
 	 */
 	protected Object pojoTransform(Object src, String encoding) throws TransformerException {
 
-
+		// TODO: Do we need to convert it to a string here or can we use it as a stream for efficiency
 		String xml = XmlUtil.convertReversibleXMLStreamReaderToString((ReversibleXMLStreamReader)src, "UTF-8");
 		log.debug("Transforming payload: {}", xml);
 
@@ -68,10 +70,8 @@ public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
 
 //			XPathExpression xpathLogicalAddress = xpath.compile("/soap:Envelope/soap:Header/it-int:LogicalAddress");
 //			XPathExpression xpathActor = xpath.compile("/soap:Envelope/soap:Header/interop:Actor");
-			XPathExpression xpathRequest = xpath.compile("/soap:Envelope/soap:Body/service:GetSubjectOfCareSchedule");
+			XPathExpression xpathRequest = xpath.compile("/soap:Envelope/soap:Body/*[1]");
 
-			
-			//			Document reqDoc = XMLUtils.toW3cDocument(xml);
 			Document reqDoc = createDocument(xml, "UTF-8");
 			result = xpathRequest.evaluate(reqDoc, XPathConstants.NODESET);
 		} catch (XPathExpressionException e) {
@@ -81,15 +81,10 @@ public class GetSubjectOfCareIdTransformer extends AbstractMessageTransformer {
 		}
 		NodeList list = (NodeList)result; 
 		Node node = list.item(0);
-				
-		// Lookup the fragment...
-		GetSubjectOfCareScheduleType reqIn = (GetSubjectOfCareScheduleType)ju.unmarshal(node);
-		
-		String subjectofCareId = reqIn.getSubjectOfCare();
-		
-		log.debug("Transformed payload: pid: {}", subjectofCareId);
-		
-		return subjectofCareId;
+
+		log.debug("Request root-element: " + node.getLocalName() + " - " + node.getNamespaceURI());
+
+		return queryObjectFactory.createQueryObject(node);
 	}
 
 	private Document createDocument(String content, String charset) {

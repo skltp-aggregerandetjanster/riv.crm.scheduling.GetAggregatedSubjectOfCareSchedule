@@ -32,6 +32,8 @@
 		http://www.mulesoft.org/schema/mule/xml       http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 	">
 
+        <spring:bean name="queryObjectFactory" class="${QUERY_OBJECT_FACTORY_IMPL}" />
+
 <!-- 
 TODO: Mule EE dependency
 	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" 
@@ -66,8 +68,10 @@ TODO: Mule EE dependency
 			namespace="${SERVICE_INBOUND_NAMESPACE}"
 			payload="envelope">
 		</cxf:proxy-service>
-		
-	    <custom-transformer doc:name="Extract Query Object" class="se.skltp.agp.service.transformers.GetSubjectOfCareIdTransformer"/>
+
+	    <custom-transformer doc:name="Create Query Object" class="se.skltp.agp.service.transformers.CreateQueryObjectTransformer">
+	       <spring:property name="queryObjectFactory" ref="queryObjectFactory"/>
+	    </custom-transformer>
 
 		<flow-ref name="main-flow" doc:name="main-flow"/>
 

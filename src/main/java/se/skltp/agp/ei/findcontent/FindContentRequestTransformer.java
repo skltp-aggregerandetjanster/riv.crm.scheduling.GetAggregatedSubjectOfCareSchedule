@@ -1,10 +1,6 @@
 package se.skltp.agp.ei.findcontent;
 
 import static se.skltp.agp.cache.Contants.ENGAGEMANGSINDEX_HSA_ID;
-import static se.skltp.agp.cache.Contants.SERVICE_DOMAIN_SCHEDULING;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
@@ -13,18 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
+import se.skltp.agp.service.api.QueryObject;
 
 public class FindContentRequestTransformer extends AbstractMessageTransformer {
 
 	private static final Logger log = LoggerFactory.getLogger(FindContentRequestTransformer.class);
-	private static final Map<String, String> namespaceMap = new HashMap<String, String>();
-	
-	static {
-		namespaceMap.put("soap",    "http://schemas.xmlsoap.org/soap/envelope/");
-		namespaceMap.put("it-int",  "urn:riv:itintegration:registry:1");
-		namespaceMap.put("interop", "urn:riv:interoperability:headers:1");
-		namespaceMap.put("service", "urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1");
-	}
 	
     /**
      * Message aware transformer that ...
@@ -43,18 +32,15 @@ public class FindContentRequestTransformer extends AbstractMessageTransformer {
 
 		log.debug("Transforming payload: {}", src);
 
-		String subjectofCareId = ((String)src);
-		
-		
-//		GetSubjectOfCareScheduleType reqIn = getRequestIn(src);
+		QueryObject qo =(QueryObject)src;
 
 		FindContentType reqOut = new FindContentType();
-		reqOut.setRegisteredResidentIdentification(subjectofCareId);
-		reqOut.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
+		reqOut.setRegisteredResidentIdentification(qo.getRegisteredResidentIdentification());
+		reqOut.setServiceDomain(qo.getServiceDomain());
 		
 		Object[] reqOutList = new Object[] {ENGAGEMANGSINDEX_HSA_ID, reqOut};
 
-		log.info("Calling EI using logical address {} for subject of care id {}", ENGAGEMANGSINDEX_HSA_ID, subjectofCareId);
+		log.info("Calling EI using logical address {} for subject of care id {}", ENGAGEMANGSINDEX_HSA_ID, reqOut.getRegisteredResidentIdentification());
 		
 		log.debug("Transformed payload: {}, pid: {}", reqOutList, reqOut.getRegisteredResidentIdentification());
 		
