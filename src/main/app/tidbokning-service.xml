@@ -180,7 +180,7 @@ TODO: Mule EE dependency
 		</https:outbound-endpoint>
  
         <catch-exception-strategy doc:name="Catch Exception Strategy">
-            <custom-transformer doc:name="Error Handler" class="se.skltp.agp.service.transformers.TidbokningHandleErrorTransformer"/>
+            <custom-transformer doc:name="Error Handler" class="se.skltp.agp.service.transformers.HandleWorkerErrorTransformer"/>
 	        <vm:outbound-endpoint path="aggregate" doc:name="vm://aggregate"/>
         </catch-exception-strategy>
     </flow>

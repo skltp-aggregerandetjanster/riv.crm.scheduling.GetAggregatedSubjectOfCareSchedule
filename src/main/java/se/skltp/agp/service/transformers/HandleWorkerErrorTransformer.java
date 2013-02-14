@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import se.riv.interoperability.headers.v1.CausingAgentEnum;
 import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 
-public class TidbokningHandleErrorTransformer extends AbstractMessageTransformer {
+public class HandleWorkerErrorTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(TidbokningHandleErrorTransformer.class);
+	private static final Logger log = LoggerFactory.getLogger(HandleWorkerErrorTransformer.class);
 
 	@Override
 	public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
