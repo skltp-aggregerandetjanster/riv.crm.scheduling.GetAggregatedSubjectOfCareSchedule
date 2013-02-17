@@ -52,11 +52,6 @@ public class RequestListFactoryImpl implements RequestListFactory {
 			actor.setActorId("999");
 			actor.setActorType(ActorTypeEnum.SUBJECT_OF_CARE);
 
-//			PICK UP QUERY-OBJECT FROM INVOCATION OR SESSION VARIABLE!
-//			CALL INTERFACE WITH QUERY-OBJECT + RESPONSE FROM EI, RETURN REQUEST-OBJECT
-//			TWO LEVELS:
-//				1. BASICALLY THE WHOLE pojoTransofrm method
-//				2. JUST CREATING THE REQUEST...
 			GetSubjectOfCareScheduleType request = new GetSubjectOfCareScheduleType();
 			request.setHealthcareFacility(logicalAdress);
 			request.setSubjectOfCare(subjectOfCare);

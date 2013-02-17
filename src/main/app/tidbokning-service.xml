@@ -34,6 +34,7 @@
 
     <spring:bean name="queryObjectFactory" class="${QUERY_OBJECT_FACTORY_IMPL}" />
     <spring:bean name="requestListFactory" class="${REQUEST_LIST_FACTORY_IMPL}" />
+    <spring:bean name="responseListFactory" class="${RESPONSE_LIST_FACTORY_IMPL}" />
 
 <!-- 
 TODO: Mule EE dependency
@@ -71,7 +72,7 @@ TODO: Mule EE dependency
 		</cxf:proxy-service>
 
 	    <custom-transformer doc:name="Create Query Object" class="se.skltp.agp.service.transformers.CreateQueryObjectTransformer">
-	       <spring:property name="queryObjectFactory" ref="queryObjectFactory"/>
+	        <spring:property name="queryObjectFactory" ref="queryObjectFactory"/>
 	    </custom-transformer>
 	    
         <set-variable value="#[payload]" variableName="queryObject" doc:name="Invocation queryObject" />
@@ -87,7 +88,9 @@ TODO: Mule EE dependency
 	<flow name="main-flow" processingStrategy="synchronous">
 
         <response>
-            <custom-transformer doc:name="Response List Transformer" class="se.skltp.agp.service.transformers.TidbokningResponseListTransformer"/>
+            <custom-transformer doc:name="Response List Transformer" class="se.skltp.agp.service.transformers.CreateResponseListTransformer">
+	            <spring:property name="responseListFactory" ref="responseListFactory"/>
+	        </custom-transformer>
         </response>
 
 	    <custom-transformer doc:name="Find Content Transformer" class="se.skltp.agp.ei.findcontent.FindContentRequestTransformer"/>
@@ -111,7 +114,7 @@ TODO: Mule EE dependency
         </enricher>
 
 	    <custom-transformer doc:name="Request List Transformer" class="se.skltp.agp.service.transformers.CreateRequestListTransformer">
-           <spring:property name="requestListFactory" ref="requestListFactory"/>
+            <spring:property name="requestListFactory" ref="requestListFactory"/>
         </custom-transformer>
 
         <choice doc:name="Choice">

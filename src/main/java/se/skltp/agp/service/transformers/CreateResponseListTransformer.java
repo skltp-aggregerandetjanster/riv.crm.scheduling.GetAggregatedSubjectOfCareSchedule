@@ -8,6 +8,7 @@ import static se.riv.interoperability.headers.v1.StatusCodeEnum.NO_DATA_SYNCH_FA
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,26 +34,24 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
-import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.ObjectFactory;
 import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.riv.interoperability.headers.v1.ObjectFactory;
 import se.skltp.agp.cache.ProcessingStatusUtil;
+import se.skltp.agp.service.api.ResponseListFactory;
 
-public class TidbokningResponseListTransformer extends AbstractMessageTransformer {
+public class CreateResponseListTransformer extends AbstractMessageTransformer {
 
-	private static final Logger log = LoggerFactory.getLogger(TidbokningResponseListTransformer.class);
-	private static final JaxbUtil jaxbUtil = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class, ProcessingStatusType.class);
-	private static final ObjectFactory OF = new ObjectFactory();
-	private static final se.riv.interoperability.headers.v1.ObjectFactory OF_HEADERS = new se.riv.interoperability.headers.v1.ObjectFactory();
+	private static final Logger log = LoggerFactory.getLogger(CreateResponseListTransformer.class);
+	private static final ObjectFactory OF_HEADERS = new ObjectFactory();
 	
+	private static final JaxbUtil jaxbUtil = new JaxbUtil(ProcessingStatusType.class);
 	private static final Map<String, String> namespaceMap = new HashMap<String, String>();
 	
 	static {
 		namespaceMap.put("soap",    "http://schemas.xmlsoap.org/soap/envelope/");
 		namespaceMap.put("it-int",  "urn:riv:itintegration:registry:1");
 		namespaceMap.put("interop", "urn:riv:interoperability:headers:1");
-		namespaceMap.put("service", "urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1");
 	}
 
 	private static final String responseTemplate =
@@ -66,7 +65,12 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 	  "</soapenv:Body>" +
    "</soapenv:Envelope>";
 	
-    /**
+	private ResponseListFactory responseListFactory;
+	public void setResponseListFactory(ResponseListFactory responseListFactory) {
+		this.responseListFactory = responseListFactory;
+	}
+
+	/**
      * Message aware transformer that ...
      */
     @Override
@@ -87,14 +91,14 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 		List<Object> listSrc = (List<Object>)src;
 
         if (log.isDebugEnabled()) {
-			log.debug("TidbokningResponseListTransformer is transforming {} rows", listSrc.size());
+			log.debug("CreateResponseListTransformer is transforming {} rows", listSrc.size());
 	        if (listSrc.size() > 0) {
-	        	log.debug("TidbokningResponseListTransformer type of first element {}", listSrc.get(0).getClass().getName());
+	        	log.debug("CreateResponseListTransformer type of first element {}", listSrc.get(0).getClass().getName());
 	        }
         }
 
         ProcessingStatusUtil psu = new ProcessingStatusUtil();
-        GetSubjectOfCareScheduleResponseType aggregatedResponse = new GetSubjectOfCareScheduleResponseType();
+        List<Object> aggregatedResponse = new ArrayList<Object>();
         for (Object singleResponse : listSrc) {
 
         	if (singleResponse instanceof Object[]) {
@@ -102,21 +106,14 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
         		Object[] arr = (Object[])singleResponse;
         		String logicalAddress = (String)arr[0];
 
-        		if (arr[1] instanceof GetSubjectOfCareScheduleResponseType) {
-
-        			GetSubjectOfCareScheduleResponseType response = (GetSubjectOfCareScheduleResponseType)arr[1];
-	        		aggregatedResponse.getTimeslotDetail().addAll(response.getTimeslotDetail());
-
-	        		psu.addStatusRecord(logicalAddress, DATA_FROM_SOURCE);
-
-	        	} else if (arr[1] instanceof LastUnsuccessfulSynchErrorType) {
+        		if (arr[1] instanceof LastUnsuccessfulSynchErrorType) {
 	        		
 	        		LastUnsuccessfulSynchErrorType error = (LastUnsuccessfulSynchErrorType)arr[1];
 	        		psu.addStatusRecord(logicalAddress, NO_DATA_SYNCH_FAILED, error);
 
 	        	} else {
-	        		// FIXME. Fix error handling... 
-	        		log.warn("HERE COMES UNHADLED ERROR INFORMATION: {}", singleResponse);
+	        		aggregatedResponse.add(arr[1]);
+	        		psu.addStatusRecord(logicalAddress, DATA_FROM_SOURCE);
 	        	}
         		
         	} else {
@@ -125,19 +122,10 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
         	}
 		}
         
-        if (log.isInfoEnabled()) {
-    		String subjectOfCareId = "";
-        	if (aggregatedResponse.getTimeslotDetail().size() > 0) {
-        		subjectOfCareId = aggregatedResponse.getTimeslotDetail().get(0).getSubjectOfCare();
-        	}
-        	log.info("Returning {} aggregated schedules from {} source systems for subject of care id {}", 
-        		new Object[] {aggregatedResponse.getTimeslotDetail().size(), psu.getStatus().getProcessingStatusList().size() ,subjectOfCareId});
-        }
-        
-        // Since the class GetSubjectOfCareScheduleResponseType don't have an @XmlRootElement annotation
-        // we need to use the ObjectFactory to add it.
-        String xml = jaxbUtil.marshal(OF.createGetSubjectOfCareScheduleResponse(aggregatedResponse));
+    	log.info("Returning aggregated response from {} source systems", psu.getStatus().getProcessingStatusList().size());
 
+        String xml = responseListFactory.getXmlFromAggregatedResponse(aggregatedResponse);
+        
         String xmlStatus = jaxbUtil.marshal(OF_HEADERS.createProcessingStatus(psu.getStatus()));
         log.debug("processingStatus:\n{}", xmlStatus);
         
@@ -209,6 +197,4 @@ public class TidbokningResponseListTransformer extends AbstractMessageTransforme
 		DocumentBuilder builder = domFactory.newDocumentBuilder();
 		return builder;
 	}
-
-
 }

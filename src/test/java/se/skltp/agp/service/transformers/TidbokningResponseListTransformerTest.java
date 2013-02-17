@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.soitoolkit.commons.mule.util.MiscUtil;
 
-import se.skltp.agp.service.transformers.TidbokningResponseListTransformer;
+import se.skltp.agp.service.transformers.CreateResponseListTransformer;
 
 public class TidbokningResponseListTransformerTest {
 
@@ -24,7 +24,7 @@ public class TidbokningResponseListTransformerTest {
 		
 		// Create the transformer under test and let it perform the transformation
 
-		TidbokningResponseListTransformer transformer = new TidbokningResponseListTransformer();
+		CreateResponseListTransformer transformer = new CreateResponseListTransformer();
 		String result = (String)transformer.pojoTransform(input, "UTF-8");
 
 
