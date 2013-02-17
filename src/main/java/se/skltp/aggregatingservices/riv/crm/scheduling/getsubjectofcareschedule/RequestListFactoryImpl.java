@@ -1,4 +1,4 @@
-package se.skltp.agp.service.transformers;
+package se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.mule.api.MuleMessage;
-import org.mule.api.transformer.TransformerException;
-import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,33 +14,18 @@ import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCa
 import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
+import se.skltp.agp.service.api.QueryObject;
+import se.skltp.agp.service.api.RequestListFactory;
 
-public class TidbokningRequestListTransformer extends AbstractMessageTransformer {
+public class RequestListFactoryImpl implements RequestListFactory {
 
-	private static final Logger log = LoggerFactory.getLogger(TidbokningRequestListTransformer.class);
+	private static final Logger log = LoggerFactory.getLogger(RequestListFactoryImpl.class);
 
-    /**
-     * Message aware transformer that ...
-     */
-    @Override
-    public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
+	@Override
+	public List<Object[]> createRequestList(QueryObject qo, FindContentResponseType src) {
 
-        // Perform any message aware processing here, otherwise delegate as much as possible to pojoTransform() for easier unit testing
-    	List<Object[]> transformedPayload = pojoTransform(message.getPayload(), outputEncoding);
-
-    	// Set the expected number of responses so that the aggregator knows when to stop, update the message payload and return the message for further processing
-    	message.setCorrelationGroupSize(transformedPayload.size());
-    	message.setPayload(transformedPayload);
-    	return message;
-    }
-
-	/**
-     * Simple pojo transformer method that can be tested with plain unit testing...
-	 */
-	protected List<Object[]> pojoTransform(Object src, String encoding) throws TransformerException {
-
-		FindContentResponseType inResp = (FindContentResponseType)src;
-		List<EngagementType> inEngagements = inResp.getEngagement();
+		FindContentResponseType eiResp = (FindContentResponseType)src;
+		List<EngagementType> inEngagements = eiResp.getEngagement();
 		
 		log.info("Got {} hits in the engagement index", inEngagements.size());
 
@@ -52,7 +34,6 @@ public class TidbokningRequestListTransformer extends AbstractMessageTransformer
 		for (EngagementType inEng : inEngagements) {
 			uniqueLogicalAddresses.put(inEng.getLogicalAddress(), inEng.getRegisteredResidentIdentification());
 		}
-
 
 		// Prepare the result of the transformation as a list of request-payloads, 
 		// one payload for each unique logical-address from the Set uniqueLogicalAddresses,
@@ -71,6 +52,11 @@ public class TidbokningRequestListTransformer extends AbstractMessageTransformer
 			actor.setActorId("999");
 			actor.setActorType(ActorTypeEnum.SUBJECT_OF_CARE);
 
+//			PICK UP QUERY-OBJECT FROM INVOCATION OR SESSION VARIABLE!
+//			CALL INTERFACE WITH QUERY-OBJECT + RESPONSE FROM EI, RETURN REQUEST-OBJECT
+//			TWO LEVELS:
+//				1. BASICALLY THE WHOLE pojoTransofrm method
+//				2. JUST CREATING THE REQUEST...
 			GetSubjectOfCareScheduleType request = new GetSubjectOfCareScheduleType();
 			request.setHealthcareFacility(logicalAdress);
 			request.setSubjectOfCare(subjectOfCare);
@@ -84,4 +70,5 @@ public class TidbokningRequestListTransformer extends AbstractMessageTransformer
 
 		return reqList;
 	}
+
 }

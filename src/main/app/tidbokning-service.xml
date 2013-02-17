@@ -32,7 +32,8 @@
 		http://www.mulesoft.org/schema/mule/xml       http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 	">
 
-        <spring:bean name="queryObjectFactory" class="${QUERY_OBJECT_FACTORY_IMPL}" />
+    <spring:bean name="queryObjectFactory" class="${QUERY_OBJECT_FACTORY_IMPL}" />
+    <spring:bean name="requestListFactory" class="${REQUEST_LIST_FACTORY_IMPL}" />
 
 <!-- 
 TODO: Mule EE dependency
@@ -72,6 +73,8 @@ TODO: Mule EE dependency
 	    <custom-transformer doc:name="Create Query Object" class="se.skltp.agp.service.transformers.CreateQueryObjectTransformer">
 	       <spring:property name="queryObjectFactory" ref="queryObjectFactory"/>
 	    </custom-transformer>
+	    
+        <set-variable value="#[payload]" variableName="queryObject" doc:name="Invocation queryObject" />
 
 		<flow-ref name="main-flow" doc:name="main-flow"/>
 
@@ -107,7 +110,9 @@ TODO: Mule EE dependency
 			</https:outbound-endpoint>
         </enricher>
 
-	    <custom-transformer doc:name="Request List Transformer" class="se.skltp.agp.service.transformers.TidbokningRequestListTransformer"/>
+	    <custom-transformer doc:name="Request List Transformer" class="se.skltp.agp.service.transformers.CreateRequestListTransformer">
+           <spring:property name="requestListFactory" ref="requestListFactory"/>
+        </custom-transformer>
 
         <choice doc:name="Choice">
             <when expression="payload.size() == 0">

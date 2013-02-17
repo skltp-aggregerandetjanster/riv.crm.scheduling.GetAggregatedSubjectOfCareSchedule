@@ -72,9 +72,16 @@
 		<level value="INFO" />
 	</logger>
 
-	<logger name="se.skl.tp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule">
-		<level value="INFO" />
-	</logger>
+    <logger name="se.skltp.agp">
+        <level value="DEBUG" />
+    </logger>
+    <logger name="se.skltp.agp.service.transformers">
+        <level value="INFO" />
+    </logger>
+    
+    <logger name="se.skltp.aggregatingservices">
+        <level value="DEBUG" />
+    </logger>
 
     <!-- Message logging using soi-toolkit LogTransformer class -->
 	<logger name="org.soitoolkit.commons.mule.messageLogger">
