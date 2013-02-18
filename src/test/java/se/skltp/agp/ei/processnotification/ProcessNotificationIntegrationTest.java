@@ -77,6 +77,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 		return "soitoolkit-mule-jms-connector-activemq-embedded.xml," + 
   
 		"GetAggregatedSubjectOfCareSchedule-common.xml," +
+		"aggregating-services-common.xml," + 
         "aggregating-service.xml," +
         "teststub-services/service-producer-teststub-service.xml," +
 		"teststub-services/engagemangsindex-teststub-service.xml," + 

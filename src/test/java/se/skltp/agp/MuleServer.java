@@ -18,7 +18,7 @@ public class MuleServer {
         // Arg #1: The name of the Mule Server
         //
         // Arg #2: Start teststub-services if true
-        //         Note: Actually enables the spring-beans-profile "soitoolkit-teststubs" in the file "src/main/app/GetAggregatedSubjectOfCareSchedule-common.xml"
+        //         Note: Actually enables the spring-beans-profile "soitoolkit-teststubs" in the file "src/main/app/aggregating-services-common.xml"
         //
         // Arg #3: Start services if true 
         //         Note: Actually loads all *-service.xml files that are specified in the file "src/main/app/mule-deploy.properties"

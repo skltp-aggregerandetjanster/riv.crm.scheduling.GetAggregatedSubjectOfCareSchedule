@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="aggregating-services-common">
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#1">
+        <properties>
+            <property value="environmentVariablesConfiguration" name="id"/>
+            <property name="name"/>
+            <property value="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="algorithm" name="name"/>
+                <property value="PBEWithMD5AndDES" name="value"/>
+                <property value="2" name="auxiliary;wrapIn"/>
+                <property value="2" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="passwordEnvName" name="name"/>
+                <property value="SOITOOLKIT_ENCRYPTION_PASSWORD" name="value"/>
+                <property value="3" name="auxiliary;wrapIn"/>
+                <property value="3" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#2">
+        <properties>
+            <property value="configurationEncryptor" name="id"/>
+            <property name="name"/>
+            <property value="org.jasypt.encryption.pbe.StandardPBEStringEncryptor" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
+            <property value="4" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="environmentVariablesConfiguration" name="ref"/>
+                <property value="config" name="name"/>
+                <property value="5" name="auxiliary;wrapIn"/>
+                <property value="5" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.springframework.org/schema/beans/import" name="Import" entity-id="Import#1">
+        <properties>
+            <property value="classpath:soitoolkit-mule-jms-connector-activemq-external.xml" name="resource"/>
+            <property value="7" name="auxiliary;index"/>
+            <property value="6" name="auxiliary;wrapIn"/>
+            <property value="7" name="auxiliary;index"/>
+            <property value="6" name="auxiliary;wrapIn"/>
+            <property value="7" name="auxiliary;index"/>
+            <property value="6" name="auxiliary;wrapIn"/>
+        </properties>
+    </global-element>
+    <global-unknown index="9" description="false" wrapNSURL="http://www.springframework.org/schema/beans" wrapNSPref="spring" wrapIn="beans" entity-id="global-unknown#1">
+        <content>&lt;mule xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+            &lt;!--  Allow integration tests to register dynamic listeners by specifying dynamic=&quot;true&quot; --&gt;
+            &lt;notifications dynamic=&quot;true&quot;&gt;
+                &lt;notification event=&quot;ENDPOINT-MESSAGE&quot;/&gt;
+                &lt;notification event=&quot;COMPONENT-MESSAGE&quot;/&gt;
+            &lt;/notifications&gt;
+        &lt;/mule&gt;</content>
+    </global-unknown>
+    <global-element type="http://www.springframework.org/schema/beans/import" name="Import" entity-id="Import#2">
+        <properties>
+            <property value="classpath:teststub-services/*-teststub-service.xml" name="resource"/>
+            <property value="14" name="auxiliary;index"/>
+            <property value="13" name="auxiliary;wrapIn"/>
+            <property value="14" name="auxiliary;index"/>
+            <property value="13" name="auxiliary;wrapIn"/>
+            <property value="14" name="auxiliary;index"/>
+            <property value="13" name="auxiliary;wrapIn"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.springframework.org/schema/beans/import" name="Import" entity-id="Import#3">
+        <properties>
+            <property value="classpath:soitoolkit-mule-http-connector.xml" name="resource"/>
+            <property value="16" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;wrapIn"/>
+            <property value="16" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;wrapIn"/>
+            <property value="16" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;wrapIn"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.springframework.org/schema/beans/import" name="Import" entity-id="Import#4">
+        <properties>
+            <property value="classpath:soitoolkit-mule-https-connector.xml" name="resource"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;wrapIn"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;wrapIn"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;wrapIn"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" name="Message Properties" entity-id="Message Properties#1">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="18" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+            <property name="overwrite"/>
+            <property value="outbound" name="scope"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="setJsonContentType" name="name"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
+                <property value="application/json;charset=UTF-8" name="value"/>
+                <property value="19" name="auxiliary;wrapIn"/>
+                <property value="19" name="auxiliary;index"/>
+                <property value="Content-Type" name="key"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" name="Object to JSON" entity-id="Object to JSON#1">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="20" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="20" name="auxiliary;index"/>
+            <property value="20" name="auxiliary;index"/>
+            <property name="mapper-ref"/>
+            <property name="sourceClass"/>
+            <property value="jaxbToJson" name="name"/>
+            <property value="20" name="auxiliary;index"/>
+            <property value="20" name="auxiliary;index"/>
+            <property value="20" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-unknown index="21" unknownName="jaxbContext" description="false" entity-id="global-unknown#2">
+        <content>&lt;mulexml:jaxb-context xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; name=&quot;jaxbContext&quot; packageNames=&quot;org.soitoolkit.commons.logentry.schema.v1:se.riv.itintegration.engagementindex.findcontentresponder.v1:se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1&quot;/&gt;</content>
+    </global-unknown>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#1">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="22" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="22" name="auxiliary;index"/>
+            <property value="22" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.core.ObjectToStringTransformer" name="class"/>
+            <property value="22" name="auxiliary;index"/>
+            <property value="objToStr" name="name"/>
+            <property value="22" name="auxiliary;index"/>
+            <property value="22" name="auxiliary;index"/>
+            <property value="22" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#2">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="23" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.correlationid.CreateCorrelationIdTransformer" name="class"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="createCorrId" name="name"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="23" name="auxiliary;index"/>
+            <property value="23" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#3">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="24" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.correlationid.SaveCorrelationIdTransformer" name="class"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="saveCorrId" name="name"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="24" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#4">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="25" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="25" name="auxiliary;index"/>
+            <property value="25" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.correlationid.RestoreCorrelationIdTransformer" name="class"/>
+            <property value="25" name="auxiliary;index"/>
+            <property value="restoreCorrId" name="name"/>
+            <property value="25" name="auxiliary;index"/>
+            <property value="25" name="auxiliary;index"/>
+            <property value="25" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#5">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="26" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="26" name="auxiliary;index"/>
+            <property value="26" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.soap.CreateSoapFaultIfExceptionTransformer" name="class"/>
+            <property value="26" name="auxiliary;index"/>
+            <property value="createSoapFaultIfException" name="name"/>
+            <property value="26" name="auxiliary;index"/>
+            <property value="26" name="auxiliary;index"/>
+            <property value="26" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#6">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="27" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="27" name="auxiliary;index"/>
+            <property value="27" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.mime.MimeToStringTransformer" name="class"/>
+            <property value="27" name="auxiliary;index"/>
+            <property value="mimeToStr" name="name"/>
+            <property value="27" name="auxiliary;index"/>
+            <property value="27" name="auxiliary;index"/>
+            <property value="27" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#7">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="28" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="28" name="auxiliary;index"/>
+            <property value="28" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.LogTransformer" name="class"/>
+            <property value="28" name="auxiliary;index"/>
+            <property value="logMsgIn" name="name"/>
+            <property value="28" name="auxiliary;index"/>
+            <property value="28" name="auxiliary;index"/>
+            <property value="28" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="logType" name="name"/>
+                <property value="msg-in" name="value"/>
+                <property value="29" name="auxiliary;wrapIn"/>
+                <property value="29" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="jaxbContext" name="ref"/>
+                <property value="jaxbContext" name="name"/>
+                <property value="30" name="auxiliary;wrapIn"/>
+                <property value="30" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#8">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="31" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="31" name="auxiliary;index"/>
+            <property value="31" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.LogTransformer" name="class"/>
+            <property value="31" name="auxiliary;index"/>
+            <property value="logMsgOut" name="name"/>
+            <property value="31" name="auxiliary;index"/>
+            <property value="31" name="auxiliary;index"/>
+            <property value="31" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="logType" name="name"/>
+                <property value="msg-out" name="value"/>
+                <property value="32" name="auxiliary;wrapIn"/>
+                <property value="32" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="jaxbContext" name="ref"/>
+                <property value="jaxbContext" name="name"/>
+                <property value="33" name="auxiliary;wrapIn"/>
+                <property value="33" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#9">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="34" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="34" name="auxiliary;index"/>
+            <property value="34" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.LogTransformer" name="class"/>
+            <property value="34" name="auxiliary;index"/>
+            <property value="logReqIn" name="name"/>
+            <property value="34" name="auxiliary;index"/>
+            <property value="34" name="auxiliary;index"/>
+            <property value="34" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="logType" name="name"/>
+                <property value="req-in" name="value"/>
+                <property value="35" name="auxiliary;wrapIn"/>
+                <property value="35" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="jaxbContext" name="ref"/>
+                <property value="jaxbContext" name="name"/>
+                <property value="36" name="auxiliary;wrapIn"/>
+                <property value="36" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#10">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="37" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="37" name="auxiliary;index"/>
+            <property value="37" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.LogTransformer" name="class"/>
+            <property value="37" name="auxiliary;index"/>
+            <property value="logReqOut" name="name"/>
+            <property value="37" name="auxiliary;index"/>
+            <property value="37" name="auxiliary;index"/>
+            <property value="37" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="logType" name="name"/>
+                <property value="req-out" name="value"/>
+                <property value="38" name="auxiliary;wrapIn"/>
+                <property value="38" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="jaxbContext" name="ref"/>
+                <property value="jaxbContext" name="name"/>
+                <property value="39" name="auxiliary;wrapIn"/>
+                <property value="39" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#11">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="40" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="40" name="auxiliary;index"/>
+            <property value="40" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.LogTransformer" name="class"/>
+            <property value="40" name="auxiliary;index"/>
+            <property value="logRespIn" name="name"/>
+            <property value="40" name="auxiliary;index"/>
+            <property value="40" name="auxiliary;index"/>
+            <property value="40" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="logType" name="name"/>
+                <property value="resp-in" name="value"/>
+                <property value="41" name="auxiliary;wrapIn"/>
+                <property value="41" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="jaxbContext" name="ref"/>
+                <property value="jaxbContext" name="name"/>
+                <property value="42" name="auxiliary;wrapIn"/>
+                <property value="42" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/custom-transformer" name="Java" entity-id="Java#12">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="43" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="43" name="auxiliary;index"/>
+            <property value="43" name="auxiliary;index"/>
+            <property value="org.soitoolkit.commons.mule.log.LogTransformer" name="class"/>
+            <property value="43" name="auxiliary;index"/>
+            <property value="logRespOut" name="name"/>
+            <property value="43" name="auxiliary;index"/>
+            <property value="43" name="auxiliary;index"/>
+            <property value="43" name="auxiliary;index"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="logType" name="name"/>
+                <property value="resp-out" name="value"/>
+                <property value="44" name="auxiliary;wrapIn"/>
+                <property value="44" name="auxiliary;index"/>
+            </property-collection>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;1">
+                <property value="jaxbContext" name="ref"/>
+                <property value="jaxbContext" name="name"/>
+                <property value="45" name="auxiliary;wrapIn"/>
+                <property value="45" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+</mule-configuration>
