@@ -49,11 +49,18 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     </distributionManagement>
 
 	<dependencies>	
-		<dependency>
-		  <groupId>org.soitoolkit.commons.components</groupId>
-			<artifactId>soitoolkit-commons-mule</artifactId>
-			<version>${soitoolkit.version}</version>
-		</dependency>
+
+        <dependency>
+		    <groupId>se.skltp</groupId>
+		    <artifactId>agp</artifactId>
+		    <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+          <groupId>org.soitoolkit.commons.components</groupId>
+            <artifactId>soitoolkit-commons-mule</artifactId>
+            <version>${soitoolkit.version}</version>
+        </dependency>
 
 <!-- 
 		<dependency>
