@@ -15,9 +15,9 @@
 
 	<!-- Teststub for a source system (källsystem) behind a virtual service in TP VP -->
 	<simple-service 
-		name="tidbokning-teststub-service"
+		name="service-producer-teststub-service"
         address="${TESTSTUB_SERVICE_INBOUND_URL}?connector=soitoolkit-https-connector" 
-        component-class="se.skltp.agp.tidbokning.TidbokningTestProducer"
+        component-class="${SERVICE_PRODUCER_TESTSTUB_IMPL}"
         type="jax-ws" />
 
 </mule>

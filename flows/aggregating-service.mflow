@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="tidbokning">
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="aggregating-service">
     <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#1">
         <properties>
             <property name="id"/>
@@ -108,7 +108,7 @@
             <property value="43" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="cache-flow" entity-id="a2616f23-0c62-45f1-98f8-528511f98719">
+    <flow SubFlow="false" name="cache-flow" entity-id="c5a49615-e62b-4ccc-9053-da9ae29ac005">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -284,7 +284,7 @@
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="main-flow" entity-id="f6896de4-4fd5-4d6d-819a-065b25d0d99e">
+    <flow SubFlow="false" name="main-flow" entity-id="57996b54-039c-4384-9244-5fcff4d47a56">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -454,20 +454,20 @@
             </pattern>
             <splitter index="22" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
                 <properties>
-                    <property-collection name="a06b988c-e15f-462f-8007-268be3b0672b">
+                    <property-collection name="25bcefd5-832c-47da-aee2-cc871c2c1bb3">
                         <property value="payload.size() == 0" name="choice.expression"/>
                         <property-collection name="choice.attributes">
                             <property value="payload.size() == 0" name="expression"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="cf0f9be0-cf70-49e3-955a-d454ea52003d">
+                    <property-collection name="1e7b0a2d-e098-4ac9-b10f-672a79ae4c33">
                         <property value="true" name="choice.otherwise"/>
                         <property-collection name="choice.attributes"/>
                     </property-collection>
                 </properties>
                 <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#3">
-                    <lane isChoiceOtherwiseLane="false" index="24" hadOnlyOneElement="false" entity-id="a06b988c-e15f-462f-8007-268be3b0672b">
+                    <lane isChoiceOtherwiseLane="false" index="24" hadOnlyOneElement="false" entity-id="25bcefd5-832c-47da-aee2-cc871c2c1bb3">
                         <pattern type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" name="Set empty result" entity-id="Groovy#1">
                             <properties>
 <property value="25" name="auxiliary;index"/>
@@ -491,7 +491,7 @@
                             </properties>
                         </pattern>
                     </lane>
-                    <lane isChoiceOtherwiseLane="true" index="29" hadOnlyOneElement="false" entity-id="cf0f9be0-cf70-49e3-955a-d454ea52003d">
+                    <lane isChoiceOtherwiseLane="true" index="29" hadOnlyOneElement="false" entity-id="1e7b0a2d-e098-4ac9-b10f-672a79ae4c33">
                         <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="request-reply-flow" entity-id="Flow Reference#2">
                             <properties>
 <property value="request-reply-flow" name="name"/>
@@ -505,7 +505,7 @@
             </splitter>
         </lane>
     </flow>
-    <flow SubFlow="false" name="request-reply-flow" entity-id="3ad3e1ff-cb43-4fea-93aa-fadd83cd3be8">
+    <flow SubFlow="false" name="request-reply-flow" entity-id="10c45c61-3215-4776-981d-1ffb1d59dfc5">
         <properties>
             <property value="synchronous" name="processingStrategy2"/>
             <property value="synchronous" name="processingStrategy"/>
@@ -518,18 +518,18 @@
         </properties>
         <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#5">
             <unknown index="32" description="false" entity-id="unknown#1">
-                <content>&lt;request-reply xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:jdbc-ee=&quot;http://www.mulesoft.org/schema/mule/ee/jdbc&quot; xmlns:doc=&quot;http://www.mulesoft.org/schema/mule/documentation&quot; doc:name=&quot;Request/Reply&quot; timeout=&quot;${AGGREGATED_SERVICE_TIMEOUT_MS}&quot;&gt;  
+                <content>&lt;request-reply xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:doc=&quot;http://www.mulesoft.org/schema/mule/documentation&quot; doc:name=&quot;Request/Reply&quot; timeout=&quot;${AGGREGATED_SERVICE_TIMEOUT_MS}&quot;&gt;  
             &lt;vm:outbound-endpoint xmlns:vm=&quot;http://www.mulesoft.org/schema/mule/vm&quot; path=&quot;splitter&quot;&gt; 
 	            &lt;message-properties-transformer scope=&quot;outbound&quot;&gt; 
-	                &lt;delete-message-property key=&quot;MULE_REPLYTO&quot;&gt;&lt;/delete-message-property&gt; 
+	                &lt;delete-message-property key=&quot;MULE_REPLYTO&quot;/&gt; 
 	            &lt;/message-properties-transformer&gt; 
             &lt;/vm:outbound-endpoint&gt;
-            &lt;vm:inbound-endpoint xmlns:vm=&quot;http://www.mulesoft.org/schema/mule/vm&quot; path=&quot;reply&quot;&gt;&lt;/vm:inbound-endpoint&gt; 
+            &lt;vm:inbound-endpoint xmlns:vm=&quot;http://www.mulesoft.org/schema/mule/vm&quot; path=&quot;reply&quot;/&gt; 
         &lt;/request-reply&gt;</content>
             </unknown>
         </lane>
     </flow>
-    <flow SubFlow="false" name="splitter-flow" entity-id="39163c06-f233-48af-a840-0c1ee0a7f724">
+    <flow SubFlow="false" name="splitter-flow" entity-id="d8dda3b5-2be0-49c1-bca4-d59deff4fd79">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -636,7 +636,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="worker-flow" entity-id="c8fe6749-3bff-4a0b-979d-16aff582a180">
+    <flow SubFlow="false" name="worker-flow" entity-id="b6dce5a5-1904-4236-b0fa-d7d90ab21dba">
         <properties>
             <property value="worker-flow-processing-strategy" name="processingStrategy2"/>
             <property value="worker-flow-processing-strategy" name="processingStrategy"/>
@@ -829,7 +829,7 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="aggregation-flow" entity-id="68b8c30d-7f06-4c1a-a813-bd082aa2a769">
+    <flow SubFlow="false" name="aggregation-flow" entity-id="ad24aefd-e7e2-4aae-af53-1c0103d391d4">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
