@@ -73,9 +73,6 @@
 	</logger>
 
     <logger name="se.skltp.agp">
-        <level value="DEBUG" />
-    </logger>
-    <logger name="se.skltp.agp.service.transformers">
         <level value="INFO" />
     </logger>
     

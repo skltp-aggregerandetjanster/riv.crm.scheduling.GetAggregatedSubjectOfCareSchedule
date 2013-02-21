@@ -4,8 +4,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static se.skltp.agp.cache.Contants.CATEGORIZATION_BOOKING;
-import static se.skltp.agp.cache.Contants.SERVICE_DOMAIN_SCHEDULING;
+import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.CATEGORIZATION_BOOKING;
+import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.SERVICE_DOMAIN_SCHEDULING;
 
 import java.text.ParseException;
 import java.util.Date;

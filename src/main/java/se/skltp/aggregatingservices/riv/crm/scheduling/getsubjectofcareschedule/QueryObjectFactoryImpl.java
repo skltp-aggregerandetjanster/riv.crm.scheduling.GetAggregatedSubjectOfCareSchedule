@@ -1,6 +1,6 @@
 package se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule;
 
-import static se.skltp.agp.cache.Contants.SERVICE_DOMAIN_SCHEDULING;
+import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.SERVICE_DOMAIN_SCHEDULING;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

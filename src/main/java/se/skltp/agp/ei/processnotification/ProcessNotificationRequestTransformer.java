@@ -1,7 +1,7 @@
 package se.skltp.agp.ei.processnotification;
 
-import static se.skltp.agp.cache.Contants.CATEGORIZATION_BOOKING;
-import static se.skltp.agp.cache.Contants.SERVICE_DOMAIN_SCHEDULING;
+import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.CATEGORIZATION_BOOKING;
+import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.SERVICE_DOMAIN_SCHEDULING;
 
 import java.util.Iterator;
 
