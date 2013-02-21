@@ -1,6 +1,6 @@
 package se.skltp.agp.tidbokning;
 
-import static se.skltp.agp.MuleServer.getAddress;
+import static se.skltp.agp.TidbokningMuleServer.getAddress;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 
 import java.net.URL;

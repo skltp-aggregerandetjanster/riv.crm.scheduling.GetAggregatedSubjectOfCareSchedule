@@ -9,7 +9,7 @@ import static se.riv.interoperability.headers.v1.CausingAgentEnum.VIRTUALIZATION
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.NO_DATA_SYNCH_FAILED;
-import static se.skltp.agp.MuleServer.getAddress;
+import static se.skltp.agp.TidbokningMuleServer.getAddress;
 import static se.skltp.agp.cache.CacheUtil.getCache;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;

@@ -1,6 +1,6 @@
 package se.skltp.agp.ei.processnotification;
 
-import static se.skltp.agp.MuleServer.getAddress;
+import static se.skltp.agp.TidbokningMuleServer.getAddress;
 
 import java.net.URL;
 
