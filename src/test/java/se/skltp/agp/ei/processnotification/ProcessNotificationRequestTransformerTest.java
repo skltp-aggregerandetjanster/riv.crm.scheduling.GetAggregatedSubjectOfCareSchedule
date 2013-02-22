@@ -1,7 +1,6 @@
 package se.skltp.agp.ei.processnotification;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
@@ -18,6 +17,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.apache.kahadb.util.ByteArrayInputStream;
 import org.junit.Test;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
+import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.soitoolkit.commons.xml.XPathUtil;
 
 import riv.itintegration.engagementindex._1.EngagementTransactionType;
@@ -28,6 +28,10 @@ import se.skltp.agp.cache.MyTestUtil;
 import se.skltp.agp.ei.processnotification.ProcessNotificationRequestTransformer;
 
 public class ProcessNotificationRequestTransformerTest {
+
+	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
+	private static final String EI_SERVICE_DOMAIN = rb.getString("EI_SERVICE_DOMAIN");
+	private static final String EI_CATEGORIZATION = rb.getString("EI_CATEGORIZATION");
 
 	private MyTestUtil tu = new MyTestUtil();
 	private JaxbUtil jaxbUtil = new JaxbUtil(ProcessNotificationType.class);
@@ -56,6 +60,8 @@ public class ProcessNotificationRequestTransformerTest {
 		// Create the transformer under test and let it perform the transformation
 
 		ProcessNotificationRequestTransformer transformer = new ProcessNotificationRequestTransformer();
+		transformer.setEiServiceDomain(EI_SERVICE_DOMAIN);
+		transformer.setEiCategorization(EI_CATEGORIZATION);
 		String result = (String)transformer.pojoTransform(input, "UTF-8");
 
 		// Compare the result to the expected value
@@ -113,6 +119,8 @@ public class ProcessNotificationRequestTransformerTest {
 
 		// Create the transformer under test and let it perform the transformation
 		ProcessNotificationRequestTransformer transformer = new ProcessNotificationRequestTransformer();
+		transformer.setEiServiceDomain(EI_SERVICE_DOMAIN);
+		transformer.setEiCategorization(EI_CATEGORIZATION);
 		String result = (String)transformer.pojoTransform(input, "UTF-8");
 
 		// Compare the result to the expected value

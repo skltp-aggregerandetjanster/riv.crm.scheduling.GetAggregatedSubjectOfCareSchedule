@@ -56,7 +56,10 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
             <custom-transformer doc:name="Create Response" class="se.skltp.agp.ei.processnotification.ProcessNotificationResponseTransformer"/>
         </response>
         
-        <custom-transformer doc:name="Extract Request" class="se.skltp.agp.ei.processnotification.ProcessNotificationRequestTransformer"/>
+        <custom-transformer doc:name="Extract Request" class="se.skltp.agp.ei.processnotification.ProcessNotificationRequestTransformer">
+            <spring:property name="eiServiceDomain" value="${EI_SERVICE_DOMAIN}" />
+            <spring:property name="eiCategorization" value="${EI_CATEGORIZATION}" />
+        </custom-transformer>
 		<jms:outbound-endpoint doc:name="jms://processNotification" connector-ref="soitoolkit-jms-connector" queue="${PROCESS_NOTIFICATION_QUEUE}" transformer-refs="objToStr strToJms logReqOut" /> 
  <!-- 
  		<custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>

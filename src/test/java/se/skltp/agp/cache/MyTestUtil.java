@@ -4,8 +4,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.CATEGORIZATION_BOOKING;
-import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.SERVICE_DOMAIN_SCHEDULING;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -14,6 +12,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
+import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
 import riv.itintegration.engagementindex._1.EngagementTransactionType;
@@ -25,7 +24,11 @@ import se.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class MyTestUtil {
 
+	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 	private ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("yyyyMMddHHmmss");
+	
+	private static final String EI_SERVICE_DOMAIN = rb.getString("EI_SERVICE_DOMAIN");
+	private static final String EI_CATEGORIZATION = rb.getString("EI_CATEGORIZATION");
 	
 	public static final String singleXmlBody = 
 	  "<ns3:GetSubjectOfCareScheduleResponse xmlns=\"urn:riv:crm:scheduling:1\" xmlns:ns2=\"urn:riv:crm:scheduling:1.1\" xmlns:ns3=\"urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1\" xmlns:ns4=\"urn:riv:interoperability:headers:1\">" +
@@ -179,8 +182,8 @@ public class MyTestUtil {
 	public EngagementTransactionType createEngagementTransaction(String subjectofCareId, String logicalAddress, String bookingId) {
 		EngagementTransactionType transaction = new EngagementTransactionType();
 		EngagementType e = new EngagementType();
-		e.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
-		e.setCategorization(CATEGORIZATION_BOOKING);
+		e.setServiceDomain(EI_SERVICE_DOMAIN);
+		e.setCategorization(EI_CATEGORIZATION);
 		e.setRegisteredResidentIdentification(subjectofCareId);
 		e.setLogicalAddress(logicalAddress);
 		e.setBusinessObjectInstanceIdentifier(bookingId);

@@ -1,7 +1,5 @@
 package se.skltp.agp.ei.findcontent;
 
-import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.CATEGORIZATION_BOOKING;
-import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.SERVICE_DOMAIN_SCHEDULING;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_FAULT_INVALID_ID;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
@@ -40,28 +38,22 @@ public class EngagemangsindexTestProducer implements FindContentResponderInterfa
     private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 	private static final long SERVICE_TIMOUT_MS = Long.parseLong(rb.getString("SERVICE_TIMEOUT_MS"));
 
-	private static final Map<String, FindContentResponseType> BOOKING_INDEX = new HashMap<String, FindContentResponseType>();
+	private String eiServiceDomain;
+	public void setEiServiceDomain(String eiServiceDomain) {
+		this.eiServiceDomain = eiServiceDomain;
+	}
+
+	private String eiCategorization;
+	public void setEiCategorization(String eiCategorization) {
+		this.eiCategorization = eiCategorization;
+	}
+
+	private static final Map<String, FindContentResponseType> INDEX = new HashMap<String, FindContentResponseType>();
 	
-	static {
-		// Build a booking-index based subjectOfCare as key containing a number of bookings with unique booking-id's spread over one or more logical-addresses. 
-
-		// Patient with one booking
-		FindContentResponseType response = new FindContentResponseType();
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_ONE_BOOKING, TEST_BOOKING_ID_ONE_BOOKING));
-		BOOKING_INDEX.put(TEST_ID_ONE_BOOKING, response);
-
-		// Patient with three bookings spread over two logical-addresses
-		response = new FindContentResponseType();
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_3, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_4));
-		BOOKING_INDEX.put(TEST_ID_MANY_BOOKINGS, response);
-				
-		// Patient that casue an exception in the source system
-		response = new FindContentResponseType();
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_FAULT_INVALID_ID, TEST_BOOKING_ID_FAULT_INVALID_ID));
-		BOOKING_INDEX.put(TEST_ID_FAULT_INVALID_ID, response);
+	public EngagemangsindexTestProducer() {
+		if (INDEX.size() == 0) {
+			initIndex();
+		}
 	}
 
 	@Override
@@ -84,7 +76,7 @@ public class EngagemangsindexTestProducer implements FindContentResponderInterfa
         }
 
         // Lookup the response
-		FindContentResponseType response = BOOKING_INDEX.get(request.getRegisteredResidentIdentification());
+		FindContentResponseType response = INDEX.get(request.getRegisteredResidentIdentification());
         if (response == null) {
         	// Return an empty response object instead of null if nothing is found
         	response = new FindContentResponseType();
@@ -95,11 +87,33 @@ public class EngagemangsindexTestProducer implements FindContentResponderInterfa
         return response;
 	}
 
-	static private EngagementType createResponse(String receiverLogicalAddress, String registeredResidentIdentification, String bookingId) {
+	private void initIndex() {
+		// Build a booking-index based subjectOfCare as key containing a number of bookings with unique booking-id's spread over one or more logical-addresses. 
+
+		// Patient with one booking
+		FindContentResponseType response = new FindContentResponseType();
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_ONE_BOOKING, TEST_BOOKING_ID_ONE_BOOKING));
+		INDEX.put(TEST_ID_ONE_BOOKING, response);
+
+		// Patient with three bookings spread over two logical-addresses
+		response = new FindContentResponseType();
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_3, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_4));
+		INDEX.put(TEST_ID_MANY_BOOKINGS, response);
+				
+		// Patient that casue an exception in the source system
+		response = new FindContentResponseType();
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_FAULT_INVALID_ID, TEST_BOOKING_ID_FAULT_INVALID_ID));
+		INDEX.put(TEST_ID_FAULT_INVALID_ID, response);
+	}
+
+	private EngagementType createResponse(String receiverLogicalAddress, String registeredResidentIdentification, String bookingId) {
 		
 		EngagementType e = new EngagementType();
-		e.setServiceDomain(SERVICE_DOMAIN_SCHEDULING);
-		e.setCategorization(CATEGORIZATION_BOOKING);
+		e.setServiceDomain(eiServiceDomain);
+		e.setCategorization(eiCategorization);
 		e.setLogicalAddress(receiverLogicalAddress);
 		e.setRegisteredResidentIdentification(registeredResidentIdentification);
 		e.setBusinessObjectInstanceIdentifier(bookingId);

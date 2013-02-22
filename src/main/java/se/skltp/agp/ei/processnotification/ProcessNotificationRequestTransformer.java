@@ -1,8 +1,5 @@
 package se.skltp.agp.ei.processnotification;
 
-import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.CATEGORIZATION_BOOKING;
-import static se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule.Constants.SERVICE_DOMAIN_SCHEDULING;
-
 import java.util.Iterator;
 
 import javax.xml.stream.XMLStreamReader;
@@ -26,6 +23,16 @@ public class ProcessNotificationRequestTransformer extends AbstractMessageTransf
 	private JaxbUtil jaxbUtil = new JaxbUtil(ProcessNotificationType.class);
 	ObjectFactory of = new ObjectFactory();
 	
+	private String eiServiceDomain;
+	public void setEiServiceDomain(String eiServiceDomain) {
+		this.eiServiceDomain = eiServiceDomain;
+	}
+
+	private String eiCategorization;
+	public void setEiCategorization(String eiCategorization) {
+		this.eiCategorization = eiCategorization;
+	}
+
     /**
      * Message aware transformer that ...
      */
@@ -58,7 +65,7 @@ public class ProcessNotificationRequestTransformer extends AbstractMessageTransf
 		
 			// Only keep ProcessNotifications for SERVICE_DOMAIN_SCHEDULING and CATEGORIZATION_BOOKING
 			if (e.getServiceDomain() != null && e.getCategorization() != null && 
-				e.getServiceDomain().equals(SERVICE_DOMAIN_SCHEDULING) && e.getCategorization().equals(CATEGORIZATION_BOOKING)) {
+				e.getServiceDomain().equals(eiServiceDomain) && e.getCategorization().equals(eiCategorization)) {
 				
 				if (log.isInfoEnabled()) {
 					log.info("Keep process notification for logical address {}, subjectOfCareId {} and bookingId {}", 
