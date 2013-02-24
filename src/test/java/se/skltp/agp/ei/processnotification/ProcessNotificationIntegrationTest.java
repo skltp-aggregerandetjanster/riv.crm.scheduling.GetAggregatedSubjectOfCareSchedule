@@ -1,16 +1,13 @@
 package se.skltp.agp.ei.processnotification;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
 import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
-import static se.skltp.agp.cache.CacheUtil.getCache;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_REASON_DEFAULT;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_REASON_UPDATED;
 
 import java.util.HashMap;
@@ -20,7 +17,6 @@ import javax.xml.ws.Holder;
 
 import org.junit.Test;
 import org.mule.api.MuleEvent;
-import org.mule.api.store.ObjectDoesNotExistException;
 import org.mule.api.store.ObjectStoreException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

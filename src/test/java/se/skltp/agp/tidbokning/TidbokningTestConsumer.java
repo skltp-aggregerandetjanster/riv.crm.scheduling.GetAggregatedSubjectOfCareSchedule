@@ -4,14 +4,11 @@ import static se.skltp.agp.TidbokningMuleServer.getAddress;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
 
 import java.net.URL;
-import java.util.List;
 
 import javax.xml.ws.Holder;
 
 import org.apache.cxf.bus.spring.SpringBusFactory;
-import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

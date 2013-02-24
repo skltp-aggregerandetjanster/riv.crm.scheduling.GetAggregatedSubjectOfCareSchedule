@@ -79,12 +79,6 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 		
 		<dependency>
 			<groupId>se.rivta.tools</groupId>
-			<artifactId>itintegration-engagementindex-schemas</artifactId>
-			<version>1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>se.rivta.tools</groupId>
 			<artifactId>ehr-scheduling-schemas</artifactId>
 			<version>1</version>
 		</dependency>

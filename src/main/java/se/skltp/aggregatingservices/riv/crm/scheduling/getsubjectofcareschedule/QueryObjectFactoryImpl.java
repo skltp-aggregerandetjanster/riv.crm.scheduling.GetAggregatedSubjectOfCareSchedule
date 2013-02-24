@@ -6,6 +6,7 @@ import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import org.w3c.dom.Node;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
+import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
 import se.skltp.agp.service.api.QueryObjectFactory;
 import se.skltp.agp.service.api.QueryObject;
 
@@ -28,7 +29,11 @@ public class QueryObjectFactoryImpl implements QueryObjectFactory {
 		
 		log.debug("Transformed payload: pid: {}", subjectofCareId);
 		
-		QueryObject qo = new QueryObject(subjectofCareId, eiServiceDomain);
+		FindContentType fc = new FindContentType();
+		fc.setRegisteredResidentIdentification(subjectofCareId);
+		fc.setServiceDomain(eiServiceDomain);
+		QueryObject qo = new QueryObject(fc, reqIn);
+
 		return qo;
 	}
 }

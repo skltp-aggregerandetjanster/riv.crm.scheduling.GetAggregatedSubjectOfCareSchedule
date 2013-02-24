@@ -10,7 +10,6 @@ import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 import static se.riv.interoperability.headers.v1.StatusCodeEnum.NO_DATA_SYNCH_FAILED;
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
-import static se.skltp.agp.cache.CacheUtil.getCache;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
 import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
@@ -29,7 +28,6 @@ import java.util.List;
 import javax.xml.ws.Holder;
 
 import org.junit.Test;
-import org.mule.api.MuleEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
@@ -42,7 +40,6 @@ import se.riv.interoperability.headers.v1.CausingAgentEnum;
 import se.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.riv.interoperability.headers.v1.ProcessingStatusType;
-import se.skltp.agp.cache.CacheMemoryStoreImpl;
 
  
 public class TidbokningIntegrationTest extends AbstractTestCase {
