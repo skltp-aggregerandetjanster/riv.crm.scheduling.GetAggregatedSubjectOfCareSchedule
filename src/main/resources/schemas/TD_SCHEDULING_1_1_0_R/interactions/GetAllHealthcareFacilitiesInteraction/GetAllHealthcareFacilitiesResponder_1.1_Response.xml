@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:GetAllHealthcareFacilitiesResponse xmlns:tns="urn:riv:crm:scheduling:GetAllHealthcareFacilitiesResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:tns2="urn:riv:crm:scheduling:1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:GetAllHealthcareFacilitiesResponder:1 GetAllHealthcareFacilitiesResponder_1.1.xsd ">
+  <tns:healthcareFacilityInfos>
+    <tns1:healthcare_facility>tns1:healthcare_facility</tns1:healthcare_facility>
+    <tns1:healthcare_facility_name>tns1:healthcare_facility_name</tns1:healthcare_facility_name>
+  </tns:healthcareFacilityInfos>
+</tns:GetAllHealthcareFacilitiesResponse>

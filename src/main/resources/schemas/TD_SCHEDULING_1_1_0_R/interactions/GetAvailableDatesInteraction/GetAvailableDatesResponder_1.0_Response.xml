@@ -1,0 +1,24 @@
+<tns:GetAvailableDatesResponse xmlns:tns="urn:riv:crm:scheduling:GetAvailableDatesResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:GetAvailableDatesResponder:1 GetAvailableDatesResponder_1.0.xsd ">
+  <tns:performerAvailabilityByDate>
+    <tns:healthcare_facility>tns:healthcare_facility</tns:healthcare_facility>
+    <tns:performer>tns:performer(?)</tns:performer>
+    <tns:date>20010101</tns:date>
+    <tns:resourceName>tns:resourceName(?)</tns:resourceName>
+    <tns:resourceID>tns:resourceID(?)</tns:resourceID>
+    <tns:timeTypeName>tns:timeTypeName(?)</tns:timeTypeName>
+    <tns:timeTypeID>tns:timeTypeID(?)</tns:timeTypeID>
+    <tns:careTypeName>tns:careTypeName(?)</tns:careTypeName>
+    <tns:careTypeID>tns:careTypeID(?)</tns:careTypeID>
+  </tns:performerAvailabilityByDate>
+   <tns:performerAvailabilityByDate>
+    <tns:healthcare_facility>tns:healthcare_facility</tns:healthcare_facility>
+    <tns:performer>tns:performer(?)</tns:performer>
+    <tns:date>20010101</tns:date>
+    <tns:resourceName>tns:resourceName(?)</tns:resourceName>
+    <tns:resourceID>tns:resourceID(?)</tns:resourceID>
+    <tns:timeTypeName>tns:timeTypeName(?)</tns:timeTypeName>
+    <tns:timeTypeID>tns:timeTypeID(?)</tns:timeTypeID>
+    <tns:careTypeName>tns:careTypeName(?)</tns:careTypeName>
+    <tns:careTypeID>tns:careTypeID(?)</tns:careTypeID>
+  </tns:performerAvailabilityByDate> 
+</tns:GetAvailableDatesResponse>

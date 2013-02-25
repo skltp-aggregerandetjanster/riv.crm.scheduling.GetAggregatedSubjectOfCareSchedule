@@ -23,9 +23,8 @@ import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.ObjectFactory;
 import se.riv.crm.scheduling.v1.TimeslotType;
-import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
-import se.riv.interoperability.headers.v1.ProcessingStatusType;
-import se.skltp.agp.cache.CacheEntryUtil;
+import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
+import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class CacheEntryUtilTest {
 

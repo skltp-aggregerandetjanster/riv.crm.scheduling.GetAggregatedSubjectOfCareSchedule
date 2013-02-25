@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Sveriges Kommuner och Landsting licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->		
+<wsdl:definitions name='GetAvailableDatesInteraction' xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:tjsr='urn:riv:crm:scheduling:GetAvailableDatesResponder:1' xmlns:ih='urn:riv:interoperability:headers:1' xmlns:tns='urn:riv:crm:scheduling:GetAvailableDates:1:rivtabp21' targetNamespace='urn:riv:crm:scheduling:GetAvailableDates:1:rivtabp21' xmlns:itr='urn:riv:itintegration:registry:1'>
+  <xs:annotation>
+    <xs:documentation>
+			 Tjänsteinteraktionens namn: GetAvailableDatesInteraction
+			 Beskrivning: 
+			   Interaction to retrieve dates with at least one available timeslot of the requested type and performer within the schedule of the targeted healthcare facility.
+			 Revisioner: 
+			 Tjänstedomän: crm:scheduling
+			 Tjänsteinteraktionstyp: Fråga-Svar
+			 WS-profil: RIVTABP21
+			 Förvaltas av: Sveriges Kommuner och Landsting
+			 </xs:documentation>
+  </xs:annotation>
+  <wsdl:types>
+    <xs:schema targetNamespace='urn:riv:crm:scheduling:GetAvailableDates:1:rivtabp21'>
+      <xs:import schemaLocation='GetAvailableDatesResponder_1.1.xsd' namespace='urn:riv:crm:scheduling:GetAvailableDatesResponder:1' />
+      <xs:import schemaLocation='../../core_components/itintegration_registry_1.0.xsd' namespace='urn:riv:itintegration:registry:1' />
+      <xs:import schemaLocation='../../core_components/interoperability_headers_1.0.xsd' namespace='urn:riv:interoperability:headers:1' />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name='GetAvailableDatesRequest'>
+    <wsdl:part name='LogicalAddress' element='itr:LogicalAddress'>
+      <wsdl:documentation>hsaid of the healthcare_facility owning the schedule</wsdl:documentation>
+    </wsdl:part>
+  <wsdl:part name='actor' element="ih:Actor" />
+    <wsdl:part name='parameters' element='tjsr:GetAvailableDates' />
+  </wsdl:message>
+  <wsdl:message name='GetAvailableDatesResponse'>
+    <wsdl:part name='parameters' element='tjsr:GetAvailableDatesResponse' />
+  </wsdl:message>
+  <wsdl:portType name='GetAvailableDatesResponderInterface'>
+    <wsdl:operation name='GetAvailableDates'>
+      <wsdl:input message='tns:GetAvailableDatesRequest' />
+      <wsdl:output message='tns:GetAvailableDatesResponse' />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name='GetAvailableDatesResponderBinding' type='tns:GetAvailableDatesResponderInterface'>
+    <soap:binding style='document' transport='http://schemas.xmlsoap.org/soap/http' />
+    <wsdl:operation name='GetAvailableDates'>
+      <soap:operation soapAction='urn:riv:crm:scheduling:GetAvailableDatesResponder:1:GetAvailableDates' style='document' />
+      <wsdl:input>
+        <soap:header use='literal' message='tns:GetAvailableDatesRequest' part='LogicalAddress' />
+	    <soap:header use='literal' message='tns:GetAvailableDatesRequest' part='actor' />
+        <soap:body use='literal' parts='parameters' />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use='literal' />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name='GetAvailableDatesResponderService'>
+    <wsdl:port name='GetAvailableDatesResponderPort' binding='tns:GetAvailableDatesResponderBinding'>
+      <soap:address location='http://tempuri.org' />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

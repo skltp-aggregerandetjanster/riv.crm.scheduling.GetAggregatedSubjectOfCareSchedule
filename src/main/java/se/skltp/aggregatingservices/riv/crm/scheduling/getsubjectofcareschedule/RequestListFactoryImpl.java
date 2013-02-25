@@ -9,11 +9,11 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
-import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
+import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 import se.skltp.agp.service.api.QueryObject;
 import se.skltp.agp.service.api.RequestListFactory;
 

@@ -11,7 +11,7 @@ import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.phase.Phase;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
-import se.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 
 public class SoapHeaderCxfInterceptor extends AbstractSoapInterceptor {
 

@@ -1,15 +1,15 @@
 package se.skltp.agp.ei.processnotification;
 
 import org.mule.api.MuleMessage;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
-import riv.itintegration.engagementindex._1.ResultCodeEnum;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.ResultCodeEnum;
 
 public class ProcessNotificationResponseTransformer extends AbstractMessageTransformer {
 

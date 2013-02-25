@@ -20,12 +20,12 @@ import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.soitoolkit.commons.xml.XPathUtil;
 
-import riv.itintegration.engagementindex._1.EngagementTransactionType;
-import riv.itintegration.engagementindex._1.EngagementType;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
 import se.skltp.agp.cache.MyTestUtil;
-import se.skltp.agp.ei.processnotification.ProcessNotificationRequestTransformer;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementTransactionType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
+
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
 
 public class ProcessNotificationRequestTransformerTest {
 

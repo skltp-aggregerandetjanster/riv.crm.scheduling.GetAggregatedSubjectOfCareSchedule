@@ -1,0 +1,31 @@
+<tns:MakeBooking xmlns:tns="urn:riv:crm:scheduling:MakeBookingResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:MakeBookingResponder:1 MakeBookingResponder_1.0.xsd ">
+  <tns:healthcare_facility_med>tns:healthcare_facility_med</tns:healthcare_facility_med>
+  <tns:requestedTimeslot>
+    <tns1:startTimeInclusive>20011231120000</tns1:startTimeInclusive>
+    <tns1:endTimeExclusive>20011231220000</tns1:endTimeExclusive>
+    <tns1:healthcare_facility>tns1:healthcare_facility</tns1:healthcare_facility>
+    <tns1:performer>tns1:performer(?)</tns1:performer>
+    <tns1:bookingId>tns1:bookingId(?)</tns1:bookingId>
+    <tns1:subject_of_care>tns1:subject_of_care</tns1:subject_of_care>
+    <tns1:purpose>tns1:purpose(?)</tns1:purpose>
+    <tns1:reason>tns1:reason(?)</tns1:reason>
+    <tns1:resourceName>tns1:resourceName(?)</tns1:resourceName>
+    <tns1:healthcare_facility_name>tns1:healthcare_facility_name(?)</tns1:healthcare_facility_name>
+    <tns1:performerName>tns1:performerName(?)</tns1:performerName>
+    <tns1:resourceID>tns1:resourceID(?)</tns1:resourceID>
+    <tns1:timeTypeName>tns1:timeTypeName(?)</tns1:timeTypeName>
+    <tns1:timeTypeID>tns1:timeTypeID(?)</tns1:timeTypeID>
+    <tns1:careTypeName>tns1:careTypeName(?)</tns1:careTypeName>
+    <tns1:careTypeID>tns1:careTypeID(?)</tns1:careTypeID>
+    <tns1:cancel_booking_allowed>true(?)</tns1:cancel_booking_allowed>
+    <tns1:rebooking_allowed>true(?)</tns1:rebooking_allowed>
+    <tns1:message_allowed>true(?)</tns1:message_allowed>
+  </tns:requestedTimeslot>
+  <tns:subject_of_care_info>
+    <tns1:phone>tns1:phone(?)</tns1:phone>
+    <tns1:email>tns1:email(?)</tns1:email>
+    <tns1:address>tns1:address(?)</tns1:address>
+    <tns1:coaddress>tns1:coaddress(?)</tns1:coaddress>
+  </tns:subject_of_care_info>
+  <tns:notification>tns:notification(?)</tns:notification>
+</tns:MakeBooking>

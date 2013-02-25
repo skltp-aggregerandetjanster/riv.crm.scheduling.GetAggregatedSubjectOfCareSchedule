@@ -10,10 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
-import se.riv.itintegration.engagementindex.processnotification.v1.rivtabp21.ProcessNotificationResponderInterface;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
 import se.skltp.agp.cache.MyTestUtil;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotification.v1.rivtabp21.ProcessNotificationResponderInterface;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
 
 public class ProcessNotificationTestConsumer {
 

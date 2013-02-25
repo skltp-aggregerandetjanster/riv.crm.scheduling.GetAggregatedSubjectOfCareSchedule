@@ -1,5 +1,6 @@
 package se.skltp.agp.ei.processnotification;
 
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
 import java.util.Iterator;
 
 import javax.xml.stream.XMLStreamReader;
@@ -11,10 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
-import riv.itintegration.engagementindex._1.EngagementTransactionType;
-import riv.itintegration.engagementindex._1.EngagementType;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementTransactionType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 
 public class ProcessNotificationRequestTransformer extends AbstractMessageTransformer {
 

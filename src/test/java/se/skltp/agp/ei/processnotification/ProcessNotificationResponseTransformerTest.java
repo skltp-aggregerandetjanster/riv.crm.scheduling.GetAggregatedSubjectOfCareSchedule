@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.soitoolkit.commons.mule.util.MiscUtil;
 
-import se.skltp.agp.ei.processnotification.ProcessNotificationResponseTransformer;
-
 public class ProcessNotificationResponseTransformerTest {
 
 	@Test

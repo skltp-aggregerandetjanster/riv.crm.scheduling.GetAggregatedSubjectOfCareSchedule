@@ -15,12 +15,12 @@ import org.mule.api.MuleMessage;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
-import riv.itintegration.engagementindex._1.EngagementTransactionType;
-import riv.itintegration.engagementindex._1.EngagementType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
-import se.riv.interoperability.headers.v1.ProcessingStatusRecordType;
-import se.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
+import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementTransactionType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 
 public class MyTestUtil {
 

@@ -22,10 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
-import riv.itintegration.engagementindex._1.EngagementType;
-import se.riv.itintegration.engagementindex.findcontent.v1.rivtabp21.FindContentResponderInterface;
-import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
-import se.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
+import se.skltp.agp.riv.itintegration.engagementindex.findcontent.v1.rivtabp21.FindContentResponderInterface;
+import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
+import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 
 @WebService(serviceName = "FindContentResponderService", portName = "FindContentResponderPort", targetNamespace = "urn:riv:itintegration:engagementindex:FindContent:1:rivtabp21", name = "FindContentInteraction")
 public class EngagemangsindexTestProducer implements FindContentResponderInterface {

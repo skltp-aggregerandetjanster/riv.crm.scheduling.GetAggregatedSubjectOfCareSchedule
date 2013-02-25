@@ -25,6 +25,10 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <properties>
         <!-- TODO: FIX FOR INCORRECT PROPERTY IN ST 0.6.1-M1 -->
         <soitoolkit.version>0.6.1-M1</soitoolkit.version>
+
+        <!-- Properties for generating code from XML Schemas (JAX-WS) -->
+        <schema.path>${basedir}/src/main/resources/schemas</schema.path>
+        <cxf.version>2.5.1</cxf.version>
     </properties>
     
     <scm>
@@ -77,12 +81,6 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 			<type>pom</type>
 		</dependency>
 		
-		<dependency>
-			<groupId>se.rivta.tools</groupId>
-			<artifactId>ehr-scheduling-schemas</artifactId>
-			<version>1</version>
-		</dependency>
-
         <!-- TEST DEPENDENCIES -->
 
         <dependency>
@@ -268,6 +266,49 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 			        </execution>
 			    </executions>
 			</plugin>
+
+      <plugin>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-codegen-plugin</artifactId>
+        <version>${cxf.version}</version>
+        <executions>
+          <execution>
+            <id>generate-sources</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
+              <wsdlOptions>
+
+                <wsdloption>
+                  <wsdl>${schema.path}/TD_SCHEDULING_1_1_0_R/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl</wsdl>
+                  <extraargs>
+                    <extraarg>-p</extraarg>
+                    <extraarg>http://www.w3.org/2005/08/addressing=org.w3c.addressing.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1=se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareScheduleInitiator:1=se.riv.crm.scheduling.getsubjectofcarescheduleinitiator.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21=se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:1=se.riv.crm.scheduling.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:1.1=se.riv.crm.scheduling.v1_1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:interoperability:headers:1=se.riv.interoperability.headers.v1</extraarg>
+                  </extraargs>
+                </wsdloption>
+
+              </wsdlOptions>
+            </configuration>
+            <goals>
+              <goal>wsdl2java</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
       </plugins>
 

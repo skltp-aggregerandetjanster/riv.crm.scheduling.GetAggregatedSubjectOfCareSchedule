@@ -1,0 +1,5 @@
+<tns:MakeBookingResponse xmlns:tns="urn:riv:crm:scheduling:MakeBookingResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:MakeBookingResponder:1 MakeBookingResponder_1.0.xsd ">
+  <tns:bookingId>tns:bookingId(?)</tns:bookingId>
+  <tns:resultCode>OK</tns:resultCode>
+  <tns:resultText>tns:resultText(?)</tns:resultText>
+</tns:MakeBookingResponse>

@@ -28,12 +28,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import riv.itintegration.engagementindex._1.ResultCodeEnum;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
-import se.riv.interoperability.headers.v1.ProcessingStatusType;
-import se.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 import se.skltp.agp.cache.CacheMemoryStoreImpl;
+import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
+import se.skltp.agp.riv.itintegration.engagementindex.v1.ResultCodeEnum;
 import se.skltp.agp.tidbokning.TidbokningTestConsumer;
 import se.skltp.agp.tidbokning.TidbokningTestProducer;
 
