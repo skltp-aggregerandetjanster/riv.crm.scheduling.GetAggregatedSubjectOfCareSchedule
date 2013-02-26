@@ -9,6 +9,7 @@ import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.ObjectFactory;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skltp.agp.service.api.QueryObject;
 import se.skltp.agp.service.api.ResponseListFactory;
 
 public class ResponseListFactoryImpl implements ResponseListFactory {
@@ -18,7 +19,7 @@ public class ResponseListFactoryImpl implements ResponseListFactory {
 	private static final ObjectFactory OF = new ObjectFactory();
 	
 	@Override
-	public String getXmlFromAggregatedResponse(List<Object> aggregatedResponseList) {
+	public String getXmlFromAggregatedResponse(QueryObject queryObject, List<Object> aggregatedResponseList) {
 	    GetSubjectOfCareScheduleResponseType aggregatedResponse = new GetSubjectOfCareScheduleResponseType();
 
 	    for (Object object : aggregatedResponseList) {
@@ -27,13 +28,10 @@ public class ResponseListFactoryImpl implements ResponseListFactory {
 		}
 
 	    if (log.isInfoEnabled()) {
-    		String subjectOfCareId = "";
-        	if (aggregatedResponse.getTimeslotDetail().size() > 0) {
-        		subjectOfCareId = aggregatedResponse.getTimeslotDetail().get(0).getSubjectOfCare();
-        	}
+    		String subjectOfCareId = queryObject.getFindContent().getRegisteredResidentIdentification();
         	log.info("Returning {} aggregated schedules for subject of care id {}", aggregatedResponse.getTimeslotDetail().size() ,subjectOfCareId);
         }
-        
+
         // Since the class GetSubjectOfCareScheduleResponseType don't have an @XmlRootElement annotation
         // we need to use the ObjectFactory to add it.
         return jaxbUtil.marshal(OF.createGetSubjectOfCareScheduleResponse(aggregatedResponse));
