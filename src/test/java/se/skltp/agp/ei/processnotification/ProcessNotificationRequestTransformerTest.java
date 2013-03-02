@@ -1,13 +1,13 @@
 package se.skltp.agp.ei.processnotification;
 
 import static org.junit.Assert.assertEquals;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_ONE_HIT;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_MANY_HITS;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
 
 import java.io.InputStream;
 
@@ -21,11 +21,10 @@ import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.soitoolkit.commons.xml.XPathUtil;
 
 import se.skltp.agp.cache.MyTestUtil;
+import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
 import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementTransactionType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
-
-import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ObjectFactory;
 
 public class ProcessNotificationRequestTransformerTest {
 
@@ -47,7 +46,7 @@ public class ProcessNotificationRequestTransformerTest {
 
 		// Specify input and expected result 
         ProcessNotificationType request = new ProcessNotificationType();
-		request.getEngagementTransaction().add(tu.createEngagementTransaction(TEST_ID_ONE_BOOKING, TEST_LOGICAL_ADDRESS_1, TEST_BOOKING_ID_ONE_BOOKING));
+		request.getEngagementTransaction().add(tu.createEngagementTransaction(TEST_RR_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1, TEST_BO_ID_ONE_HIT));
 
 		String xml = jaxbUtil.marshal(of.createProcessNotification(request));
 		InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
@@ -87,11 +86,11 @@ public class ProcessNotificationRequestTransformerTest {
 		request.getEngagementTransaction().add(tx);
 		
 		// Next add two bookings for the same logical address
-		tx = tu.createEngagementTransaction(TEST_ID_MANY_BOOKINGS, TEST_LOGICAL_ADDRESS_1, TEST_BOOKING_ID_MANY_BOOKINGS_1);
+		tx = tu.createEngagementTransaction(TEST_RR_ID_MANY_HITS, TEST_LOGICAL_ADDRESS_1, TEST_BO_ID_MANY_HITS_1);
 		request.getEngagementTransaction().add(tx);
 		expectedResult.getEngagementTransaction().add(tx);
 
-		tx = tu.createEngagementTransaction(TEST_ID_MANY_BOOKINGS, TEST_LOGICAL_ADDRESS_1, TEST_BOOKING_ID_MANY_BOOKINGS_2);
+		tx = tu.createEngagementTransaction(TEST_RR_ID_MANY_HITS, TEST_LOGICAL_ADDRESS_1, TEST_BO_ID_MANY_HITS_2);
 		request.getEngagementTransaction().add(tx);
 		expectedResult.getEngagementTransaction().add(tx);
 
@@ -105,7 +104,7 @@ public class ProcessNotificationRequestTransformerTest {
 		request.getEngagementTransaction().add(tx);
 		
 		// Finally a one booking for another logical address
-		tx = tu.createEngagementTransaction(TEST_ID_ONE_BOOKING, TEST_LOGICAL_ADDRESS_2, TEST_BOOKING_ID_ONE_BOOKING);
+		tx = tu.createEngagementTransaction(TEST_RR_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_2, TEST_BO_ID_ONE_HIT);
 		request.getEngagementTransaction().add(tx);
 		expectedResult.getEngagementTransaction().add(tx);
 		

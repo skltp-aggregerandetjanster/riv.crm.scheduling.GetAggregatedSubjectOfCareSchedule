@@ -5,10 +5,9 @@ import static org.junit.Assert.fail;
 import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
 import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_REASON_UPDATED;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_ONE_HIT;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +33,9 @@ import se.skltp.agp.cache.CacheMemoryStoreImpl;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.ResultCodeEnum;
+import se.skltp.agp.test.producer.TestProducerDb;
 import se.skltp.agp.tidbokning.TidbokningTestConsumer;
-import se.skltp.agp.tidbokning.TidbokningTestProducer;
-
+import se.skltp.agp.tidbokning.TidbokningTestProducerDb;
  
 public class ProcessNotificationIntegrationTest extends AbstractTestCase {
  
@@ -110,7 +109,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 //		CacheMemoryStoreImpl<MuleEvent> cache = getCache(muleContext);
 //		cache.reset();
 
-		String id = TEST_ID_ONE_BOOKING;
+		String id = TEST_RR_ID_ONE_HIT;
 
 //		TODO: Mule EE dependency
 //		// Verify that the cache is missing an entry of the used id.
@@ -121,7 +120,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 //			assertSame(ObjectDoesNotExistException.class, e.getClass());
 //		}
 		
-    	String expectedBookingId = TEST_BOOKING_ID_ONE_BOOKING;
+    	String expectedBookingId = TEST_BO_ID_ONE_HIT;
 		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
 		do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
 		
@@ -130,9 +129,9 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 //		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
 
 		// ACT SOURCE SYSTEM: Update the database in the source system
-		GetSubjectOfCareScheduleResponseType resp = TidbokningTestProducer.retreiveFromDb(expectedLogicalAddress, id);
+		GetSubjectOfCareScheduleResponseType resp = (GetSubjectOfCareScheduleResponseType)getTestDb().retreiveFromDb(expectedLogicalAddress, id);
 		log.debug("DB VALUE: {}", resp.getTimeslotDetail().get(0).getReason());
-		resp.getTimeslotDetail().get(0).setReason(TEST_REASON_UPDATED);
+		resp.getTimeslotDetail().get(0).setReason(TidbokningTestProducerDb.TEST_REASON_UPDATED);
 
 		// ACT EI: Notify the aggregating service of the change
 		ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_PROC_NOTIF_SERVICE_ADDRESS);
@@ -152,6 +151,10 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
 	}
 
+    private TestProducerDb getTestDb() {
+    	return (TestProducerDb)muleContext.getRegistry().lookupObject("service-producer-testdb-bean");
+    }
+    
 	public void assertReasonInResponse(CacheMemoryStoreImpl<MuleEvent> cache,
 			String id, String expectedReason) {
 		try {
@@ -202,13 +205,13 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 //    @Test
 //	public void test_fault_invalidInput() throws Exception {
 //		try {
-//	    	String id = TEST_ID_FAULT_INVALID_ID;
+//	    	String id = TEST_RR_ID_FAULT_INVALID_ID;
 //	    	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
 //			Object response = consumer.callService(LOGICAL_ADDRESS, id);
 //	        fail("expected fault, but got a response of type: " + ((response == null) ? "NULL" : response.getClass().getName()));
 //	    } catch (SOAPFaultException e) {
 //
-//	    	assertEquals("Invalid Id: " + TEST_ID_FAULT_INVALID_ID, e.getMessage());
+//	    	assertEquals("Invalid Id: " + TEST_RR_ID_FAULT_INVALID_ID, e.getMessage());
 // 
 //	    }
 //	}
@@ -216,7 +219,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 //    @Test
 //	public void test_fault_timeout() throws Fault {
 //        try {
-//	    	String id = TEST_ID_FAULT_TIMEOUT;
+//	    	String id = TEST_RR_ID_FAULT_TIMEOUT;
 //	    	ProcessNotificationTestConsumer consumer = new ProcessNotificationTestConsumer(DEFAULT_SERVICE_ADDRESS);
 //			Object response = consumer.callService(LOGICAL_ADDRESS, id);
 //	        fail("expected fault, but got a response of type: " + ((response == null) ? "NULL" : response.getClass().getName()));

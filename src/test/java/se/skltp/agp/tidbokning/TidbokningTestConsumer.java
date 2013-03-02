@@ -1,7 +1,7 @@
 package se.skltp.agp.tidbokning;
 
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
 
 import java.net.URL;
 
@@ -28,7 +28,7 @@ public class TidbokningTestConsumer {
 	
 	public static void main(String[] args) {
 		String serviceAddress = getAddress("SERVICE_INBOUND_URL");
-		String personnummer = TEST_ID_ONE_BOOKING;
+		String personnummer = TEST_RR_ID_ONE_HIT;
 
 		TidbokningTestConsumer consumer = new TidbokningTestConsumer(serviceAddress);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();

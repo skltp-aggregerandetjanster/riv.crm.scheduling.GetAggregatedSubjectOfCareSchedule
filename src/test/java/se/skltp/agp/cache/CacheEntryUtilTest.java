@@ -4,14 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.soitoolkit.commons.xml.XPathUtil.normalizeXmlString;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.createResponse;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_NEW_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_MANY_HITS;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +24,8 @@ import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.ObjectFactory;
 import se.riv.crm.scheduling.v1.TimeslotType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skltp.agp.test.producer.TestProducerDb;
+import se.skltp.agp.tidbokning.TidbokningTestProducerDb;
 
 public class CacheEntryUtilTest {
 
@@ -32,6 +33,8 @@ public class CacheEntryUtilTest {
 	
 	private JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class);
 	private ObjectFactory of = new ObjectFactory();
+
+	TestProducerDb testDb = new TidbokningTestProducerDb();
 
 	/**
 	 * Verify basic functionality of the CacheEntry regarding the processing status part
@@ -124,22 +127,22 @@ public class CacheEntryUtilTest {
 
 		// Verify its initial content
 		assertEquals(3, timeslots.size());
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_1));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_2));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_3));
 
-		// Create a imaginary new response for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_ID_MANY_BOOKINGS:
-		// - Remove booking TEST_BOOKING_ID_MANY_BOOKINGS_2, 
-		// - Keep   booking TEST_BOOKING_ID_MANY_BOOKINGS_3
-		// - Add    booking TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1
+		// Create a imaginary new response for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_RR_ID_MANY_HITS:
+		// - Remove booking TEST_BO_ID_MANY_HITS_2, 
+		// - Keep   booking TEST_BO_ID_MANY_HITS_3
+		// - Add    booking TEST_BO_ID_MANY_HITS_NEW_1
 		GetSubjectOfCareScheduleResponseType newResponse = new GetSubjectOfCareScheduleResponseType();
-		newResponse.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
-		newResponse.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
+		newResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_3));
+		newResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1));
 
-		// Move any bookings to the new response not being for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_ID_MANY_BOOKINGS
+		// Move any bookings to the new response not being for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_RR_ID_MANY_HITS
 		for (TimeslotType timeslot : timeslots) {
 			if (!(timeslot.getHealthcareFacility().equals(TEST_LOGICAL_ADDRESS_2) &&
-				  timeslot.getSubjectOfCare().equals(TEST_ID_MANY_BOOKINGS))) {
+				  timeslot.getSubjectOfCare().equals(TEST_RR_ID_MANY_HITS))) {
 				newResponse.getTimeslotDetail().add(timeslot);
 			}
 		}
@@ -154,15 +157,15 @@ public class CacheEntryUtilTest {
 
 		// Verify its updated content
 		assertEquals(3, updatedTimeslots.size());
-		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
-		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
+		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_1));
+		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_3));
+		assertTrue(testUtil.exitsTimeslot(updatedResponse, TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1));
 		
 		// Verify that the actual payload in the mule event also is updated, e.g. that:
-		// 1. Booking TEST_BOOKING_ID_MANY_BOOKINGS_2 is gone
-		// 2. Booking TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1 is added
+		// 1. Booking TEST_BO_ID_MANY_HITS_2 is gone
+		// 2. Booking TEST_BO_ID_MANY_HITS_NEW_1 is added
 		String updatedPayload = (String)e.getMessage().getPayload();
-		assertFalse(updatedPayload.contains("<bookingId>" + TEST_BOOKING_ID_MANY_BOOKINGS_2 + "</bookingId"));
-		assertTrue(updatedPayload.contains("<bookingId>" + TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1 + "</bookingId"));
+		assertFalse(updatedPayload.contains("<bookingId>" + TEST_BO_ID_MANY_HITS_2 + "</bookingId"));
+		assertTrue(updatedPayload.contains("<bookingId>" + TEST_BO_ID_MANY_HITS_NEW_1 + "</bookingId"));
 	}
 }

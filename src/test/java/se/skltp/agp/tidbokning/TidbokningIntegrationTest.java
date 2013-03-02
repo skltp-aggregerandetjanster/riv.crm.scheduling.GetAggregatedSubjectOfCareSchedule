@@ -10,18 +10,17 @@ import static se.skltp.agp.riv.interoperability.headers.v1.CausingAgentEnum.VIRT
 import static se.skltp.agp.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_CACHE;
 import static se.skltp.agp.riv.interoperability.headers.v1.StatusCodeEnum.DATA_FROM_SOURCE;
 import static se.skltp.agp.riv.interoperability.headers.v1.StatusCodeEnum.NO_DATA_SYNCH_FAILED;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ZERO_BOOKINGS;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1_RESPONSE_TIME;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_ONE_HIT;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_FAULT_INVALID_ID;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_MANY_HITS;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ZERO_HITS;
 
 import java.util.List;
 
@@ -40,6 +39,7 @@ import se.skltp.agp.riv.interoperability.headers.v1.CausingAgentEnum;
 import se.skltp.agp.riv.interoperability.headers.v1.LastUnsuccessfulSynchErrorType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
+import se.skltp.agp.test.producer.TestProducerDb;
 
  
 public class TidbokningIntegrationTest extends AbstractTestCase {
@@ -96,13 +96,13 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 
     @Test
     public void test_ok_zero_bookings() {
-    	do_test_ok_zero_bookings(TEST_ID_ZERO_BOOKINGS);		
+    	do_test_ok_zero_bookings(TEST_RR_ID_ZERO_HITS);		
     }
 
     @Test
     public void test_ok_one_booking() {
-    	String id = TEST_ID_ONE_BOOKING;
-    	String expectedBookingId = TEST_BOOKING_ID_ONE_BOOKING;
+    	String id = TEST_RR_ID_ONE_HIT;
+    	String expectedBookingId = TEST_BO_ID_ONE_HIT;
 		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
     	
     	ProcessingStatusType statusList = do_test_ok_one_booking(id, expectedBookingId, expectedLogicalAddress);
@@ -146,7 +146,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 
     @Test
     public void test_ok_many_bookings_with_partial_timeout() {
-    	String id = TEST_ID_MANY_BOOKINGS;
+    	String id = TEST_RR_ID_MANY_HITS;
     	TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
@@ -158,17 +158,17 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 		
 		TimeslotType timeslot = response.getTimeslotDetail().get(0);
 		assertEquals(id, timeslot.getSubjectOfCare());		
-		assertEquals(TEST_BOOKING_ID_MANY_BOOKINGS_1, timeslot.getBookingId());		
+		assertEquals(TEST_BO_ID_MANY_HITS_1, timeslot.getBookingId());		
 		assertEquals(TEST_LOGICAL_ADDRESS_1, timeslot.getHealthcareFacility());		
 		
 		timeslot = response.getTimeslotDetail().get(1);
 		assertEquals(id, timeslot.getSubjectOfCare());		
-		assertEquals(TEST_BOOKING_ID_MANY_BOOKINGS_2, timeslot.getBookingId());		
+		assertEquals(TEST_BO_ID_MANY_HITS_2, timeslot.getBookingId());		
 		assertEquals(TEST_LOGICAL_ADDRESS_2, timeslot.getHealthcareFacility());		
 		
 		timeslot = response.getTimeslotDetail().get(2);
 		assertEquals(id, timeslot.getSubjectOfCare());		
-		assertEquals(TEST_BOOKING_ID_MANY_BOOKINGS_3, timeslot.getBookingId());		
+		assertEquals(TEST_BO_ID_MANY_HITS_3, timeslot.getBookingId());		
 		assertEquals(TEST_LOGICAL_ADDRESS_2, timeslot.getHealthcareFacility());
 
     
@@ -184,7 +184,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 
     @Test
 	public void test_fault_invalidInput() throws Exception {
-    	String id = TEST_ID_FAULT_INVALID_ID;
+    	String id = TEST_RR_ID_FAULT_INVALID_ID;
     	TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
@@ -204,9 +204,9 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
 //	TODO: Mule EE dependency
 //    @Test
     public void test_ok_caching() {
-    	String id = TEST_ID_ONE_BOOKING;
-    	long   expectedProcessingTime = TEST_LOGICAL_ADDRESS_1_RESPONSE_TIME;
-    	String expectedBookingId      = TEST_BOOKING_ID_ONE_BOOKING;
+    	String id = TEST_RR_ID_ONE_HIT;
+    	long   expectedProcessingTime = getTestDb().getProcessingTime(TEST_LOGICAL_ADDRESS_1);
+    	String expectedBookingId      = TEST_BO_ID_ONE_HIT;
 		String expectedLogicalAddress = TEST_LOGICAL_ADDRESS_1;
 
 		long ts = System.currentTimeMillis();
@@ -226,7 +226,7 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
     @Test
 	public void test_fault_timeout() {
         try {
-	    	String id = TEST_ID_FAULT_TIMEOUT;
+	    	String id = TEST_RR_ID_FAULT_TIMEOUT;
 	    	TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS);
 			Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 			Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
@@ -245,6 +245,10 @@ public class TidbokningIntegrationTest extends AbstractTestCase {
     }
     */
  
+    private TestProducerDb getTestDb() {
+    	return (TestProducerDb)muleContext.getRegistry().lookupObject("service-producer-testdb-bean");
+    }
+    
 	private void assertProcessingStatusDataFromSource(ProcessingStatusRecordType status, String logicalAddress) {
 		assertEquals(logicalAddress, status.getLogicalAddress());
 		assertEquals(DATA_FROM_SOURCE, status.getStatusCode());

@@ -1,17 +1,17 @@
 package se.skltp.agp.ei.findcontent;
 
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_FAULT_INVALID_ID;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_4;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_FAULT_INVALID_ID;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_ONE_BOOKING;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_FAULT_INVALID_ID;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_4;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_ONE_HIT;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_FAULT_INVALID_ID;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_MANY_HITS;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,21 +92,21 @@ public class EngagemangsindexTestProducer implements FindContentResponderInterfa
 
 		// Patient with one booking
 		FindContentResponseType response = new FindContentResponseType();
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_ONE_BOOKING, TEST_BOOKING_ID_ONE_BOOKING));
-		INDEX.put(TEST_ID_ONE_BOOKING, response);
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_ONE_HIT, TEST_BO_ID_ONE_HIT));
+		INDEX.put(TEST_RR_ID_ONE_HIT, response);
 
 		// Patient with three bookings spread over two logical-addresses
 		response = new FindContentResponseType();
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_3, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_4));
-		INDEX.put(TEST_ID_MANY_BOOKINGS, response);
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_1));
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_2));
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_3));
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_3, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_4));
+		INDEX.put(TEST_RR_ID_MANY_HITS, response);
 				
 		// Patient that casue an exception in the source system
 		response = new FindContentResponseType();
-		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_ID_FAULT_INVALID_ID, TEST_BOOKING_ID_FAULT_INVALID_ID));
-		INDEX.put(TEST_ID_FAULT_INVALID_ID, response);
+		response.getEngagement().add(createResponse(TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_FAULT_INVALID_ID, TEST_BO_ID_FAULT_INVALID_ID));
+		INDEX.put(TEST_RR_ID_FAULT_INVALID_ID, response);
 	}
 
 	private EngagementType createResponse(String receiverLogicalAddress, String registeredResidentIdentification, String bookingId) {

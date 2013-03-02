@@ -4,15 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_3;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_ID_MANY_BOOKINGS;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_1;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_2;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.TEST_LOGICAL_ADDRESS_3;
-import static se.skltp.agp.tidbokning.TidbokningTestProducer.createResponse;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_NEW_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_2;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_3;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_MANY_HITS;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,15 +22,20 @@ import org.mule.util.StringUtils;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
+import se.riv.crm.scheduling.v1.TimeslotType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.riv.interoperability.headers.v1.StatusCodeEnum;
+import se.skltp.agp.test.producer.TestProducerDb;
+import se.skltp.agp.tidbokning.TidbokningTestProducerDb;
 
 public class CacheMemoryStoreImplTest {
 
 	MyTestUtil testUtil = new MyTestUtil();
 	JaxbUtil ju = new JaxbUtil(GetSubjectOfCareScheduleResponseType.class);
 
+	TestProducerDb testDb = new TidbokningTestProducerDb();
+	
 	@Test
 	public void testUpdateProcessingStatus_single_ok() throws Exception {
 	
@@ -103,9 +107,9 @@ public class CacheMemoryStoreImplTest {
 		// First verify the initial payload of the cache
 		GetSubjectOfCareScheduleResponseType response = (GetSubjectOfCareScheduleResponseType)ju.unmarshal(ceBefore.getSoapBody());
 		assertEquals(3, response.getTimeslotDetail().size());
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_2));
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_3));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_1));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_2));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_3));
 
 		// Next verify the processing status
 		ProcessingStatusType ps = ceBefore.getProcessingStatus();
@@ -146,15 +150,15 @@ public class CacheMemoryStoreImplTest {
 //
 //		// TODO: Kolla payload, bookinid, logicalAddress och pnr
 		
-		// Create a imaginary new response for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_ID_MANY_BOOKINGS:
-		// - Remove booking TEST_BOOKING_ID_MANY_BOOKINGS_2, 
-		// - Remove booking TEST_BOOKING_ID_MANY_BOOKINGS_3
-		// - Add    booking TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1
+		// Create a imaginary new response for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_RR_ID_MANY_HITS:
+		// - Remove booking TEST_BO_ID_MANY_HITS_2, 
+		// - Remove booking TEST_BO_ID_MANY_HITS_3
+		// - Add    booking TEST_BO_ID_MANY_HITS_NEW_1
 		GetSubjectOfCareScheduleResponseType updatedResponse = new GetSubjectOfCareScheduleResponseType();
-		updatedResponse.getTimeslotDetail().add(createResponse(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
+		updatedResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1));
 		
 		// Update the cache with the new result
-		c.partialUpdate(TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, updatedResponse);
+		c.partialUpdate(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, updatedResponse);
 		
 		
 		// Ensure that the cache has the expected updates
@@ -173,8 +177,8 @@ public class CacheMemoryStoreImplTest {
 		// First verify the payload of the cache after the update
 		response = (GetSubjectOfCareScheduleResponseType)ju.unmarshal(ceAfter.getSoapBody());
 		assertEquals(2, response.getTimeslotDetail().size());
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_1));
-		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_ID_MANY_BOOKINGS, TEST_BOOKING_ID_MANY_BOOKINGS_NEW_1));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_1));
+		assertTrue(testUtil.exitsTimeslot(response, TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1));
 
 
 		// Next verify the processing status
