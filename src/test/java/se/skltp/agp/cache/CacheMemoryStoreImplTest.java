@@ -97,11 +97,11 @@ public class CacheMemoryStoreImplTest {
 		CacheMemoryStoreImpl<Serializable> c = new CacheMemoryStoreImpl<Serializable>();
 		MuleEvent e = testUtil.getMockedMuleEvent();		
 		e.getMessage().setPayload(MyTestUtil.multiXml);
-		c.store("222222222222", e);
+		c.store(TEST_RR_ID_MANY_HITS, e);
 		
 		// Ensure that the cache has the expected input,
 		// i.e. when read from cache before the notification
-		MuleEvent eventBeforeUpdate = (MuleEvent)c.retrieve("222222222222");
+		MuleEvent eventBeforeUpdate = (MuleEvent)c.retrieve(TEST_RR_ID_MANY_HITS);
 		CacheEntryUtil ceBefore = new CacheEntryUtil(eventBeforeUpdate);
 
 		// First verify the initial payload of the cache
@@ -162,7 +162,7 @@ public class CacheMemoryStoreImplTest {
 		
 		
 		// Ensure that the cache has the expected updates
-		MuleEvent eventAfterUpdate = (MuleEvent)c.retrieve("222222222222");
+		MuleEvent eventAfterUpdate = (MuleEvent)c.retrieve("198611062384");
 //		String updatedXml = (String)eventAfterUpdate.getMessage().getPayload();
 //
 //		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS f�r TEST_LOGICAL_ADDRESS_2

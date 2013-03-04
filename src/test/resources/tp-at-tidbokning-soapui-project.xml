@@ -302,7 +302,7 @@
 </wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8082/tp-at-tidbokning/services/tidbokning-soap-teststub/v1</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule" name="GetSubjectOfCareSchedule" bindingOperationName="GetSubjectOfCareSchedule" type="Request-Response" outputName="GetSubjectOfCareScheduleResponse" inputName="GetSubjectOfCareSchedule" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1. Two bookings"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/tp-at-tidbokning/services/tidbokning-soap-teststub/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
    <soapenv:Header>
       <urn:Actor>
-         <urn:actorId>222222222222</urn:actorId>
+         <urn:actorId>198611062384</urn:actorId>
          <urn:actorType>SUBJECT_OF_CARE</urn:actorType>
       </urn:Actor>
       <urn1:LogicalAddress>HSA-ID-2</urn1:LogicalAddress>
@@ -310,7 +310,7 @@
    <soapenv:Body>
       <urn2:GetSubjectOfCareSchedule>
          <urn2:healthcare_facility>HSA-ID-2</urn2:healthcare_facility>
-         <urn2:subject_of_care>222222222222</urn2:subject_of_care>
+         <urn2:subject_of_care>198611062384</urn2:subject_of_care>
       </urn2:GetSubjectOfCareSchedule>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="RTP - GetAggregatedSubjectOfCareScheduleResponderBinding" type="wsdl" bindingName="{urn:riv:crm:scheduling:GetAggregatedSubjectOfCareSchedule:1:rivtabp21}GetAggregatedSubjectOfCareScheduleResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/tp-at-tidbokning/services/tidbokning/v1?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/tp-at-tidbokning/services/tidbokning/v1?wsdl"><con:part><con:url>http://localhost:8081/tp-at-tidbokning/services/tidbokning/v1?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GetAggregatedSubjectOfCareScheduleInteraction" targetNamespace="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareSchedule:1:rivtabp21" xmlns:ih="urn:riv:interoperability:headers:1" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsr="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns:tns="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareSchedule:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -713,7 +713,7 @@
 </xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/tp-at-tidbokning/services/tidbokning/v1</con:endpoint><con:endpoint>http://MagnusMac-2.local:8088/mockGetAggregatedSubjectOfCareScheduleResponderBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareScheduleResponder:1:GetAggregatedSubjectOfCareSchedule" name="GetAggregatedSubjectOfCareSchedule" bindingOperationName="GetAggregatedSubjectOfCareSchedule" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 2. Many bookings + timeout"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/tp-at-tidbokning/services/tidbokning/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
    <soapenv:Header>
       <urn:Actor>
-         <urn:actorId>222222222222</urn:actorId>
+         <urn:actorId>198611062384</urn:actorId>
          <urn:actorType>SUBJECT_OF_CARE</urn:actorType>
       </urn:Actor>
       <urn1:LogicalAddress>HSA-ID-AGGR_TJ_TIDBOKNINGAR</urn1:LogicalAddress>
@@ -721,13 +721,13 @@
    <soapenv:Body>
       <urn2:GetSubjectOfCareSchedule>
          <urn2:healthcare_facility>HSA-ID-AGGR_TJ_TIDBOKNINGAR</urn2:healthcare_facility>
-         <urn2:subject_of_care>222222222222</urn2:subject_of_care>
+         <urn2:subject_of_care>198611062384</urn2:subject_of_care>
       </urn2:GetSubjectOfCareSchedule>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareScheduleResponder:1:GetAggregatedSubjectOfCareSchedule"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 1. One booking"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/tp-at-tidbokning/services/tidbokning/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
    <soapenv:Header>
       <urn:Actor>
-         <urn:actorId>111111111111</urn:actorId>
+         <urn:actorId>194911172296</urn:actorId>
          <urn:actorType>SUBJECT_OF_CARE</urn:actorType>
       </urn:Actor>
       <urn1:LogicalAddress>HSA-ID-AGGR_TJ_TIDBOKNINGAR</urn1:LogicalAddress>
@@ -735,7 +735,7 @@
    <soapenv:Body>
       <urn2:GetSubjectOfCareSchedule>
          <urn2:healthcare_facility>HSA-ID-AGGR_TJ_TIDBOKNINGAR</urn2:healthcare_facility>
-         <urn2:subject_of_care>111111111111</urn2:subject_of_care>
+         <urn2:subject_of_care>194911172296</urn2:subject_of_care>
       </urn2:GetSubjectOfCareSchedule>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetAggregatedSubjectOfCareScheduleResponder:1:GetAggregatedSubjectOfCareSchedule"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

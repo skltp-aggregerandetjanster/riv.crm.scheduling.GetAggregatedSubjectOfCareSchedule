@@ -39,7 +39,7 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 	 
 	private static final String LOGICAL_ADDRESS = "logical-address";
 	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Read timed out";
-	private static final String EXPECTED_ERR_INVALID_ID_MSG = "Invalid Id: -1";
+	private static final String EXPECTED_ERR_INVALID_ID_MSG = "Invalid Id: " + TEST_RR_ID_FAULT_INVALID_ID;;
 	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("SERVICE_INBOUND_URL");
   
 	protected String getConfigResources() {

@@ -5,6 +5,11 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_FAULT_INVALID_ID;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_MANY_HITS;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ZERO_HITS;
+
 import java.text.ParseException;
 import java.util.Date;
 
@@ -35,7 +40,7 @@ public class MyTestUtil {
 	    "<ns3:timeslotDetail>" +
 	      "<healthcare_facility>HSA-ID-1</healthcare_facility>" +
 	      "<bookingId>1001</bookingId>" +
-	      "<subject_of_care>111111111111</subject_of_care>" +
+	      "<subject_of_care>" + TEST_RR_ID_ONE_HIT + "</subject_of_care>" +
 	    "</ns3:timeslotDetail>" +
 	  "</ns3:GetSubjectOfCareScheduleResponse>";
 
@@ -94,17 +99,17 @@ public class MyTestUtil {
 		"      <ns3:timeslotDetail>" +
 		"        <healthcare_facility>HSA-ID-1</healthcare_facility>" +
 		"        <bookingId>1002</bookingId>" +
-		"        <subject_of_care>222222222222</subject_of_care>" +
+		"        <subject_of_care>" + TEST_RR_ID_MANY_HITS + "</subject_of_care>" +
 		"      </ns3:timeslotDetail>" +
 		"      <ns3:timeslotDetail>" +
 		"        <healthcare_facility>HSA-ID-2</healthcare_facility>" +
 		"        <bookingId>1003</bookingId>" +
-		"        <subject_of_care>222222222222</subject_of_care>" +
+		"        <subject_of_care>" + TEST_RR_ID_MANY_HITS + "</subject_of_care>" +
 		"      </ns3:timeslotDetail>" +
 		"      <ns3:timeslotDetail>" +
 		"        <healthcare_facility>HSA-ID-2</healthcare_facility>" +
 		"        <bookingId>1004</bookingId>" +
-		"        <subject_of_care>222222222222</subject_of_care>" +
+		"        <subject_of_care>" + TEST_RR_ID_MANY_HITS + "</subject_of_care>" +
 		"      </ns3:timeslotDetail>" +
 		"    </ns3:GetSubjectOfCareScheduleResponse>" +
 		"  </soapenv:Body>" +
