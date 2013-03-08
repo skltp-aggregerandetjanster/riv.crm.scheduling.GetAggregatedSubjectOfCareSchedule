@@ -20,6 +20,12 @@ public class QueryObjectFactoryImpl implements QueryObjectFactory {
 		this.eiServiceDomain = eiServiceDomain;
 	}
 
+	@SuppressWarnings("unused")
+	private String eiCategorization;
+	public void setEiCategorization(String eiCategorization) {
+		this.eiCategorization = eiCategorization;
+	}
+
 	@Override
 	public QueryObject createQueryObject(Node node) {
 		
