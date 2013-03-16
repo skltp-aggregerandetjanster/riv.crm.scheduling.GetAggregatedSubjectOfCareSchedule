@@ -25,7 +25,7 @@ public class TidbokningTestConsumer  extends AbstractTestConsumer<GetSubjectOfCa
 		String serviceAddress = getAddress("SERVICE_INBOUND_URL");
 		String personnummer = TEST_RR_ID_ONE_HIT;
 
-		TidbokningTestConsumer consumer = new TidbokningTestConsumer(serviceAddress);
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(serviceAddress, SAMPLE_ORIGINAL_CONSUMER_HSAID);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
 
@@ -34,10 +34,10 @@ public class TidbokningTestConsumer  extends AbstractTestConsumer<GetSubjectOfCa
 
 	}
 	
-	public TidbokningTestConsumer(String serviceAddress) {
+	public TidbokningTestConsumer(String serviceAddress, String originalConsumerHsaId) {
 	    
 		// Setup a web service proxy for communication using HTTPS with Mutual Authentication
-		super(GetSubjectOfCareScheduleResponderInterface.class, serviceAddress);
+		super(GetSubjectOfCareScheduleResponderInterface.class, serviceAddress, originalConsumerHsaId);
 	}
 
 	public void callService(String logicalAddress, String registeredResidentId, Holder<ProcessingStatusType> processingStatusHolder, Holder<GetSubjectOfCareScheduleResponseType> responseHolder) {

@@ -27,6 +27,7 @@ import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementTransactionType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 
+@SuppressWarnings("unused")
 public class MyTestUtil {
 
 	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");

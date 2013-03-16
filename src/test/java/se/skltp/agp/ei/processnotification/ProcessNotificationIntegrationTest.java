@@ -183,7 +183,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
     //
 	private ProcessingStatusType do_test_ok_one_booking(String id,
 			String expectedBookingId, String expectedLogicalAddress) {
-		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_TIDBOKNING_SERVICE_ADDRESS);
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_TIDBOKNING_SERVICE_ADDRESS, TidbokningTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
     	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);

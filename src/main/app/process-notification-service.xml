@@ -9,10 +9,9 @@
 	xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
 	xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns:https="http://www.mulesoft.org/schema/mule/https"
 	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
 	xsi:schemaLocation="
-http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd 
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd 
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
@@ -43,13 +42,13 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
 
 	<flow name="process-notification-flow" doc:name="process-notification-flow">
 
-		<https:inbound-endpoint 
+		<http:inbound-endpoint 
 			doc:name="Inbound"
-            connector-ref="soitoolkit-https-connector"
+            connector-ref="soitoolkit-http-connector"
 			address="${PROCESS-NOTIFICATION_INBOUND_URL}"
 			exchange-pattern="request-response"
 			transformer-refs="objToStr logReqIn"
-			responseTransformer-refs="createSoapFaultIfException logRespOut">		</https:inbound-endpoint>
+			responseTransformer-refs="createSoapFaultIfException logRespOut">		</http:inbound-endpoint>
 		<cxf:proxy-service  			service="ProcessNotificationResponderService"            wsdlLocation="classpath:/schemas/TD_ENGAGEMENTINDEX_1_0_RC7/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl"
 			namespace="urn:riv:itintegration:engagementindex:ProcessNotification:1:rivtabp21" doc:name="SOAP">		</cxf:proxy-service>
 
