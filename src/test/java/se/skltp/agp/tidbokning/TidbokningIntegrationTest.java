@@ -23,6 +23,7 @@ import javax.xml.ws.Holder;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
@@ -30,6 +31,7 @@ import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.test.consumer.AbstractAggregateIntegrationTest;
 import se.skltp.agp.test.consumer.ExpectedTestData;
+import se.skltp.agp.test.producer.EngagemangsindexTestProducerLogger;
 import se.skltp.agp.test.producer.TestProducerLogger;
  
 public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest {
@@ -37,6 +39,8 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(TidbokningIntegrationTest.class);
 	 
+	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
+	private static final String SKLTP_HSA_ID = rb.getString("SKLTP_HSA_ID");
 	private static final String LOGICAL_ADDRESS = "logical-address";
 	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Read timed out";
 	private static final String EXPECTED_ERR_INVALID_ID_MSG = "Invalid Id: " + TEST_RR_ID_FAULT_INVALID_ID;;
@@ -146,14 +150,17 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 		
 		for (int i = 0; i < testData.length; i++) {
 			TimeslotType responseElement = response.getTimeslotDetail().get(i);
-			assertEquals(registeredResidentId, responseElement.getSubjectOfCare());		
-			assertEquals(testData[i].getExpectedBusinessObjectId(), responseElement.getBookingId());		
-			assertEquals(testData[i].getExpectedLogicalAddress(), responseElement.getHealthcareFacility());		
+			assertEquals(registeredResidentId, responseElement.getSubjectOfCare());	
+			assertEquals(testData[i].getExpectedBusinessObjectId(), responseElement.getBookingId());
+			assertEquals(testData[i].getExpectedLogicalAddress(), responseElement.getHealthcareFacility());
 		}
 
     	// Verify the size of the processing status and return it for further analysis
 		ProcessingStatusType statusList = processingStatusHolder.value;
 		assertEquals(expectedProcessingStatusSize, statusList.getProcessingStatusList().size());
+		
+	 	// Verify that correct "x-rivta-original-serviceconsumer-hsaid" http header was passed to the engagement index
+		assertEquals(SKLTP_HSA_ID, EngagemangsindexTestProducerLogger.getLastOriginalConsumer());
 		
 		// Verify that correct "x-rivta-original-serviceconsumer-hsaid" http header was passed to the service producer,
 		// given that a service producer was called
