@@ -13,7 +13,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <parent>
         <groupId>org.soitoolkit.commons.poms</groupId>
         <artifactId>soitoolkit-default-parent</artifactId>
-        <version>0.6.1-M1</version>
+        <version>0.6.1-M2</version>
     </parent>
     
     <groupId>se.skltp.aggregatingservices.crm.scheduling</groupId>
@@ -23,8 +23,6 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <name>GetAggregatedSubjectOfCareSchedule</name>
 
     <properties>
-        <!-- TODO: FIX FOR INCORRECT PROPERTY IN ST 0.6.1-M1 -->
-        <soitoolkit.version>0.6.1-M1</soitoolkit.version>
         <skltp.agp.version>1.0.0-RC2-SNAPSHOT</skltp.agp.version>
 
         <!-- Properties for generating code from XML Schemas (JAX-WS) -->
@@ -59,11 +57,19 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 			<artifactId>soitoolkit-studio-components</artifactId>
 			<version>${soitoolkit.version}</version>
 		</dependency>
+
+        TODO: Mule EE dependency
+        <dependency>
+            <groupId>org.soitoolkit.commons.poms.mule-dependencies</groupId>
+            <artifactId>soitoolkit-mule-ee-3.3.1-dependencies</artifactId>
+            <version>${soitoolkit.version}</version>
+            <type>pom</type>
+        </dependency>
  -->
 
 		<dependency>
 			<groupId>org.soitoolkit.commons.poms.mule-dependencies</groupId>
-			<artifactId>soitoolkit-mule-ee-3.3.1-dependencies</artifactId>
+			<artifactId>soitoolkit-mule-3.3.1-dependencies</artifactId>
 			<version>${soitoolkit.version}</version>
 			<type>pom</type>
 		</dependency>

@@ -3,7 +3,7 @@ package se.skltp.agp.cache;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
 
-import com.mulesoft.mule.cache.ObjectStoreCachingStrategy;
+//import com.mulesoft.mule.cache.ObjectStoreCachingStrategy;
 
 public class CacheUtil {
 	static public CacheMemoryStoreImpl<MuleEvent> getCache(MuleContext muleContext) {
