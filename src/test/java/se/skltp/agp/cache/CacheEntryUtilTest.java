@@ -136,8 +136,8 @@ public class CacheEntryUtilTest {
 		// - Keep   booking TEST_BO_ID_MANY_HITS_3
 		// - Add    booking TEST_BO_ID_MANY_HITS_NEW_1
 		GetSubjectOfCareScheduleResponseType newResponse = new GetSubjectOfCareScheduleResponseType();
-		newResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_3));
-		newResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1));
+		newResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_3, null));
+		newResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1, null));
 
 		// Move any bookings to the new response not being for logical address TEST_LOGICAL_ADDRESS_2 and subjectOfCareId TEST_RR_ID_MANY_HITS
 		for (TimeslotType timeslot : timeslots) {

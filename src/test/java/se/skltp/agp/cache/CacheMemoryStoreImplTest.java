@@ -141,7 +141,7 @@ public class CacheMemoryStoreImplTest {
 		
 //		String inputXml = (String)eventBeforeUpdate.getMessage().getPayload();
 //		
-//		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS f�r TEST_LOGICAL_ADDRESS_2
+//		// TODO: GOR OM TILL JAVA TESTER + KOLLA TS for TEST_LOGICAL_ADDRESS_2
 //		assertEquals(0, StringUtils.countMatches(inputXml, "<statusCode>DataFromSource</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(inputXml, "<statusCode>NoDataSynchFailed</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(inputXml, "<isResponseFromCache>false</isResponseFromCache>"));
@@ -155,7 +155,7 @@ public class CacheMemoryStoreImplTest {
 		// - Remove booking TEST_BO_ID_MANY_HITS_3
 		// - Add    booking TEST_BO_ID_MANY_HITS_NEW_1
 		GetSubjectOfCareScheduleResponseType updatedResponse = new GetSubjectOfCareScheduleResponseType();
-		updatedResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1));
+		updatedResponse.getTimeslotDetail().add((TimeslotType)testDb.createResponseItem(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, TEST_BO_ID_MANY_HITS_NEW_1, null));
 		
 		// Update the cache with the new result
 		c.partialUpdate(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS, updatedResponse);
@@ -165,7 +165,7 @@ public class CacheMemoryStoreImplTest {
 		MuleEvent eventAfterUpdate = (MuleEvent)c.retrieve("198611062384");
 //		String updatedXml = (String)eventAfterUpdate.getMessage().getPayload();
 //
-//		// TODO: GÖR OM TILL JAVA TESTER + KOLLA TS f�r TEST_LOGICAL_ADDRESS_2
+//		// TODO: GOR OM TILL JAVA TESTER + KOLLA TS for TEST_LOGICAL_ADDRESS_2
 //		assertEquals(0, StringUtils.countMatches(updatedXml, "<statusCode>DataFromSource</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(updatedXml, "<statusCode>NoDataSynchFailed</statusCode>"));
 //		assertEquals(1, StringUtils.countMatches(updatedXml, "<isResponseFromCache>false</isResponseFromCache>"));

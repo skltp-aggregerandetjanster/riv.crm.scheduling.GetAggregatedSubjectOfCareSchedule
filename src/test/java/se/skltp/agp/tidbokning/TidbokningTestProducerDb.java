@@ -25,7 +25,7 @@ public class TidbokningTestProducerDb extends TestProducerDb {
 	public static final String TEST_REASON_UPDATED = "updated reason";
 
 	@Override
-	public Object createResponseItem(String logicalAddress, String registeredResidentId, String businessObjectId) {
+	public Object createResponseItem(String logicalAddress, String registeredResidentId, String businessObjectId, String time) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("Created one response item for logical-address {}, registeredResidentId {} and businessObjectId {}",
