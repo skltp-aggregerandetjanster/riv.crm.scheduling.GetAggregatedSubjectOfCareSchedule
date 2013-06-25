@@ -146,6 +146,9 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
      */
 	private List<ProcessingStatusRecordType> doTest(String registeredResidentId, int expectedProcessingStatusSize, ExpectedTestData... testData) {
 
+		// Reset the lastActor also here, not only in te setup-method to ensure that it works also in the CloudBees environment (TODO: why does the invalid-input test fail in Cloudbees???)
+		TidbokningTestProducer.resetLastActor();
+
 		// Setup and perform the call to the web service
 		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS, TidbokningTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
