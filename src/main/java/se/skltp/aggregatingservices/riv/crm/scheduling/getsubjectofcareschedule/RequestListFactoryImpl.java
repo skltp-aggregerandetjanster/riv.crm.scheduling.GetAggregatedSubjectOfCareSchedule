@@ -47,10 +47,8 @@ public class RequestListFactoryImpl implements RequestListFactory {
 
 			log.info("Calling source system using logical address {} for subject of care id {}", logicalAdress, subjectOfCare);
 
-			// FIX ME. Get Actor from some invocation variable
-			ActorType actor = new ActorType();
-			actor.setActorId("999");
-			actor.setActorType(ActorTypeEnum.SUBJECT_OF_CARE);
+			// Get the Actor from from the query object, see QueryObjectFactoryImpl for how it is set
+			ActorType actor = (ActorType)qo.getExtraArg();
 
 			GetSubjectOfCareScheduleType request = new GetSubjectOfCareScheduleType();
 			request.setHealthcareFacility(logicalAdress);

@@ -16,6 +16,8 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
 
 	private static final Logger log = LoggerFactory.getLogger(TidbokningTestProducer.class);
 
+	private static ActorType lastActor = null;
+
 	private TestProducerDb testDb;
 	public void setTestDb(TestProducerDb testDb) {
 		this.testDb = testDb;
@@ -31,9 +33,19 @@ public class TidbokningTestProducer implements GetSubjectOfCareScheduleResponder
         	response = new GetSubjectOfCareScheduleResponseType();
         }
 
+        lastActor = actor;
+        
         log.info("### Virtual service got {} booknings in the reply from the source system with logical address: {} and patientId: {}", new Object[] {response.getTimeslotDetail().size(), logicalAddress, request.getSubjectOfCare()});
 
 		// We are done
         return response;
 	}
+
+	public static ActorType getLastActor() {
+		return lastActor;
+	}
+	
+	public static void resetLastActor() {
+		lastActor = null;
+	}	
 }

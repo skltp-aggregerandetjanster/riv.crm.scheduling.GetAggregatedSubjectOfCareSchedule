@@ -2,6 +2,7 @@ package se.skltp.agp.tidbokning;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
 import static se.skltp.agp.riv.interoperability.headers.v1.CausingAgentEnum.VIRTUALIZATION_PLATFORM;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_1;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import javax.xml.ws.Holder;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,8 @@ import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.v1.TimeslotType;
+import se.riv.interoperability.headers.v1.ActorType;
+import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.test.consumer.AbstractAggregateIntegrationTest;
@@ -57,6 +61,11 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 			"teststub-services/service-producer-teststub-service.xml";
     }
 
+	@Before
+	public void setup() {
+		TidbokningTestProducer.resetLastActor();
+	}
+	
 	/**
 	 * Perform a test that is expected to return zero hits
 	 */
@@ -166,6 +175,16 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 		// given that a service producer was called
 		if (expectedProcessingStatusSize > 0) {
 			assertEquals(TidbokningTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID, TestProducerLogger.getLastOriginalConsumer());
+		}
+		
+		// Verify that the expected actor was received by the test producers as well
+		ActorType actor = TidbokningTestProducer.getLastActor();
+		if (testData.length == 0) {
+			// Verify that no actor was set if no producer was expected to be called
+			assertNull(actor);
+		} else {
+			assertEquals(registeredResidentId, actor.getActorId());
+			assertEquals(ActorTypeEnum.SUBJECT_OF_CARE, actor.getActorType());
 		}
 		
 		return statusList.getProcessingStatusList();
