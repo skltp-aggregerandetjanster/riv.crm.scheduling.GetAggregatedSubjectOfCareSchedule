@@ -49,7 +49,7 @@ http://www.mulesoft.org/schema/mule/st-logger http://www.mulesoft.org/schema/mul
 			exchange-pattern="request-response"
 			transformer-refs="objToStr logReqIn"
 			responseTransformer-refs="createSoapFaultIfException logRespOut">		</http:inbound-endpoint>
-		<cxf:proxy-service  			service="ProcessNotificationResponderService"            wsdlLocation="classpath:/schemas/TD_ENGAGEMENTINDEX_1_0_RC10/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl"
+		<cxf:proxy-service  			service="ProcessNotificationResponderService"            wsdlLocation="classpath:/schemas/TD_ENGAGEMENTINDEX_1_0_R/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl"
 			namespace="urn:riv:itintegration:engagementindex:ProcessNotification:1:rivtabp21" doc:name="SOAP">		</cxf:proxy-service>
 
         <response>

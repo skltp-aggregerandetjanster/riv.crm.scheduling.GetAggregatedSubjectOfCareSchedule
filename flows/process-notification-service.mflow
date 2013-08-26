@@ -58,7 +58,7 @@
             </property-collection>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="process-notification-flow" entity-id="f5382a5a-621e-46ec-ba89-52fa11d02aa7">
+    <flow SubFlow="false" name="process-notification-flow" entity-id="7b4f6e76-8af1-4081-a9e3-5a0f064cf65b">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
@@ -101,7 +101,7 @@
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="port"/>
-                    <property name="wsdlLocation" value="classpath:/schemas/TD_ENGAGEMENTINDEX_1_0_RC10/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl"/>
+                    <property name="wsdlLocation" value="classpath:/schemas/TD_ENGAGEMENTINDEX_1_0_R/interactions/ProcessNotificationInteraction/ProcessNotificationInteraction_1.0_RIVTABP21.wsdl"/>
                     <property name="serviceClass"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/cxf/proxy-service"/>
                     <property name="payload"/>
@@ -182,7 +182,7 @@
             </endpoint>
         </lane>
     </flow>
-    <flow SubFlow="false" name="update-cache-flow" entity-id="ad8f2416-c272-4790-b928-b3db1a12be6c">
+    <flow SubFlow="false" name="update-cache-flow" entity-id="e4a4db1c-2e71-473a-a187-dbdb15d3efec">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
@@ -301,8 +301,7 @@
             <property name="responseTimeout"/>
             <property name="connector-ref" value="soitoolkit-jms-connector"/>
             <property-collection name="@http://www.mulesoft.org/schema/mule/jms/transaction;0">
-                <property name="action2" value="ALWAYS_JOIN"/>
-                <property name="action1" value="ALWAYS_JOIN"/>
+                <property name="action" value="ALWAYS_JOIN"/>
                 <property name="auxiliary;index" value="28"/>
                 <property name="auxiliary;wrapIn" value="28"/>
             </property-collection>
