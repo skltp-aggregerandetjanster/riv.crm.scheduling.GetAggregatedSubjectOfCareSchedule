@@ -18,7 +18,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     
     <groupId>se.skltp.aggregatingservices.crm.scheduling</groupId>
     <artifactId>GetAggregatedSubjectOfCareSchedule</artifactId>
-    <version>1.0.0-RC5-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>mule</packaging>
     <name>GetAggregatedSubjectOfCareSchedule</name>
 
@@ -32,9 +32,9 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     
     <scm>
         <!-- TODO: Sample <scm>-tag, update to reflect you own environment! -->		
-        <connection>scm:svn:https://skltpservices.googlecode.com/svn/AggregatingServices/riv.crm.scheduling/GetAggregatedSubjectOfCareSchedule/trunk</connection>
-        <developerConnection>scm:svn:https://skltpservices.googlecode.com/svn/AggregatingServices/riv.crm.scheduling/GetAggregatedSubjectOfCareSchedule/trunk</developerConnection>
-        <url>https://skltpservices.googlecode.com/svn/AggregatingServices/riv.crm.scheduling/GetAggregatedSubjectOfCareSchedule/trunk</url>
+        <connection>scm:svn:https://skltpservices.googlecode.com/svn/AggregatingServices/riv.crm.scheduling/GetAggregatedSubjectOfCareSchedule/tags/GetAggregatedSubjectOfCareSchedule-1.0.0</connection>
+        <developerConnection>scm:svn:https://skltpservices.googlecode.com/svn/AggregatingServices/riv.crm.scheduling/GetAggregatedSubjectOfCareSchedule/tags/GetAggregatedSubjectOfCareSchedule-1.0.0</developerConnection>
+        <url>https://skltpservices.googlecode.com/svn/AggregatingServices/riv.crm.scheduling/GetAggregatedSubjectOfCareSchedule/tags/GetAggregatedSubjectOfCareSchedule-1.0.0</url>
     </scm>
     
 	<dependencies>	
