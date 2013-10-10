@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="aggregating-service-GetSubjectOfCareSchedule" resourceRoot="" soapui-version="4.0.1.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="GetSubjectOfCareScheduleResponderBinding" type="wsdl" bindingName="{urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21}GetSubjectOfCareScheduleResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl"><con:part><con:url>http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GetSubjectOfCareScheduleInteraction" targetNamespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:ih="urn:riv:interoperability:headers:1" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsr="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns:tns="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<con:soapui-project name="aggregating-service-GetSubjectOfCareSchedule" resourceRoot="" soapui-version="4.5.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="GetSubjectOfCareScheduleResponderBinding" type="wsdl" bindingName="{urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21}GetSubjectOfCareScheduleResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl" id="661cce7d-c62f-4a3c-b51d-d49932b7cf72" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl"><con:part><con:url>http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GetSubjectOfCareScheduleInteraction" targetNamespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:ih="urn:riv:interoperability:headers:1" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsr="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns:tns="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
     <xs:schema targetNamespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21">
       <xs:import namespace="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" schemaLocation="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?xsd=GetSubjectOfCareScheduleResponder_1.1.xsd"/>
@@ -439,7 +439,7 @@
       <xs:enumeration value="other"/>
     </xs:restriction>
   </xs:simpleType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://192.168.19.10:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule" name="GetSubjectOfCareSchedule" bindingOperationName="GetSubjectOfCareSchedule" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Find bookings for PNr 1234567890 - aggregated"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://192.168.19.10:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://192.168.19.10:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:endpoint>http://Jonass-MacBook-Pro.local:8088/mockGetSubjectOfCareScheduleResponderBinding</con:endpoint><con:endpoint>https://33.33.33.33:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule" name="GetSubjectOfCareSchedule" bindingOperationName="GetSubjectOfCareSchedule" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aa4e7a0-45a2-4acc-b3be-0a8d89c6ac09"><con:settings/><con:call name="Find bookings for PNr 1234567890 - aggregated" id="67590350-8aea-4f10-960e-12c08369cc46"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://192.168.19.10:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
    <soapenv:Header>
       <urn:Actor>
          <urn:actorId>?</urn:actorId>
@@ -453,7 +453,7 @@
          <urn2:subject_of_care>1234567890</urn2:subject_of_care>
       </urn2:GetSubjectOfCareSchedule>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Find bookings for PNr 1234567890"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Find bookings for PNr 1234567890" id="b2415158-fae7-46c7-97c7-dea540efe8a8"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
    <soapenv:Header>
       <urn:Actor>
          <urn:actorId>?</urn:actorId>
@@ -467,7 +467,7 @@
          <urn2:subject_of_care>1234567890</urn2:subject_of_care>
       </urn2:GetSubjectOfCareSchedule>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="UpdateResponderBinding" type="wsdl" bindingName="{urn:riv:itintegration:engagementindex:Update:1:rivtabp21}UpdateResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:8081/skltp-ei/update-service/v1?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:8081/skltp-ei/update-service/v1?wsdl"><con:part><con:url>http://192.168.19.10:8081/skltp-ei/update-service/v1?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="UpdateInteraction" targetNamespace="urn:riv:itintegration:engagementindex:Update:1:rivtabp21" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsi="urn:riv:itintegration:engagementindex:UpdateInitiator:1" xmlns:tjsr="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:tns="urn:riv:itintegration:engagementindex:Update:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="UpdateResponderBinding" type="wsdl" bindingName="{urn:riv:itintegration:engagementindex:Update:1:rivtabp21}UpdateResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:8081/skltp-ei/update-service/v1?wsdl" id="21c80bb1-8cdf-4b41-bcca-1bbf0b83d41a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:8081/skltp-ei/update-service/v1?wsdl"><con:part><con:url>http://192.168.19.10:8081/skltp-ei/update-service/v1?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="UpdateInteraction" targetNamespace="urn:riv:itintegration:engagementindex:Update:1:rivtabp21" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsi="urn:riv:itintegration:engagementindex:UpdateInitiator:1" xmlns:tjsr="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:tns="urn:riv:itintegration:engagementindex:Update:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
     <xs:schema targetNamespace="urn:riv:itintegration:engagementindex:Update:1:rivtabp21">
       <xs:import namespace="urn:riv:itintegration:engagementindex:UpdateResponder:1" schemaLocation="http://192.168.19.10:8081/skltp-ei/update-service/v1?xsd=UpdateResponder_1.0.xsd"/>
@@ -651,7 +651,7 @@
       <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.19.10:8081/skltp-ei/update-service/v1</con:endpoint><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/Update/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:engagementindex:UpdateResponder:1:Update" name="Update" bindingOperationName="Update" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Update Bookings for LA 1 and PNr 1234567890"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.19.10:8081/skltp-ei/update-service/v1</con:endpoint><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/Update/1/rivtabp21</con:endpoint><con:endpoint>http://Jonass-MacBook-Pro.local:8088/mockUpdateResponderBinding</con:endpoint><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:engagementindex:UpdateResponder:1:Update" name="Update" bindingOperationName="Update" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="b44614eb-ac24-4983-82b5-2c442a68d14f"><con:settings/><con:call name="Update Bookings for LA 1 and PNr 1234567890" id="99baee43-4fa5-4734-b3fa-2128a510ae55"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>5565594230</urn:LogicalAddress>
    </soapenv:Header>
@@ -672,7 +672,7 @@
          </urn1:engagementTransaction>
       </urn1:Update>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:UpdateResponder:1:Update"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Update Bookings for LA 2 and PNr 1234567890"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.19.10:8081/skltp-ei/update-service/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:UpdateResponder:1:Update"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Update Bookings for LA 2 and PNr 1234567890" id="5c0d3db7-0e0e-4989-b741-f76a8f2564f4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.19.10:8081/skltp-ei/update-service/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>5565594230</urn:LogicalAddress>
    </soapenv:Header>
@@ -693,7 +693,7 @@
          </urn1:engagementTransaction>
       </urn1:Update>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:UpdateResponder:1:Update"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="FindContentWSBeanServiceSoapBinding" type="wsdl" bindingName="{http://findcontent.intsvc.ei.skltp.se/}FindContentWSBeanServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:8082/skltp-ei/find-content-service/v1?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:8082/skltp-ei/find-content-service/v1?wsdl"><con:part><con:url>http://192.168.19.10:8082/skltp-ei/find-content-service/v1?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="FindContentWSBeanService" targetNamespace="http://findcontent.intsvc.ei.skltp.se/" xmlns:ns1="urn:riv:itintegration:engagementindex:FindContent:1:rivtabp21" xmlns:ns4="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://findcontent.intsvc.ei.skltp.se/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:UpdateResponder:1:Update"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="FindContentWSBeanServiceSoapBinding" type="wsdl" bindingName="{http://findcontent.intsvc.ei.skltp.se/}FindContentWSBeanServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:8082/skltp-ei/find-content-service/v1?wsdl" id="1d8b4cf4-6019-4934-8c5b-f7c7eff9146a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:8082/skltp-ei/find-content-service/v1?wsdl"><con:part><con:url>http://192.168.19.10:8082/skltp-ei/find-content-service/v1?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="FindContentWSBeanService" targetNamespace="http://findcontent.intsvc.ei.skltp.se/" xmlns:ns1="urn:riv:itintegration:engagementindex:FindContent:1:rivtabp21" xmlns:ns4="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://findcontent.intsvc.ei.skltp.se/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:import location="http://192.168.19.10:8082/skltp-ei/find-content-service/v1?wsdl=FindContentResponderInterface.wsdl" namespace="urn:riv:itintegration:engagementindex:FindContent:1:rivtabp21"></wsdl:import>
   <wsdl:binding name="FindContentWSBeanServiceSoapBinding" type="ns1:FindContentResponderInterface">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -791,7 +791,7 @@
       <wsdl:output message="ns1:FindContentResponse" name="FindContentResponse"></wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.19.10:8082/skltp-ei/find-content-service/v1</con:endpoint><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/FindContent/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:engagementindex:FindContentResponder:1:FindContent" name="FindContent" bindingOperationName="FindContent" type="Request-Response" outputName="FindContentResponse" inputName="FindContent" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Find EI bookings for PNr 1234567890"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.19.10:8082/skltp-ei/find-content-service/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:FindContentResponder:1">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.19.10:8082/skltp-ei/find-content-service/v1</con:endpoint><con:endpoint>https://qa.esb.ntjp.sjunet.org:20000/vp/FindContent/1/rivtabp21</con:endpoint><con:endpoint>http://Jonass-MacBook-Pro.local:8088/mockFindContentWSBeanServiceSoapBinding</con:endpoint><con:endpoint>https://33.33.33.33:20000/vp/FindContent/1/rivtabp21</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:riv:itintegration:engagementindex:FindContentResponder:1:FindContent" name="FindContent" bindingOperationName="FindContent" type="Request-Response" outputName="FindContentResponse" inputName="FindContent" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="ac86fa3e-47ce-4520-b094-0236385f9046"><con:settings/><con:call name="Find EI bookings for PNr 1234567890" id="d3c5e086-4294-4089-8f9d-aa14ff0dcb0c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.19.10:8082/skltp-ei/find-content-service/v1</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:FindContentResponder:1">
    <soapenv:Header>
       <urn:LogicalAddress>5565594230</urn:LogicalAddress>
    </soapenv:Header>
@@ -802,4 +802,345 @@
           <urn1:categorization>Booking</urn1:categorization>
       </urn1:FindContent>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:FindContentResponder:1:FindContent"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:FindContentResponder:1:FindContent"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Normalflöden" id="6da15336-5b91-42a4-b34a-53de1b58b742"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Hämta data från tidböcker" searchProperties="true" id="a14af0a3-a68d-417f-aafe-66b34822b1e7"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>PNR</con:name><con:value>195609230577</con:value></con:property><con:property><con:name>bookingId1_producer1</con:name><con:value>PRODUCER1_BookingID_Adam_1</con:value></con:property><con:property><con:name>bookingId1_producer2</con:name><con:value>PRODUCER2_BookingID_Adam_1</con:value></con:property><con:property><con:name>bookingId2_producer2</con:name><con:value>PRODUCER2_BookingID_Adam_2</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="Setup av Engagemang 1 för Adam i EI"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Setup av Engagemang 1 för Adam i EI"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>false</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER1</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer1}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER1</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Setup av Engagemang 2 för Adam i EI"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Setup av Engagemang 2 för Adam i EI"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>false</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER2</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer2}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER2</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Setup av Engagemang 3 för Adam i EI"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Setup av Engagemang 3 för Adam i EI"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>false</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER2</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId2_producer2}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER2</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Hitta tidbokningar för PNR: 560923-0577 (Adam)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetSubjectOfCareScheduleResponderBinding</con:interface><con:operation>GetSubjectOfCareSchedule</con:operation><con:request name="Hitta tidbokningar för PNR: 560923-0577 (Adam)"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
+   <soapenv:Header>
+      <urn:Actor>
+         <urn:actorId>?</urn:actorId>
+         <urn:actorType>?</urn:actorType>
+         <!--You may enter ANY elements at this point-->
+      </urn:Actor>
+      <urn1:LogicalAddress>5565594230</urn1:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn2:GetSubjectOfCareSchedule>
+         <urn2:healthcare_facility>5565594230</urn2:healthcare_facility>
+         <urn2:subject_of_care>${Properties#PNR}</urn2:subject_of_care>
+         <!--You may enter ANY elements at this point-->
+      </urn2:GetSubjectOfCareSchedule>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" name="Tre tidbokningar ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace ns1='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns21='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+count(//ns3:timeslotDetail)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Två logiska adresser ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace ns1='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns21='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+count(//ns1:logicalAddress)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="BookingId ska stämma"><con:configuration><scriptText>//Get the TestStep in teh current running TestCase called Properties
+def propertiesTestStep = context.getTestCase().getTestStepByName('Properties')
+
+//Get all the properties starting with bookingId
+def bookingIdPropertyNames = propertiesTestStep.getPropertyNames().findAll{ it.startsWith('bookingId')}
+def expectedBookingIds = bookingIdPropertyNames.collect{propertiesTestStep.getPropertyValue(it)}
+log.info("Expected bookingIds: $expectedBookingIds")
+
+//Slurp the xml and set some appropriate namespaces so that we are good to go when it comes to traversing the xml tree
+def xml = new XmlSlurper().parseText(messageExchange.responseContentAsXml).declareNamespace([ns4: 'urn:riv:interoperability:headers:1', ns2: 'urn:riv:crm:scheduling:1.1',
+		urn: 'urn:riv:interoperability:headers:1', ns1: 'urn:riv:interoperability:headers:1', urn1: 'urn:riv:itintegration:registry:1', ns21: 'urn:riv:crm:scheduling:1',
+		soapenv: 'http://schemas.xmlsoap.org/soap/envelope/', ns3: 'urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1'])
+
+
+//Collect all values from the bookingId elements 
+def actualBookingIds = xml.'soapenv:Body'.'ns3:GetSubjectOfCareScheduleResponse'.'ns3:timeslotDetail'.collect{it.'bookingId'}
+log.info("Found these bookingIds: $actualBookingIds")
+
+//Assert
+expectedBookingIds.each{ expectedBookingId ->
+	assert actualBookingIds.any{ actualBookingId -> actualBookingId == expectedBookingId}
+}</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Ta bort engagemang 1 ur EI för Adam"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Ta bort engagemang 1 ur EI för Adam"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>true</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER1</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer1}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER1</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Ta bort engagemang 2 ur EI för Adam"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Ta bort engagemang 2 ur EI för Adam"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>true</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER2</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer2}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER2</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Ta bort engagemang 3 ur EI för Adam"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Ta bort engagemang 3 ur EI för Adam"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>true</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER2</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId2_producer2}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER2</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Testperson saknar engagemang i EI" searchProperties="true" id="dee235e9-223f-43ce-9a2e-80e0449c0a2c"><con:settings/><con:testStep type="request" name="Hitta tidbokningar för PNR: 3503122271 (David)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetSubjectOfCareScheduleResponderBinding</con:interface><con:operation>GetSubjectOfCareSchedule</con:operation><con:request name="Hitta tidbokningar för PNR: 3503122271 (David)"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/GetSubjectOfCareSchedule/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1" xmlns:urn2="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1">
+   <soapenv:Header>
+      <urn:Actor>
+         <urn:actorId>?</urn:actorId>
+         <urn:actorType>?</urn:actorType>
+         <!--You may enter ANY elements at this point-->
+      </urn:Actor>
+      <urn1:LogicalAddress>5565594230</urn1:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn2:GetSubjectOfCareSchedule>
+         <urn2:healthcare_facility>5565594230</urn2:healthcare_facility>
+         <urn2:subject_of_care>3503122271</urn2:subject_of_care>
+         <!--You may enter ANY elements at this point-->
+      </urn2:GetSubjectOfCareSchedule>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" name="GetSubjectOfCareScheduleResponse är tomt"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+count(//ns3:GetSubjectOfCareScheduleResponse/*)</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="ProcessingStatus är tomt"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns1='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+count(//soapenv:Header/ProcessingStatus/*)</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="Alternativflöden"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Inget svar från ett system, endast ett engagemang i ett system" searchProperties="true"><con:settings/><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Inget svar från ett system, engagemang i flera system" searchProperties="true"><con:settings/><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Error från system" searchProperties="true"><con:settings/><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Samverkan inte etablerad med producentsystem" searchProperties="true"><con:settings/><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/mockFindContentWSBeanServiceSoapBinding" host="Jonass-MacBook-Pro.local" name="FindContent MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="FindContent" interface="FindContentWSBeanServiceSoapBinding" operation="FindContent"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:engagementindex:FindContentResponder:1" xmlns:urn1="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:FindContentResponse>
+         <!--Zero or more repetitions:-->
+         <urn:engagement>
+            <urn1:registeredResidentIdentification>?</urn1:registeredResidentIdentification>
+            <urn1:serviceDomain>?</urn1:serviceDomain>
+            <urn1:categorization>?</urn1:categorization>
+            <urn1:logicalAddress>?</urn1:logicalAddress>
+            <urn1:businessObjectInstanceIdentifier>?</urn1:businessObjectInstanceIdentifier>
+            <urn1:clinicalProcessInterestId>?</urn1:clinicalProcessInterestId>
+            <!--Optional:-->
+            <urn1:mostRecentContent>?</urn1:mostRecentContent>
+            <urn1:sourceSystem>?</urn1:sourceSystem>
+            <!--Optional:-->
+            <urn1:creationTime>?</urn1:creationTime>
+            <!--Optional:-->
+            <urn1:updateTime>?</urn1:updateTime>
+            <urn1:dataController>?</urn1:dataController>
+            <!--Optional:-->
+            <urn1:owner>?</urn1:owner>
+            <!--You may enter ANY elements at this point-->
+         </urn:engagement>
+         <!--You may enter ANY elements at this point-->
+      </urn:FindContentResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:FindContentResponder:1:FindContent"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockGetSubjectOfCareScheduleResponderBinding" host="Jonass-MacBook-Pro.local" name="GetSubjectOfCareSchedule MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="GetSubjectOfCareSchedule" interface="GetSubjectOfCareScheduleResponderBinding" operation="GetSubjectOfCareSchedule"><con:settings/><con:dispatchPath/><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:defaultResponse>Response för 560923-0577 (Adam)</con:defaultResponse><con:response name="Response för 560923-0577 (Adam)" encoding="UTF-8"><con:settings/><con:script>def holder = new com.eviware.soapui.support.XmlHolder( mockRequest.requestContent )
+def subjectOfCare = holder["//urn2:subject_of_care"]
+requestContext.subject_of_care = subjectOfCare
+
+</con:script><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1">
+   <soapenv:Header>
+      <ProcessingStatus xmlns="urn:riv:interoperability:headers:1">
+         <ProcessingStatusList>
+            <logicalAddress>2</logicalAddress>
+            <statusCode>DataFromSource</statusCode>
+            <isResponseFromCache>false</isResponseFromCache>
+            <isResponseInSynch>true</isResponseInSynch>
+            <lastSuccessfulSynch>20130923125009</lastSuccessfulSynch>
+         </ProcessingStatusList>
+         <ProcessingStatusList>
+            <logicalAddress>1</logicalAddress>
+            <statusCode>DataFromSource</statusCode>
+            <isResponseFromCache>false</isResponseFromCache>
+            <isResponseInSynch>true</isResponseInSynch>
+            <lastSuccessfulSynch>20130923125009</lastSuccessfulSynch>
+         </ProcessingStatusList>
+      </ProcessingStatus>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns3:GetSubjectOfCareScheduleResponse xmlns:ns3="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns="urn:riv:crm:scheduling:1" xmlns:ns2="urn:riv:crm:scheduling:1.1" xmlns:ns4="urn:riv:interoperability:headers:1">
+         <ns3:timeslotDetail>
+            <startTimeInclusive>20130923125009</startTimeInclusive>
+            <endTimeExclusive>20130923125009</endTimeExclusive>
+            <healthcare_facility>HaltcareFacility</healthcare_facility>
+            <performer>Performer</performer>
+            <bookingId>e99c03a6-9cdd-4e8e-bf94-5afc96b86b36</bookingId>
+            <subject_of_care>${subject_of_care}</subject_of_care>
+            <purpose>Purpose</purpose>
+            <reason>Reason</reason>
+            <resourceName>ResourceName</resourceName>
+            <healthcare_facility_name>HaltcareFacilityName</healthcare_facility_name>
+            <performerName>PerformerName</performerName>
+            <resourceID>ResourceID</resourceID>
+            <timeTypeName>TimeTypeName</timeTypeName>
+            <timeTypeID>TimeTypeID</timeTypeID>
+            <careTypeName>CareTypeName</careTypeName>
+            <careTypeID>CareTypeID</careTypeID>
+         </ns3:timeslotDetail>
+         <ns3:timeslotDetail>
+            <startTimeInclusive>20130923125009</startTimeInclusive>
+            <endTimeExclusive>20130923125009</endTimeExclusive>
+            <healthcare_facility>HaltcareFacility</healthcare_facility>
+            <performer>Performer</performer>
+            <bookingId>9f4f305c-8606-4806-b02f-e25bde46ddc2</bookingId>
+            <subject_of_care>${subject_of_care}</subject_of_care>
+            <purpose>Purpose</purpose>
+            <reason>Reason</reason>
+            <resourceName>ResourceName</resourceName>
+            <healthcare_facility_name>HaltcareFacilityName</healthcare_facility_name>
+            <performerName>PerformerName</performerName>
+            <resourceID>ResourceID</resourceID>
+            <timeTypeName>TimeTypeName</timeTypeName>
+            <timeTypeID>TimeTypeID</timeTypeID>
+            <careTypeName>CareTypeName</careTypeName>
+            <careTypeID>CareTypeID</careTypeID>
+         </ns3:timeslotDetail>
+         <ns3:timeslotDetail>
+            <startTimeInclusive>20130923125009</startTimeInclusive>
+            <endTimeExclusive>20130923125009</endTimeExclusive>
+            <healthcare_facility>HaltcareFacility</healthcare_facility>
+            <performer>Performer</performer>
+            <bookingId>36d333eb-bde5-4b76-90ba-92a4346984b1</bookingId>
+            <subject_of_care>${subject_of_care}</subject_of_care>
+            <purpose>Purpose</purpose>
+            <reason>Reason</reason>
+            <resourceName>ResourceName</resourceName>
+            <healthcare_facility_name>HaltcareFacilityName</healthcare_facility_name>
+            <performerName>PerformerName</performerName>
+            <resourceID>ResourceID</resourceID>
+            <timeTypeName>TimeTypeName</timeTypeName>
+            <timeTypeID>TimeTypeID</timeTypeID>
+            <careTypeName>CareTypeName</careTypeName>
+            <careTypeID>CareTypeID</careTypeID>
+         </ns3:timeslotDetail>
+      </ns3:GetSubjectOfCareScheduleResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule"/></con:response><con:response name="Response for 350312-2271 (David)" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:interoperability:headers:1" xmlns:urn1="urn:riv:itintegration:registry:1">
+   <soapenv:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns3:GetSubjectOfCareScheduleResponse xmlns:ns3="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns="urn:riv:crm:scheduling:1" xmlns:ns2="urn:riv:crm:scheduling:1.1" xmlns:ns4="urn:riv:interoperability:headers:1" />
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1:GetSubjectOfCareSchedule"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>Adam</con:name><con:query>declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace urn2='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+//soapenv:Envelope/soapenv:Body/urn2:GetSubjectOfCareSchedule/urn2:subject_of_care</con:query><con:match>5602930577</con:match><con:response>Response för 560923-0577 (Adam)</con:response></con:query><con:query><con:name>David</con:name><con:query>declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace urn2='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+//soapenv:Envelope/soapenv:Body/urn2:GetSubjectOfCareSchedule/urn2:subject_of_care</con:query><con:match>3503122271</con:match><con:response>Response for 350312-2271 (David)</con:response><con:disabled>false</con:disabled></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService port="8088" path="/mockUpdateResponderBinding" host="Jonass-MacBook-Pro.local" name="Update MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="Update" interface="UpdateResponderBinding" operation="Update"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:engagementindex:UpdateResponder:1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:UpdateResponse>
+         <urn:ResultCode>?</urn:ResultCode>
+         <!--Optional:-->
+         <urn:comment>?</urn:comment>
+         <!--You may enter ANY elements at this point-->
+      </urn:UpdateResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:UpdateResponder:1:Update"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
