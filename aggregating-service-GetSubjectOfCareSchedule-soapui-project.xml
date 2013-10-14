@@ -832,7 +832,94 @@
           <urn1:categorization>Booking</urn1:categorization>
       </urn1:FindContent>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:FindContentResponder:1:FindContent"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Normalflöden" id="6da15336-5b91-42a4-b34a-53de1b58b742"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Hämta data från tidböcker" searchProperties="true" id="a14af0a3-a68d-417f-aafe-66b34822b1e7"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>PNR</con:name><con:value>195609230577</con:value></con:property><con:property><con:name>bookingId1_producer1</con:name><con:value>PRODUCER1_BookingID_Adam_1</con:value></con:property><con:property><con:name>bookingId1_producer2</con:name><con:value>PRODUCER2_BookingID_Adam_1</con:value></con:property><con:property><con:name>bookingId2_producer2</con:name><con:value>PRODUCER2_BookingID_Adam_2</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="Setup av Engagemang 1 för Adam i EI"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Setup av Engagemang 1 för Adam i EI"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:riv:itintegration:engagementindex:FindContentResponder:1:FindContent"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Sätt upp test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Sätt upp TAK" searchProperties="true"><con:settings/><con:testStep type="manualTestStep" name="SQL Script för att sätta upp TAK (Manuellt steg)"><con:description>Sätt upp TAK databasen</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>-- Testerna behöver följande data för att kunna exekvera
+-- Kör scriptet mot tak-schemay i önskad målmiljö
+-- Kör delete scriptet som finns i städa upp efter test när du är klar
+
+-- Sätt upp logiska adressater
+INSERT INTO `LogiskAdressat` (`beskrivning`, `hsaId`, `version`) VALUES('Används vid integrationstester.', 'HSAPRODUCER1', 0);
+INSERT INTO `LogiskAdressat` (`beskrivning`, `hsaId`, `version`) VALUES('Används vid integrationstester.', 'HSAPRODUCER2', 0);
+INSERT INTO `LogiskAdressat` (`beskrivning`, `hsaId`, `version`) VALUES('Används vid integrationstester.', 'HSAPRODUCER3', 0);
+INSERT INTO `LogiskAdressat` (`beskrivning`, `hsaId`, `version`) VALUES('Används vid integrationstester.', 'HSAPRODUCER4', 0);
+INSERT INTO `LogiskAdressat` (`beskrivning`, `hsaId`, `version`) VALUES('Används vid integrationstester. Ska vara uppsatt utan anropsbehörigheter.', 'HSAPRODUCER5', 0);
+
+-- Sätt upp tjänstekomponenter
+INSERT INTO `Tjanstekomponent` (`adress`, `beskrivning`, `hsaId`, `version`) VALUES('http://localhost:20002/producer_1/teststub/GetSubjectOfCareSchedule/1/rivtabp21', 'Producent för system ett vid integrationstester av Aggregerandetjänst tidbokning.', 'HSAProducent_1_Tidbokning', 0);
+INSERT INTO `Tjanstekomponent` (`adress`, `beskrivning`, `hsaId`, `version`) VALUES('http://localhost:20002/producer_2/teststub/GetSubjectOfCareSchedule/1/rivtabp21', 'Producent för system två vid integrationstester av Aggregerandetjänst tidbokning.', 'HSAProducent_2_Tidbokning', 0);
+INSERT INTO `Tjanstekomponent` (`adress`, `beskrivning`, `hsaId`, `version`) VALUES('http://localhost:20002/producer_3/teststub/GetSubjectOfCareSchedule/1/rivtabp21', 'Producent för system tre vid integrationstester av Aggregerandetjänst tidbokning.', 'HSAProducent_3_Tidbokning', 0);
+INSERT INTO `Tjanstekomponent` (`adress`, `beskrivning`, `hsaId`, `version`) VALUES('http://localhost:20002/producer_4/teststub/GetSubjectOfCareSchedule/1/rivtabp21', 'Producent för system fyra vid integrationstester av Aggregerandetjänst tidbokning.', 'HSAProducent_4_Tidbokning', 0);
+INSERT INTO `Tjanstekomponent` (`adress`, `beskrivning`, `hsaId`, `version`) VALUES('http://localhost:20002/producer_5/teststub/GetSubjectOfCareSchedule/1/rivtabp21', 'Producent för system fem vid integrationstester av Aggregerandetjänst tidbokning.', 'HSAProducent_5_Tidbokning', 0);
+
+-- Sätt upp logiska adresser
+INSERT INTO `LogiskAdress` (`fromTidpunkt`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `rivVersion_id`, `tjanstekontrakt_id`, `tjansteproducent_id`)
+select '2013-10-07', '2113-10-07', 0, adressat.id, riv.id, kontrakt.id, producent.id from `LogiskAdressat` as adressat, `RivVersion` as riv,
+`Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as producent
+where adressat.hsaId = 'HSAPRODUCER1'
+and riv.namn = 'RIVTABP21'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and producent.hsaId = 'HSAProducent_1_Tidbokning';
+
+INSERT INTO `LogiskAdress` (`fromTidpunkt`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `rivVersion_id`, `tjanstekontrakt_id`, `tjansteproducent_id`)
+select '2013-10-07', '2113-10-07', 0, adressat.id, riv.id, kontrakt.id, producent.id from `LogiskAdressat` as adressat, `RivVersion` as riv,
+`Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as producent
+where adressat.hsaId = 'HSAPRODUCER2'
+and riv.namn = 'RIVTABP21'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and producent.hsaId = 'HSAProducent_2_Tidbokning';
+
+INSERT INTO `LogiskAdress` (`fromTidpunkt`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `rivVersion_id`, `tjanstekontrakt_id`, `tjansteproducent_id`)
+select '2013-10-07', '2113-10-07', 0, adressat.id, riv.id, kontrakt.id, producent.id from `LogiskAdressat` as adressat, `RivVersion` as riv,
+`Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as producent
+where adressat.hsaId = 'HSAPRODUCER3'
+and riv.namn = 'RIVTABP21'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and producent.hsaId = 'HSAProducent_3_Tidbokning';
+
+INSERT INTO `LogiskAdress` (`fromTidpunkt`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `rivVersion_id`, `tjanstekontrakt_id`, `tjansteproducent_id`)
+select '2013-10-07', '2113-10-07', 0, adressat.id, riv.id, kontrakt.id, producent.id from `LogiskAdressat` as adressat, `RivVersion` as riv,
+`Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as producent
+where adressat.hsaId = 'HSAPRODUCER4'
+and riv.namn = 'RIVTABP21'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and producent.hsaId = 'HSAProducent_4_Tidbokning';
+
+INSERT INTO `LogiskAdress` (`fromTidpunkt`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `rivVersion_id`, `tjanstekontrakt_id`, `tjansteproducent_id`)
+select '2013-10-07', '2113-10-07', 0, adressat.id, riv.id, kontrakt.id, producent.id from `LogiskAdressat` as adressat, `RivVersion` as riv,
+`Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as producent
+where adressat.hsaId = 'HSAPRODUCER5'
+and riv.namn = 'RIVTABP21'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and producent.hsaId = 'HSAProducent_5_Tidbokning';
+
+-- Sätt upp anropsbehörigheter
+
+INSERT INTO `Anropsbehorighet` (`fromTidpunkt`, `integrationsavtal`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `tjanstekonsument_id`, `tjanstekontrakt_id`)
+select '2013-10-07', 'Integrationstest Aggregerandetjänst tidbok', '2113-10-07', 0, adressat.id, konsument.id, kontrakt.id
+from `LogiskAdressat` as adressat, `Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as konsument
+where adressat.hsaId = 'HSAPRODUCER1'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and konsument.hsaId = 'tp';
+
+INSERT INTO `Anropsbehorighet` (`fromTidpunkt`, `integrationsavtal`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `tjanstekonsument_id`, `tjanstekontrakt_id`)
+select '2013-10-07', 'Integrationstest Aggregerandetjänst tidbok', '2113-10-07', 0, adressat.id, konsument.id, kontrakt.id
+from `LogiskAdressat` as adressat, `Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as konsument
+where adressat.hsaId = 'HSAPRODUCER2'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and konsument.hsaId = 'tp';
+
+INSERT INTO `Anropsbehorighet` (`fromTidpunkt`, `integrationsavtal`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `tjanstekonsument_id`, `tjanstekontrakt_id`)
+select '2013-10-07', 'Integrationstest Aggregerandetjänst tidbok', '2113-10-07', 0, adressat.id, konsument.id, kontrakt.id
+from `LogiskAdressat` as adressat, `Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as konsument
+where adressat.hsaId = 'HSAPRODUCER3'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and konsument.hsaId = 'tp';
+
+INSERT INTO `Anropsbehorighet` (`fromTidpunkt`, `integrationsavtal`, `tomTidpunkt`, `version`, `logiskAdressat_id`, `tjanstekonsument_id`, `tjanstekontrakt_id`)
+select '2013-10-07', 'Integrationstest Aggregerandetjänst tidbok', '2113-10-07', 0, adressat.id, konsument.id, kontrakt.id
+from `LogiskAdressat` as adressat, `Tjanstekontrakt` as kontrakt, `Tjanstekomponent` as konsument
+where adressat.hsaId = 'HSAPRODUCER4'
+and kontrakt.namnrymd = 'urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21'
+and konsument.hsaId = 'tp';</con:expectedResult></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="Normalflöden" id="6da15336-5b91-42a4-b34a-53de1b58b742"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Hämta data från tidböcker" searchProperties="true" id="a14af0a3-a68d-417f-aafe-66b34822b1e7"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>PNR</con:name><con:value>195609230577</con:value></con:property><con:property><con:name>bookingId1_producer1</con:name><con:value>PRODUCER1_BookingID_Adam_1</con:value></con:property><con:property><con:name>bookingId1_producer2</con:name><con:value>PRODUCER2_BookingID_Adam_1</con:value></con:property><con:property><con:name>bookingId2_producer2</con:name><con:value>PRODUCER2_BookingID_Adam_2</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="Setup av Engagemang 1 för Adam i EI"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Setup av Engagemang 1 för Adam i EI"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>5565594230</urn:LogicalAddress>
    </soapenv:Header>
@@ -1850,10 +1937,10 @@ declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:
                <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
                <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
                <urn2:categorization>Booking</urn2:categorization>
-               <urn2:logicalAddress>HSAPRODUCER1</urn2:logicalAddress>
-               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId5_producer1}</urn2:businessObjectInstanceIdentifier>
+               <urn2:logicalAddress>HSAPRODUCER5</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer5}</urn2:businessObjectInstanceIdentifier>
                <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
-               <urn2:sourceSystem>HSAPRODUCER1</urn2:sourceSystem>
+               <urn2:sourceSystem>HSAPRODUCER5</urn2:sourceSystem>
                <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
             </urn2:engagement>
          </urn1:engagementTransaction>
@@ -1999,7 +2086,74 @@ boolean(//ns21:bookingId[text() = 'PRODUCER3_BookingID_Erik_1'])</path><content>
          </urn1:engagementTransaction>
       </urn1:Update>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/mockFindContentWSBeanServiceSoapBinding" host="Jonass-MacBook-Pro.local" name="FindContent MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="FindContent" interface="FindContentWSBeanServiceSoapBinding" operation="FindContent"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:engagementindex:FindContentResponder:1" xmlns:urn1="urn:riv:itintegration:engagementindex:1">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="Städa upp efter test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Städa upp TAK" searchProperties="true"><con:settings/><con:testStep type="manualTestStep" name="SQL Script för att städa upp i TAK (Manuellt steg)"><con:description>Sätt upp TAK databasen</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>-- Detta script tar bort all data  från TAK som behövdes för testerna
+
+-- Ta bort all anropsbehörigheter
+
+DELETE FROM `Anropsbehorighet` WHERE integrationsavtal = 'Integrationstest Aggregerandetjänst tidbok';
+
+-- Ta bort logiska adresser
+DELETE FROM `LogiskAdress`
+WHERE logiskAdressat_id IN (
+ SELECT id FROM `LogiskAdressat` adressat
+ WHERE adressat.hsaId = 'HSAPRODUCER1'
+);
+
+DELETE FROM `LogiskAdress`
+WHERE logiskAdressat_id IN (
+ SELECT id FROM `LogiskAdressat` adressat
+ WHERE adressat.hsaId = 'HSAPRODUCER2'
+);
+
+DELETE FROM `LogiskAdress`
+WHERE logiskAdressat_id IN (
+ SELECT id FROM `LogiskAdressat` adressat
+ WHERE adressat.hsaId = 'HSAPRODUCER3'
+);
+
+DELETE FROM `LogiskAdress`
+WHERE logiskAdressat_id IN (
+ SELECT id FROM `LogiskAdressat` adressat
+ WHERE adressat.hsaId = 'HSAPRODUCER4'
+);
+
+DELETE FROM `LogiskAdress`
+WHERE logiskAdressat_id IN (
+ SELECT id FROM `LogiskAdressat` adressat
+ WHERE adressat.hsaId = 'HSAPRODUCER5'
+);
+
+-- Ta bort all producenter
+Delete FROM `Tjanstekomponent`
+WHERE hsaId = 'HSAProducent_1_Tidbokning';
+
+Delete FROM `Tjanstekomponent`
+WHERE hsaId = 'HSAProducent_2_Tidbokning';
+
+Delete FROM `Tjanstekomponent`
+WHERE hsaId = 'HSAProducent_3_Tidbokning';
+
+Delete FROM `Tjanstekomponent`
+WHERE hsaId = 'HSAProducent_4_Tidbokning';
+
+Delete FROM `Tjanstekomponent`
+WHERE hsaId = 'HSAProducent_5_Tidbokning';
+
+-- Ta bort logiska adressater
+DELETE FROM `LogiskAdressat`
+WHERE hsaId = 'HSAPRODUCER1';
+
+DELETE FROM `LogiskAdressat`
+WHERE hsaId = 'HSAPRODUCER2';
+
+DELETE FROM `LogiskAdressat`
+WHERE hsaId = 'HSAPRODUCER3';
+
+DELETE FROM `LogiskAdressat`
+WHERE hsaId = 'HSAPRODUCER4';
+
+DELETE FROM `LogiskAdressat`
+WHERE hsaId = 'HSAPRODUCER5';</con:expectedResult></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/mockFindContentWSBeanServiceSoapBinding" host="Jonass-MacBook-Pro.local" name="FindContent MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="FindContent" interface="FindContentWSBeanServiceSoapBinding" operation="FindContent"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:engagementindex:FindContentResponder:1" xmlns:urn1="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:FindContentResponse>
