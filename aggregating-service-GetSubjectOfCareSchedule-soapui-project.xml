@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="aggregating-service-GetSubjectOfCareSchedule" resourceRoot="" soapui-version="4.5.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="GetSubjectOfCareScheduleResponderBinding" type="wsdl" bindingName="{urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21}GetSubjectOfCareScheduleResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl" id="661cce7d-c62f-4a3c-b51d-d49932b7cf72" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl"><con:part><con:url>http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GetSubjectOfCareScheduleInteraction" targetNamespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:ih="urn:riv:interoperability:headers:1" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsr="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns:tns="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<con:soapui-project name="aggregating-service-GetSubjectOfCareSchedule" resourceRoot="" soapui-version="4.5.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="TestSuite" value="&lt;all>"/>
+  <con:entry key="Report to Generate" value=""/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="soapui-setings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="Save Project" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="TestCase" value="&lt;all>"/>
+  <con:entry key="Print Report" value="true"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="Root Folder" value="/Users/behmer/temp"/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="Endpoint" value=""/>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="GetSubjectOfCareScheduleResponderBinding" type="wsdl" bindingName="{urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21}GetSubjectOfCareScheduleResponderBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl" id="661cce7d-c62f-4a3c-b51d-d49932b7cf72" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl"><con:part><con:url>http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GetSubjectOfCareScheduleInteraction" targetNamespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:ih="urn:riv:interoperability:headers:1" xmlns:itr="urn:riv:itintegration:registry:1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tjsr="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns:tns="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
     <xs:schema targetNamespace="urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21">
       <xs:import namespace="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" schemaLocation="http://192.168.19.10:20001/teststubservice/GetSubjectOfCareSchedule/1/rivtabp21?xsd=GetSubjectOfCareScheduleResponder_1.1.xsd"/>
@@ -1056,7 +1086,15 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-//ns1:logicalAddress</path><content>HSAPRODUCER3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Endast en logisk adress ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+//ns1:logicalAddress</path><content>HSAPRODUCER3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="HSAPRODUCER3 kastar Read timeout felmeddelande"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace ns1='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns21='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+//ns1:ProcessingStatusList[ns1:logicalAddress = 'HSAPRODUCER3']/ns1:lastUnsuccessfulSynchError/ns1:text</path><content>Read timed out.</content><allowWildcards>true</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Endast en logisk adress ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
@@ -1201,7 +1239,15 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-//ns1:logicalAddress[text() = 'HSAPRODUCER3']</path><content>HSAPRODUCER3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Tre logiska adresser ska finnas totalt"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+//ns1:logicalAddress[text() = 'HSAPRODUCER3']</path><content>HSAPRODUCER3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="HSAPRODUCER3 har Read timeout felmeddelande"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace ns1='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns21='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+//ns1:ProcessingStatusList[ns1:logicalAddress = 'HSAPRODUCER3']/ns1:lastUnsuccessfulSynchError/ns1:text</path><content>Read timed out.</content><allowWildcards>true</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Tre logiska adresser ska finnas totalt"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
