@@ -1462,7 +1462,15 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-count(//ns1:logicalAddress)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Fyra tidbokningar ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+count(//ns1:logicalAddress)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="HSAPRODUCER4 ska kasta något slags fel"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace ns1='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns21='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+//ns1:ProcessingStatusList[ns1:logicalAddress = 'HSAPRODUCER4']/ns1:lastUnsuccessfulSynchError/ns1:code</path><content>43000</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Fyra tidbokningar ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
@@ -1670,7 +1678,7 @@ boolean(//ns21:bookingId[text() = 'PRODUCER3_BookingID_Erik_1'])</path><content>
                <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
                <urn2:categorization>Booking</urn2:categorization>
                <urn2:logicalAddress>HSAPRODUCER5</urn2:logicalAddress>
-               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId5_producer1}</urn2:businessObjectInstanceIdentifier>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer5}</urn2:businessObjectInstanceIdentifier>
                <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
                <urn2:sourceSystem>HSAPRODUCER5</urn2:sourceSystem>
                <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
@@ -1702,7 +1710,7 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-count(//ns1:logicalAddress)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Två tidbokningar ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+count(//ns1:logicalAddress)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Två tidbokningar ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
@@ -1734,7 +1742,15 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-boolean(//ns21:bookingId[text() = 'PRODUCER3_BookingID_Erik_1'])</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Ta bort engagemang 1 ur EI för Felix"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Ta bort engagemang 1 ur EI för Felix"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+boolean(//ns21:bookingId[text() = 'PRODUCER3_BookingID_Erik_1'])</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Anropsbehörighet till HSAPRODUCER5 ska saknas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+declare namespace ns2='urn:riv:crm:scheduling:1.1';
+declare namespace urn='urn:riv:interoperability:headers:1';
+declare namespace ns1='urn:riv:interoperability:headers:1';
+declare namespace urn1='urn:riv:itintegration:registry:1';
+declare namespace ns21='urn:riv:crm:scheduling:1';
+declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
+//ns1:ProcessingStatusList[ns1:logicalAddress = 'HSAPRODUCER5']/ns1:lastUnsuccessfulSynchError/ns1:text</path><content>VP007 Authorization missing</content><allowWildcards>true</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Ta bort engagemang 1 ur EI för Felix"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Ta bort engagemang 1 ur EI för Felix"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>5565594230</urn:LogicalAddress>
    </soapenv:Header>
@@ -1797,7 +1813,7 @@ boolean(//ns21:bookingId[text() = 'PRODUCER3_BookingID_Erik_1'])</path><content>
          </urn1:engagementTransaction>
       </urn1:Update>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Producentsystem finns ej TAK" searchProperties="true" id="4e4af35f-a492-41cf-8a0a-a6b40b4884a0"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>PNR</con:name><con:value>198907018652</con:value></con:property><con:property><con:name>bookingId1_producer2</con:name><con:value>PRODUCER2_BookingID_Georg_1</con:value></con:property><con:property><con:name>bookingId1_producer6</con:name><con:value>PRODUCER6_BookingID_Georg_1</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="Setup av Engagemang 1 för Georg i EI"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Setup av Engagemang 1 för Georg i EI"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Producentsystem finns ej TAK" searchProperties="true" id="4e4af35f-a492-41cf-8a0a-a6b40b4884a0"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>PNR</con:name><con:value>196603164697</con:value></con:property><con:property><con:name>bookingId1_producer2</con:name><con:value>PRODUCER2_BookingID_Georg_1</con:value></con:property><con:property><con:name>bookingId1_producer6</con:name><con:value>PRODUCER6_BookingID_Georg_1</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="Setup av Engagemang 1 för Georg i EI"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Setup av Engagemang 1 för Georg i EI"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header>
       <urn:LogicalAddress>5565594230</urn:LogicalAddress>
    </soapenv:Header>
@@ -1863,7 +1879,7 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-count(//ns1:logicalAddress)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Två tidbokningar ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+count(//ns1:logicalAddress)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="VP004 Fel för HSAPRODUCER6 ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
@@ -1871,7 +1887,7 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-count(//ns3:timeslotDetail)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="bookingId = PRODUCER1_BookingID_Felix_1 ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+//ns1:ProcessingStatusList[ns1:logicalAddress = 'HSAPRODUCER6']/ns1:lastUnsuccessfulSynchError/ns1:text</path><content>VP004 No Logical Adress found for serviceNamespace:urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21</content><allowWildcards>true</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="En tidbokning ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
@@ -1879,7 +1895,7 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-//ns21:bookingId[text() = 'PRODUCER1_BookingID_Felix_1']</path><content>PRODUCER1_BookingID_Felix_1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="bookingId = PRODUCER1_BookingID_Felix_2 ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+count(//ns3:timeslotDetail)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="bookingId = PRODUCER2_BookingID_Georg_1 ska finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
@@ -1887,7 +1903,7 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-//ns21:bookingId[text() = 'PRODUCER1_BookingID_Felix_2']</path><content>PRODUCER1_BookingID_Felix_2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="bookingId = PRODUCER5_BookingID_Felix_1 ska inte finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
+//ns21:bookingId[text() = 'PRODUCER2_BookingID_Georg_1']</path><content>PRODUCER2_BookingID_Georg_1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="bookingId = PRODUCER6_BookingID_Georg_1 ska inte finnas"><con:configuration><path>declare namespace ns4='urn:riv:interoperability:headers:1';
 declare namespace ns2='urn:riv:crm:scheduling:1.1';
 declare namespace urn='urn:riv:interoperability:headers:1';
 declare namespace ns1='urn:riv:interoperability:headers:1';
@@ -1895,7 +1911,49 @@ declare namespace urn1='urn:riv:itintegration:registry:1';
 declare namespace ns21='urn:riv:crm:scheduling:1';
 declare namespace soapenv='http://schemas.xmlsoap.org/soap/envelope/';
 declare namespace ns3='urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1';
-boolean(//ns21:bookingId[text() = 'PRODUCER3_BookingID_Erik_1'])</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/mockFindContentWSBeanServiceSoapBinding" host="Jonass-MacBook-Pro.local" name="FindContent MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="FindContent" interface="FindContentWSBeanServiceSoapBinding" operation="FindContent"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:engagementindex:FindContentResponder:1" xmlns:urn1="urn:riv:itintegration:engagementindex:1">
+boolean(//ns21:bookingId[text() = 'PRODUCER3_BookingID_Erik_1'])</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Ta bort engagemang 1 ur EI för Georg"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Ta bort engagemang 1 ur EI för Georg"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>true</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER2</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer2}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER2</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Ta bort engagemang 2 ur EI för Georg"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>UpdateResponderBinding</con:interface><con:operation>Update</con:operation><con:request name="Ta bort engagemang 2 ur EI för Georg"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://33.33.33.33:20000/vp/Update/1/rivtabp21</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:itintegration:engagementindex:UpdateResponder:1" xmlns:urn2="urn:riv:itintegration:engagementindex:1">
+   <soapenv:Header>
+      <urn:LogicalAddress>5565594230</urn:LogicalAddress>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn1:Update>
+         <urn1:engagementTransaction>
+            <urn2:deleteFlag>true</urn2:deleteFlag>
+            <urn2:engagement>
+               <urn2:registeredResidentIdentification>${Properties#PNR}</urn2:registeredResidentIdentification>
+               <urn2:serviceDomain>riv:crm:scheduling</urn2:serviceDomain>
+               <urn2:categorization>Booking</urn2:categorization>
+               <urn2:logicalAddress>HSAPRODUCER6</urn2:logicalAddress>
+               <urn2:businessObjectInstanceIdentifier>${Properties#bookingId1_producer6}</urn2:businessObjectInstanceIdentifier>
+               <urn2:clinicalProcessInterestId>TEST_CPIID</urn2:clinicalProcessInterestId>
+               <urn2:sourceSystem>HSAPRODUCER6</urn2:sourceSystem>
+               <urn2:dataController>TEST-DATA-CONTROLLER</urn2:dataController>
+            </urn2:engagement>
+         </urn1:engagementTransaction>
+      </urn1:Update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/mockFindContentWSBeanServiceSoapBinding" host="Jonass-MacBook-Pro.local" name="FindContent MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="FindContent" interface="FindContentWSBeanServiceSoapBinding" operation="FindContent"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:engagementindex:FindContentResponder:1" xmlns:urn1="urn:riv:itintegration:engagementindex:1">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:FindContentResponse>
