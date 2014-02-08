@@ -3,7 +3,10 @@ package se.skltp.agp.tidbokning;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
+import static se.skltp.agp.test.consumer.AbstractTestConsumer.SAMPLE_SENDER_ID;
+import static se.skltp.agp.test.consumer.AbstractTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID;
 import static se.skltp.agp.riv.interoperability.headers.v1.CausingAgentEnum.VIRTUALIZATION_PLATFORM;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_1;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_MANY_HITS_2;
@@ -20,6 +23,7 @@ import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ZERO_HITS;
 import java.util.List;
 
 import javax.xml.ws.Holder;
+import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -72,6 +76,33 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
     @Test
     public void test_ok_zero_hits() {
     	doTest(TEST_RR_ID_ZERO_HITS, 0);		
+    }
+
+	/**
+	 * Perform a test that is expected to return an exception due to missing mandatory http headers (sender-id and original-consumer-id)
+	 */
+    @Test
+    public void test_fault_missing_http_headers() {
+    	try {
+			doTest(TEST_RR_ID_ZERO_HITS, null, SAMPLE_ORIGINAL_CONSUMER_HSAID, 0);
+			fail("This one should fail on missing http header");
+		} catch (SOAPFaultException e) {
+			assertEquals("Mandatory HTTP header x-vp-sender-id is missing", e.getMessage());
+		}
+
+    	try {
+	    	doTest(TEST_RR_ID_ZERO_HITS, SAMPLE_SENDER_ID, null, 0);		
+	       	fail("This one should fail on missing http header");
+		} catch (SOAPFaultException e) {
+			assertEquals("Mandatory HTTP header x-rivta-original-serviceconsumer-hsaid is missing", e.getMessage());
+		}
+
+    	try {
+	       	doTest(TEST_RR_ID_ZERO_HITS, null, null, 0);		
+	       	fail("This one should fail on missing http header");
+		} catch (SOAPFaultException e) {
+			assertEquals("Mandatory HTTP headers x-vp-sender-id and x-rivta-original-serviceconsumer-hsaid are missing", e.getMessage());
+		}
     }
 
 	/**
@@ -145,12 +176,26 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
      * @return
      */
 	private List<ProcessingStatusRecordType> doTest(String registeredResidentId, int expectedProcessingStatusSize, ExpectedTestData... testData) {
+		return doTest(registeredResidentId, SAMPLE_SENDER_ID, SAMPLE_ORIGINAL_CONSUMER_HSAID, expectedProcessingStatusSize, testData);
+    }
+
+	/**
+     * Helper method for performing a call to the aggregating service and perform some common validations of the result
+     * 
+     * @param registeredResidentId
+     * @param senderId
+     * @param originalConsumerHsaId
+     * @param expectedProcessingStatusSize
+     * @param testData
+     * @return
+     */
+	private List<ProcessingStatusRecordType> doTest(String registeredResidentId, String senderId, String originalConsumerHsaId, int expectedProcessingStatusSize, ExpectedTestData... testData) {
 
 		// Reset the lastActor also here, not only in te setup-method to ensure that it works also in the CloudBees environment (TODO: why does the invalid-input test fail in Cloudbees???)
 		TidbokningTestProducer.resetLastActor();
 
 		// Setup and perform the call to the web service
-		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS, TidbokningTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID);
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_SERVICE_ADDRESS, senderId, originalConsumerHsaId);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
     	consumer.callService(LOGICAL_ADDRESS, registeredResidentId, processingStatusHolder, responseHolder);
@@ -171,13 +216,17 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 		ProcessingStatusType statusList = processingStatusHolder.value;
 		assertEquals(expectedProcessingStatusSize, statusList.getProcessingStatusList().size());
 		
-	 	// Verify that correct "x-rivta-original-serviceconsumer-hsaid" http header was passed to the engagement index
-		assertEquals(SKLTP_HSA_ID, EngagemangsindexTestProducerLogger.getLastOriginalConsumer());
+	 	// Verify that correct "x-vp-sender-id" http header was passed to the engagement index
+		assertEquals(SKLTP_HSA_ID, EngagemangsindexTestProducerLogger.getLastSenderId());
 		
-		// Verify that correct "x-rivta-original-serviceconsumer-hsaid" http header was passed to the service producer,
+	 	// Verify that correct "x-rivta-original-serviceconsumer-hsaid" http header was passed to the engagement index
+		assertEquals(SAMPLE_ORIGINAL_CONSUMER_HSAID, EngagemangsindexTestProducerLogger.getLastOriginalConsumer());
+		
+		// Verify that correct "x-vp-sender-id" and "x-rivta-original-serviceconsumer-hsaid" http header was passed to the service producer,
 		// given that a service producer was called
 		if (expectedProcessingStatusSize > 0) {
-			assertEquals(TidbokningTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID, TestProducerLogger.getLastOriginalConsumer());
+			assertEquals(SAMPLE_SENDER_ID, TestProducerLogger.getLastSenderId());
+			assertEquals(SAMPLE_ORIGINAL_CONSUMER_HSAID, TestProducerLogger.getLastOriginalConsumer());
 		}
 		
 		// Verify that the expected actor was received by the test producers as well

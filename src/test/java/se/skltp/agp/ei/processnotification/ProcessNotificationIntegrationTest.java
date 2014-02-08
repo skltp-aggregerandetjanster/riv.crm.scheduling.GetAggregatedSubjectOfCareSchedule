@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 import static org.soitoolkit.commons.xml.XPathUtil.createDocument;
 import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
+import static se.skltp.agp.test.consumer.AbstractTestConsumer.SAMPLE_SENDER_ID;
+import static se.skltp.agp.test.consumer.AbstractTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_ONE_HIT;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
@@ -183,7 +185,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
     //
 	private ProcessingStatusType do_test_ok_one_booking(String id,
 			String expectedBookingId, String expectedLogicalAddress) {
-		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_TIDBOKNING_SERVICE_ADDRESS, TidbokningTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID);
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_TIDBOKNING_SERVICE_ADDRESS, SAMPLE_SENDER_ID, SAMPLE_ORIGINAL_CONSUMER_HSAID);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
     	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);
