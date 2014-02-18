@@ -53,6 +53,7 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 	private static final String EXPECTED_ERR_TIMEOUT_MSG = "Read timed out";
 	private static final String EXPECTED_ERR_INVALID_ID_MSG = "Invalid Id: " + TEST_RR_ID_FAULT_INVALID_ID;;
 	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("SERVICE_INBOUND_URL");
+	private static final String VP_INSTANCE_ID = rb.getString("VP_INSTANCE_ID");
   
 	protected String getConfigResources() {
 		return 
@@ -165,6 +166,20 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 		ts = System.currentTimeMillis() - ts;
 		assertProcessingStatusDataFromCache(statusList.get(0), expectedLogicalAddress);
 		assertTrue("Expected a short processing time (i.e. a cached response)", ts < expectedProcessingTime);
+    }
+    
+    /**
+	 * Perform a test to verify vp instance id (x-vp-instance-id) is sent to EI FindContent and service producers.
+	 */
+    @Test
+    public void test_ok_vp_instance_sent_to_service_producers_and_ei() {
+    	
+    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_ONE_HIT, 1, new ExpectedTestData(TEST_BO_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1));
+
+    	assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
+    	
+    	assertEquals(VP_INSTANCE_ID,EngagemangsindexTestProducerLogger.getLastVpInstance());
+    	assertEquals(VP_INSTANCE_ID,TestProducerLogger.getLastVpInstance());
     }
 
 	/**
