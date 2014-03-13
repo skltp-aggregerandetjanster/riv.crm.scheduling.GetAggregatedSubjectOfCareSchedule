@@ -248,7 +248,10 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 		ActorType actor = TidbokningTestProducer.getLastActor();
 		if (testData.length == 0) {
 			// Verify that no actor was set if no producer was expected to be called
-			assertNull(actor);
+			String assertMessage = "Expected null Actor but got: type = " + 
+				((actor == null) ? "NULL" : actor.getActorType()) + "and id = " + 
+				((actor == null) ? "NULL" : actor.getActorId());
+			assertNull(assertMessage, actor);
 		} else {
 			assertEquals(registeredResidentId, actor.getActorId());
 			assertEquals(ActorTypeEnum.SUBJECT_OF_CARE, actor.getActorType());
