@@ -69,14 +69,4 @@
             </property-collection>
         </properties>
     </global-element>
-    <global-unknown description="false" index="11" entity-id="global-unknown#1">
-        <content>&lt;management:jmx-default-config xmlns:management=&quot;http://www.mulesoft.org/schema/mule/management&quot; registerMx4jAdapter=&quot;true&quot; registerLog4j=&quot;true&quot;&gt;
-&lt;!-- 
-port=&quot;${JMX_PORT}&quot; 
-        &lt;management:credentials&gt;
-            &lt;spring:entry key=&quot;${JMX_USER}&quot; value=&quot;${JMX_PWD}&quot;/&gt;
-        &lt;/management:credentials&gt;
- --&gt;
-  &lt;/management:jmx-default-config&gt;</content>
-    </global-unknown>
 </mule-configuration>

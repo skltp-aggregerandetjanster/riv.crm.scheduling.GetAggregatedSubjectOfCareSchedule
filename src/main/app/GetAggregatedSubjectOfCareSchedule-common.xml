@@ -31,13 +31,15 @@
 	    </spring:property>
 	  </spring:bean>
   </spring:beans>
-  
+
+  <!-- 
   <management:jmx-default-config registerMx4jAdapter="true" registerLog4j="true">
-<!-- 
-port="${JMX_PORT}" 
+        <! - - 
+        port="${JMX_PORT}" 
         <management:credentials>
             <spring:entry key="${JMX_USER}" value="${JMX_PWD}"/>
         </management:credentials>
- -->
+        - - >
   </management:jmx-default-config> 
+  -->
 </mule>
