@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.xml.ws.Holder;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.api.MuleEvent;
 import org.mule.api.store.ObjectStoreException;
@@ -105,6 +106,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
     }
 
 
+    @Ignore
     @Test
     public void test_ok() {
     	
