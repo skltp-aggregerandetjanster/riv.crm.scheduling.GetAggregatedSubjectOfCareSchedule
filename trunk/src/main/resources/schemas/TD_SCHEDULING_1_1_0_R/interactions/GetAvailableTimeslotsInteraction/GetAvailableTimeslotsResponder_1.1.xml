@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:GetAvailableTimeslots xmlns:tns="urn:riv:crm:scheduling:GetAvailableTimeslotsResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:tns2="urn:riv:crm:scheduling:1.1" xmlns:tns3="urn:riv:crm:scheduling:GetAvailableTimeslotsResponder:1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:GetAvailableTimeslotsResponder:1 GetAvailableTimeslotsResponder_1.1.xsd ">
+  <tns:healthcare_facility>tns:healthcare_facility</tns:healthcare_facility>
+  <tns:bookingId>tns:bookingId</tns:bookingId>
+  <tns:startDateInclusive>tns:startDateInclusive</tns:startDateInclusive>
+  <tns:endDateInclusive>tns:endDateInclusive</tns:endDateInclusive>
+  <tns:performer>tns:performer</tns:performer>
+  <tns:timeTypeName>tns:timeTypeName</tns:timeTypeName>
+  <tns:timeTypeID>tns:timeTypeID</tns:timeTypeID>
+  <tns:careTypeName>tns:careTypeName</tns:careTypeName>
+  <tns:careTypeID>tns:careTypeID</tns:careTypeID>
+  <tns3:subject_of_care>tns3:subject_of_care</tns3:subject_of_care>
+</tns:GetAvailableTimeslots>
