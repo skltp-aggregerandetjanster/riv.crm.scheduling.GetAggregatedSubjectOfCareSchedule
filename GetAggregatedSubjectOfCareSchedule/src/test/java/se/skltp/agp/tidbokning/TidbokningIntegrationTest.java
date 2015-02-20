@@ -136,15 +136,23 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
     }
 
 	/**
-	 * Perform a test that is expected to casue the source system to fail with its processing
+	 * Perform a test that is expected to cause the source system to fail with its processing
 	 */
-    @Test
+    @Test(timeout=120000)
 	public void test_fault_invalidInput() throws Exception {
 
-    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_FAULT_INVALID_ID, 1);
-		
-    	// Verify the Processing Status, expect a processing failure from the source system
-		assertProcessingStatusNoDataSynchFailed(statusList.get(0), TEST_LOGICAL_ADDRESS_1, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_INVALID_ID_MSG);
+        logger.info("Starting test_fault_invalidInput");
+        
+        try {
+        	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_FAULT_INVALID_ID, 1);
+            logger.info("Asserting test_fault_invalidInput");
+        	// Verify the Processing Status, expect a processing failure from the source system
+    		assertProcessingStatusNoDataSynchFailed(statusList.get(0), TEST_LOGICAL_ADDRESS_1, VIRTUALIZATION_PLATFORM, EXPECTED_ERR_INVALID_ID_MSG);
+            logger.info("Asserting test_fault_invalidInput");
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            throw new RuntimeException(ex);
+        }
 	}
 
 //	TODO: Mule EE dependency
