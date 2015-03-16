@@ -11,7 +11,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 	<modelVersion>4.0.0</modelVersion>
 
 		<parent>
-			<groupId>se.skltp.aggregatingservices.crm.scheduling</groupId>
+			<groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
 			<artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
 			<version>1.2.3-SNAPSHOT</version>
 		</parent>
@@ -21,20 +21,20 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <name>GetAggregatedSubjectOfCareSchedule-teststub</name>
 
     <properties>
-      <skltp.agp.version>1.2.1</skltp.agp.version>
+      <skltp.agp.version>1.2.3</skltp.agp.version>
       <GetAggregatedSubjectOfCareSchedule.version>${project.version}</GetAggregatedSubjectOfCareSchedule.version>
     </properties>
 
 	<dependencies>
 	  <!-- dependencies to the integration component that contains the services to stub -->
     <dependency>
-    	<groupId>se.skltp.aggregatingservices.crm.scheduling</groupId>
+    	<groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
     	<artifactId>GetAggregatedSubjectOfCareSchedule</artifactId>
     	<version>${GetAggregatedSubjectOfCareSchedule.version}</version>
     	<type>test-jar</type>
     </dependency>
     <dependency>
-    	<groupId>se.skltp.aggregatingservices.crm.scheduling</groupId>
+    	<groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
     	<artifactId>GetAggregatedSubjectOfCareSchedule</artifactId>
     	<version>${GetAggregatedSubjectOfCareSchedule.version}</version>
     	<classifier>core</classifier>
@@ -174,7 +174,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
-                                    <mainClass>se.skltp.aggregatingservices.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleTeststubMuleServer</mainClass>
+                                    <mainClass>se.skltp.aggregatingservices.riv.crm.scheduling.getaggregatedsubjectofcareschedule.GetAggregatedSubjectOfCareScheduleTeststubMuleServer</mainClass>
                                     <classpathScope>test</classpathScope>
                                 </configuration>
                             </execution>

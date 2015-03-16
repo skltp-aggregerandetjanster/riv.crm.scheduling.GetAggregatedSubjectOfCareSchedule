@@ -41,12 +41,12 @@ import se.skltp.agp.test.consumer.AbstractAggregateIntegrationTest;
 import se.skltp.agp.test.consumer.ExpectedTestData;
 import se.skltp.agp.test.producer.EngagemangsindexTestProducerLogger;
 import se.skltp.agp.test.producer.TestProducerLogger;
- 
+
 public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest {
 
 	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(TidbokningIntegrationTest.class);
-	 
+
 	private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedSubjectOfCareSchedule-config");
 	private static final String SKLTP_HSA_ID = rb.getString("SKLTP_HSA_ID");
 	private static final String LOGICAL_ADDRESS = "logical-address";
@@ -54,15 +54,15 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 	private static final String EXPECTED_ERR_INVALID_ID_MSG = "Invalid Id: " + TEST_RR_ID_FAULT_INVALID_ID;;
 	private static final String DEFAULT_SERVICE_ADDRESS = getAddress("SERVICE_INBOUND_URL");
 	private static final String VP_INSTANCE_ID = rb.getString("VP_INSTANCE_ID");
-  
+
 	protected String getConfigResources() {
-		return 
-			"soitoolkit-mule-jms-connector-activemq-embedded.xml," +   
+		return
+			"soitoolkit-mule-jms-connector-activemq-embedded.xml," +
 			"GetAggregatedSubjectOfCareSchedule-common.xml," +
 //          Only load GetAggregatedSubjectOfCareSchedule-common.xml, it will import the other config files since mule-deploy.properties can't load config-files from jar-files on the classpath, e.g. agp-core.jar
-//			"aggregating-services-common.xml," + 
+//			"aggregating-services-common.xml," +
 //	        "aggregating-service.xml," +
-			"teststub-services/engagemangsindex-teststub-service.xml," + 
+			"teststub-services/engagemangsindex-teststub-service.xml," +
 			"teststub-services/service-producer-teststub-service.xml";
     }
 
@@ -70,13 +70,13 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 	public void setup() {
 		TidbokningTestProducer.resetLastActor();
 	}
-	
+
 	/**
 	 * Perform a test that is expected to return zero hits
 	 */
     @Test
     public void test_ok_zero_hits() {
-    	doTest(TEST_RR_ID_ZERO_HITS, 0);		
+    	doTest(TEST_RR_ID_ZERO_HITS, 0);
     }
 
 	/**
@@ -92,14 +92,14 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 		}
 
     	try {
-	    	doTest(TEST_RR_ID_ZERO_HITS, SAMPLE_SENDER_ID, null, 0);		
+	    	doTest(TEST_RR_ID_ZERO_HITS, SAMPLE_SENDER_ID, null, 0);
 	       	fail("This one should fail on missing http header");
 		} catch (SOAPFaultException e) {
 			assertEquals("Mandatory HTTP header x-rivta-original-serviceconsumer-hsaid is missing", e.getMessage());
 		}
 
     	try {
-	       	doTest(TEST_RR_ID_ZERO_HITS, null, null, 0);		
+	       	doTest(TEST_RR_ID_ZERO_HITS, null, null, 0);
 	       	fail("This one should fail on missing http header");
 		} catch (SOAPFaultException e) {
 			assertEquals("Mandatory HTTP headers x-vp-sender-id and x-rivta-original-serviceconsumer-hsaid are missing", e.getMessage());
@@ -111,9 +111,7 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 	 */
     @Test
     public void test_ok_one_hit() {
-    	
-    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_ONE_HIT, 1, new ExpectedTestData(TEST_BO_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1));
-
+    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_ONE_HIT, 2, new ExpectedTestData(TEST_BO_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1));
     	assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
     }
 
@@ -124,11 +122,11 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
     public void test_ok_many_hits_with_partial_timeout() {
 
     	// Setup call and verify the response, expect one booking from source #1, two from source #2 and a timeout from source #3
-    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_MANY_HITS, 3, 
+    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_MANY_HITS, 3,
     		new ExpectedTestData(TEST_BO_ID_MANY_HITS_1, TEST_LOGICAL_ADDRESS_1),
     		new ExpectedTestData(TEST_BO_ID_MANY_HITS_2, TEST_LOGICAL_ADDRESS_2),
     		new ExpectedTestData(TEST_BO_ID_MANY_HITS_3, TEST_LOGICAL_ADDRESS_2));
-		
+
     	// Verify the Processing Status, expect ok from source system #1 and #2 but a timeout from #3
 		assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
 		assertProcessingStatusDataFromSource(statusList.get(1), TEST_LOGICAL_ADDRESS_2);
@@ -142,7 +140,7 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 	public void test_fault_invalidInput() throws Exception {
 
         logger.info("Starting test_fault_invalidInput");
-        
+
         try {
         	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_FAULT_INVALID_ID, 1);
             logger.info("Asserting test_fault_invalidInput");
@@ -175,24 +173,21 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 		assertProcessingStatusDataFromCache(statusList.get(0), expectedLogicalAddress);
 		assertTrue("Expected a short processing time (i.e. a cached response)", ts < expectedProcessingTime);
     }
-    
+
     /**
 	 * Perform a test to verify vp instance id (x-vp-instance-id) is sent to EI FindContent and service producers.
 	 */
     @Test
     public void test_ok_vp_instance_sent_to_service_producers_and_ei() {
-    	
-    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_ONE_HIT, 1, new ExpectedTestData(TEST_BO_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1));
-
+    	List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_ONE_HIT, 2, new ExpectedTestData(TEST_BO_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1));
     	assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
-    	
     	assertEquals(VP_INSTANCE_ID,EngagemangsindexTestProducerLogger.getLastVpInstance());
     	assertEquals(VP_INSTANCE_ID,TestProducerLogger.getLastVpInstance());
     }
 
 	/**
      * Helper method for performing a call to the aggregating service and perform some common validations of the result
-     * 
+     *
      * @param registeredResidentId
      * @param expectedProcessingStatusSize
      * @param testData
@@ -204,7 +199,7 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 
 	/**
      * Helper method for performing a call to the aggregating service and perform some common validations of the result
-     * 
+     *
      * @param registeredResidentId
      * @param senderId
      * @param originalConsumerHsaId
@@ -227,10 +222,10 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
     	GetSubjectOfCareScheduleResponseType response = responseHolder.value;
     	int expextedResponseSize = testData.length;
 		assertEquals(expextedResponseSize, response.getTimeslotDetail().size());
-		
+
 		for (int i = 0; i < testData.length; i++) {
 			TimeslotType responseElement = response.getTimeslotDetail().get(i);
-			assertEquals(registeredResidentId, responseElement.getSubjectOfCare());	
+			assertEquals(registeredResidentId, responseElement.getSubjectOfCare());
 			assertEquals(testData[i].getExpectedBusinessObjectId(), responseElement.getBookingId());
 			assertEquals(testData[i].getExpectedLogicalAddress(), responseElement.getHealthcareFacility());
 		}
@@ -238,33 +233,33 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
     	// Verify the size of the processing status and return it for further analysis
 		ProcessingStatusType statusList = processingStatusHolder.value;
 		assertEquals(expectedProcessingStatusSize, statusList.getProcessingStatusList().size());
-		
+
 	 	// Verify that correct "x-vp-sender-id" http header was passed to the engagement index
 		assertEquals(SKLTP_HSA_ID, EngagemangsindexTestProducerLogger.getLastSenderId());
-		
+
 	 	// Verify that correct "x-rivta-original-serviceconsumer-hsaid" http header was passed to the engagement index
 		assertEquals(SAMPLE_ORIGINAL_CONSUMER_HSAID, EngagemangsindexTestProducerLogger.getLastOriginalConsumer());
-		
+
 		// Verify that correct "x-vp-sender-id" and "x-rivta-original-serviceconsumer-hsaid" http header was passed to the service producer,
 		// given that a service producer was called
 		if (expectedProcessingStatusSize > 0) {
 			assertEquals(SAMPLE_SENDER_ID, TestProducerLogger.getLastSenderId());
 			assertEquals(SAMPLE_ORIGINAL_CONSUMER_HSAID, TestProducerLogger.getLastOriginalConsumer());
 		}
-		
+
 		// Verify that the expected actor was received by the test producers as well
 		ActorType actor = TidbokningTestProducer.getLastActor();
 		if (testData.length == 0) {
 			// Verify that no actor was set if no producer was expected to be called
-			String assertMessage = "Expected null Actor but got: type = " + 
-				((actor == null) ? "NULL" : actor.getActorType()) + "and id = " + 
+			String assertMessage = "Expected null Actor but got: type = " +
+				((actor == null) ? "NULL" : actor.getActorType()) + "and id = " +
 				((actor == null) ? "NULL" : actor.getActorId());
 			assertNull(assertMessage, actor);
 		} else {
 			assertEquals(registeredResidentId, actor.getActorId());
 			assertEquals(ActorTypeEnum.SUBJECT_OF_CARE, actor.getActorType());
 		}
-		
+
 		return statusList.getProcessingStatusList();
 	}
 }

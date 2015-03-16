@@ -11,7 +11,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 	<modelVersion>4.0.0</modelVersion>
 
     <parent>
-    	<groupId>se.skltp.aggregatingservices.crm.scheduling</groupId>
+    	<groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
 			<artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
 			<version>1.2.3-SNAPSHOT</version>
 	  </parent>
@@ -21,8 +21,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <name>GetAggregatedSubjectOfCareSchedule</name>
 
     <properties>
-        <skltp.agp.version>1.2.1</skltp.agp.version>
-
+        <skltp.agp.version>1.2.3</skltp.agp.version>
         <!-- Properties for generating code from XML Schemas (JAX-WS) -->
         <schema.path>${basedir}/src/main/resources/schemas</schema.path>
         <cxf.version>2.5.1</cxf.version>

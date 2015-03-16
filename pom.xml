@@ -16,7 +16,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
         <version>0.6.1</version>
     </parent>
 
-		<groupId>se.skltp.aggregatingservices.crm.scheduling</groupId>
+		<groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
 		<artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
 		<version>1.2.3-SNAPSHOT</version>
     <packaging>pom</packaging>
