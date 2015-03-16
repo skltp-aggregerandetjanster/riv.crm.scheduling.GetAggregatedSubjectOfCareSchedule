@@ -13,7 +13,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 		<parent>
 			<groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
 			<artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
-			<version>1.2.3-SNAPSHOT</version>
+			<version>1.2.3</version>
 		</parent>
 
     <artifactId>GetAggregatedSubjectOfCareSchedule-teststub</artifactId>
@@ -22,7 +22,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
     <properties>
       <skltp.agp.version>1.2.3</skltp.agp.version>
-      <GetAggregatedSubjectOfCareSchedule.version>${project.version}</GetAggregatedSubjectOfCareSchedule.version>
+      <GetAggregatedSubjectOfCareSchedule.version>1.2.4-SNAPSHOT</GetAggregatedSubjectOfCareSchedule.version>
     </properties>
 
 	<dependencies>
