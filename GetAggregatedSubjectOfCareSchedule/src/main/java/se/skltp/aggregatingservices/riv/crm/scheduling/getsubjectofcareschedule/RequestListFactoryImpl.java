@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.interoperability.headers.v1.ActorType;
-import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 import se.skltp.agp.service.api.QueryObject;
@@ -29,12 +28,14 @@ public class RequestListFactoryImpl implements RequestListFactory {
 		
 		log.info("Got {} hits in the engagement index", inEngagements.size());
 
-		// Since we are using the GetSubjectOfCareSchedule that returns all bookings from a logical-address in one call we can reduce multiple hits in the index for the same logical-address to lower the number of calls required
+		// Since we are using the GetSubjectOfCareSchedule that returns all bookings 
+		// from a logical-address in one call we can reduce multiple hits in the index 
+		// for the same logical-address to lower the number of calls required
 		Map<String, String> uniqueLogicalAddresses = new HashMap<String, String>();
 		for (EngagementType inEng : inEngagements) {
 			uniqueLogicalAddresses.put(inEng.getLogicalAddress(), inEng.getRegisteredResidentIdentification());
 		}
-
+		
 		// Prepare the result of the transformation as a list of request-payloads, 
 		// one payload for each unique logical-address from the Set uniqueLogicalAddresses,
 		// each payload built up as an object-array according to the JAXB-signature for the method in the service interface
