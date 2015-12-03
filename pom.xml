@@ -12,9 +12,9 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.soitoolkit.commons.poms</groupId>
-    <artifactId>soitoolkit-default-parent</artifactId>
-    <version>0.6.1</version>
+    <groupId>se.skltp.commons</groupId>
+    <artifactId>skltp-commons-mule-parent</artifactId>
+    <version>1.0.1</version>
   </parent>
 
   <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
@@ -22,6 +22,10 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <version>1.2.4-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>GetAggregatedSubjectOfCareSchedule-parent</name>
+
+  <properties>
+    <skltp.agp.version>1.3.7</skltp.agp.version>
+  </properties>
 
   <scm>
     <url>https://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule</url>
@@ -31,6 +35,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   </scm>
 
   <modules>
+    <module>GetAggregatedSubjectOfCareSchedule-schemas</module>
     <module>GetAggregatedSubjectOfCareSchedule</module>
     <module>GetAggregatedSubjectOfCareSchedule-teststub</module>
   </modules>

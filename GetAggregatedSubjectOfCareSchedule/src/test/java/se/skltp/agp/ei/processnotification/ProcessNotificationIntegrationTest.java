@@ -7,6 +7,7 @@ import static org.soitoolkit.commons.xml.XPathUtil.getXPathResult;
 import static se.skltp.agp.TidbokningMuleServer.getAddress;
 import static se.skltp.agp.test.consumer.AbstractTestConsumer.SAMPLE_SENDER_ID;
 import static se.skltp.agp.test.consumer.AbstractTestConsumer.SAMPLE_ORIGINAL_CONSUMER_HSAID;
+import static se.skltp.agp.test.consumer.AbstractTestConsumer.SAMPLE_CORRELATION_ID;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_BO_ID_ONE_HIT;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
 import static se.skltp.agp.test.producer.TestProducerDb.TEST_RR_ID_ONE_HIT;
@@ -24,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.test.AbstractJmsTestUtil;
 import org.soitoolkit.commons.mule.test.ActiveMqJmsTestUtil;
-import org.soitoolkit.commons.mule.test.junit4.AbstractTestCase;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -36,11 +36,12 @@ import se.skltp.agp.cache.CacheMemoryStoreImpl;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.riv.itintegration.engagementindex.processnotificationresponder.v1.ProcessNotificationResponseType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.ResultCodeEnum;
+import se.skltp.agp.test.consumer.AbstractAggregateIntegrationTest;
 import se.skltp.agp.test.producer.TestProducerDb;
 import se.skltp.agp.tidbokning.TidbokningTestConsumer;
 import se.skltp.agp.tidbokning.TidbokningTestProducerDb;
  
-public class ProcessNotificationIntegrationTest extends AbstractTestCase {
+public class ProcessNotificationIntegrationTest extends AbstractAggregateIntegrationTest {
  
 	
 	private static final Logger log = LoggerFactory.getLogger(ProcessNotificationIntegrationTest.class);
@@ -134,7 +135,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 //		assertReasonInResponse(cache, id, TEST_REASON_DEFAULT);
 
 		// ACT SOURCE SYSTEM: Update the database in the source system
-		GetSubjectOfCareScheduleResponseType resp = (GetSubjectOfCareScheduleResponseType)getTestDb().retreiveFromDb(expectedLogicalAddress, id);
+		GetSubjectOfCareScheduleResponseType resp = (GetSubjectOfCareScheduleResponseType)getTestDb().retrieveFromDb(expectedLogicalAddress, id);
 		log.debug("DB VALUE: {}", resp.getTimeslotDetail().get(0).getReason());
 		resp.getTimeslotDetail().get(0).setReason(TidbokningTestProducerDb.TEST_REASON_UPDATED);
 
@@ -156,7 +157,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
 
 	}
 
-    private TestProducerDb getTestDb() {
+    protected TestProducerDb getTestDb() {
     	return (TestProducerDb)muleContext.getRegistry().lookupObject("service-producer-testdb-bean");
     }
     
@@ -187,7 +188,7 @@ public class ProcessNotificationIntegrationTest extends AbstractTestCase {
     //
 	private ProcessingStatusType do_test_ok_one_booking(String id,
 			String expectedBookingId, String expectedLogicalAddress) {
-		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_TIDBOKNING_SERVICE_ADDRESS, SAMPLE_SENDER_ID, SAMPLE_ORIGINAL_CONSUMER_HSAID);
+		TidbokningTestConsumer consumer = new TidbokningTestConsumer(DEFAULT_TIDBOKNING_SERVICE_ADDRESS, SAMPLE_SENDER_ID, SAMPLE_ORIGINAL_CONSUMER_HSAID, SAMPLE_CORRELATION_ID);
 		Holder<GetSubjectOfCareScheduleResponseType> responseHolder = new Holder<GetSubjectOfCareScheduleResponseType>();
 		Holder<ProcessingStatusType> processingStatusHolder = new Holder<ProcessingStatusType>();
     	consumer.callService(LOGICAL_ADDRESS, id, processingStatusHolder, responseHolder);

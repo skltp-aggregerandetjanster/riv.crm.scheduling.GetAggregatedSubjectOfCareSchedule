@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOING!
+[soi-toolkit.gen.version=0.6.2-SNAPSHOT]
+[soi-toolkit.gen.type=schemas]
+[soi-toolkit.gen.createDate=2014-10-21T09:11:30.199+02:00]
+[soi-toolkit.gen.artifactId=GetAggregatedSubjectOfCareSchedule]
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
+    <artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
+    <version>1.2.4-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>GetAggregatedSubjectOfCareSchedule-schemas</artifactId>
+  <packaging>jar</packaging>
+  <name>GetAggregatedSubjectOfCareSchedule-schemas</name>
+
+  <properties>
+    <schema.path>${basedir}/src/main/resources/schemas</schema.path>
+    <schema.gen.src.dir>${project.build.directory}/generated-sources/cxf</schema.gen.src.dir>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.soitoolkit.commons.poms</groupId>
+      <artifactId>soitoolkit-schemas-jax-ws-dependencies</artifactId>
+      <version>${soitoolkit.version}</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-codegen-plugin</artifactId>
+        <configuration>
+          <fork>once</fork>
+          <additionalJvmArgs>-Dfile.encoding=UTF-8</additionalJvmArgs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>ws.generate</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <sourceRoot>${schema.gen.src.dir}</sourceRoot>
+              <wsdlOptions>
+                <wsdlOption>
+                  <wsdl>${schema.path}/TD_SCHEDULING_1_1_0_R/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl</wsdl>
+                  <extraargs>
+                    <extraarg>-validate</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>http://www.w3.org/2005/08/addressing=org.w3c.addressing.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1=se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareScheduleInitiator:1=se.riv.crm.scheduling.getsubjectofcarescheduleinitiator.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21=se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:1=se.riv.crm.scheduling.v1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:crm:scheduling:1.1=se.riv.crm.scheduling.v1_1</extraarg>
+                    <extraarg>-p</extraarg>
+                    <extraarg>urn:riv:interoperability:headers:1=se.riv.interoperability.headers.v1</extraarg>
+                  </extraargs>
+                </wsdlOption>
+              </wsdlOptions>
+            </configuration>
+            <goals>
+              <goal>wsdl2java</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <!-- Create a zip-file only containing wsdl & xsd files, i.e. no JAX-WS/JAXB-generated artifacts, for example for a Microsoft .Net C# app -->
+        <artifactId>maven-assembly-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <!-- Plugin-dependency to a shared assembly-descriptor that creates the zip-file -->
+            <groupId>org.soitoolkit.commons.poms</groupId>
+            <artifactId>soitoolkit-assembly-descriptors</artifactId>
+            <version>${soitoolkit.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>schema-assembly-descriptor.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

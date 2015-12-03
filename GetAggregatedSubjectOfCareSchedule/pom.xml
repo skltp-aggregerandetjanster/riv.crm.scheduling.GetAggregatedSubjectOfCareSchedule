@@ -6,7 +6,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 [soi-toolkit.gen.createDate=2012-09-25T00:15:13.781+02:00]
 [soi-toolkit.gen.artifactId=GetAggregatedSubjectOfCareSchedule]
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -22,19 +22,18 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <packaging>mule</packaging>
   <name>GetAggregatedSubjectOfCareSchedule</name>
 
-  <properties>
-    <skltp.agp.version>1.2.3</skltp.agp.version>
-    <!-- Properties for generating code from XML Schemas (JAX-WS) -->
-    <schema.path>${basedir}/src/main/resources/schemas</schema.path>
-    <cxf.version>2.5.1</cxf.version>
-  </properties>
-
   <dependencies>
 
     <dependency>
       <groupId>se.skltp.agp</groupId>
       <artifactId>agp-core</artifactId>
       <version>${skltp.agp.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
+      <artifactId>GetAggregatedSubjectOfCareSchedule-schemas</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -155,7 +154,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
               <groupId>org.safehaus.jug</groupId>
               <artifactId>jug.osgi</artifactId>
             </exclusion>
-            
+
             <!-- activemq needs to be added manually to MULE_HOME/lib/user if required, see issue 283 -->
             <exclusion>
               <groupId>org.apache.activemq</groupId>
@@ -236,48 +235,6 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-codegen-plugin</artifactId>
-        <version>${cxf.version}</version>
-        <executions>
-          <execution>
-            <id>generate-sources</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
-              <wsdlOptions>
-
-                <wsdloption>
-                  <wsdl>${schema.path}/TD_SCHEDULING_1_1_0_R/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl</wsdl>
-                  <extraargs>
-                    <extraarg>-p</extraarg>
-                    <extraarg>http://www.w3.org/2005/08/addressing=org.w3c.addressing.v1</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1=se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareScheduleInitiator:1=se.riv.crm.scheduling.getsubjectofcarescheduleinitiator.v1</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21=se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:crm:scheduling:1=se.riv.crm.scheduling.v1</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:crm:scheduling:1.1=se.riv.crm.scheduling.v1_1</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>urn:riv:interoperability:headers:1=se.riv.interoperability.headers.v1</extraarg>
-                  </extraargs>
-                </wsdloption>
-
-              </wsdlOptions>
-            </configuration>
-            <goals>
-              <goal>wsdl2java</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
 
     </plugins>
 
@@ -286,9 +243,9 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <profiles>
     <profile>
       <id>muleServer</id>
-      <!-- Start mule server with the command 
-             mvn -PmuleServer or 
-             mvn -PmuleServer -Dexec.args="${artifaceId}-config.xml" 
+      <!-- Start mule server with the command
+             mvn -PmuleServer or
+             mvn -PmuleServer -Dexec.args="${artifaceId}-config.xml"
            if you want to override the default config-file -->
       <build>
         <defaultGoal>test</defaultGoal>

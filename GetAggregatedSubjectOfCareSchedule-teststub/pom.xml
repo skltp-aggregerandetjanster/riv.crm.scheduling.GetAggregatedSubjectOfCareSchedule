@@ -6,7 +6,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 [soi-toolkit.gen.createDate=2012-09-25T00:17:12.888+02:00]
 [soi-toolkit.gen.artifactId=GetAggregatedSubjectOfCareSchedule]
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -22,23 +22,18 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <packaging>mule</packaging>
   <name>GetAggregatedSubjectOfCareSchedule-teststub</name>
 
-  <properties>
-    <skltp.agp.version>1.2.3</skltp.agp.version>
-    <GetAggregatedSubjectOfCareSchedule.version>1.2.4-SNAPSHOT</GetAggregatedSubjectOfCareSchedule.version>
-  </properties>
-
   <dependencies>
     <!-- dependencies to the integration component that contains the services to stub -->
     <dependency>
       <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
       <artifactId>GetAggregatedSubjectOfCareSchedule</artifactId>
-      <version>${GetAggregatedSubjectOfCareSchedule.version}</version>
+      <version>${project.version}</version>
       <type>test-jar</type>
     </dependency>
     <dependency>
       <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
       <artifactId>GetAggregatedSubjectOfCareSchedule</artifactId>
-      <version>${GetAggregatedSubjectOfCareSchedule.version}</version>
+      <version>${project.version}</version>
       <classifier>core</classifier>
     </dependency>
     <dependency>
@@ -123,7 +118,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
               <groupId>org.safehaus.jug</groupId>
               <artifactId>jug.osgi</artifactId>
             </exclusion>
-            
+
             <!-- activemq needs to be added manually to MULE_HOME/lib/user if required, see issue 283 -->
             <exclusion>
               <groupId>org.apache.activemq</groupId>
@@ -164,9 +159,9 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <profiles>
     <profile>
       <id>muleServer</id>
-      <!-- Start mule server with the command 
-             mvn -PmuleServer or 
-             mvn -PmuleServer -Dexec.args="${artifaceId}-config.xml" 
+      <!-- Start mule server with the command
+             mvn -PmuleServer or
+             mvn -PmuleServer -Dexec.args="${artifaceId}-config.xml"
            if you want to override the default config-file -->
       <build>
         <defaultGoal>test</defaultGoal>
