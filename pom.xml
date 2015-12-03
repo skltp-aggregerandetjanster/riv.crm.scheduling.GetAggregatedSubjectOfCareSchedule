@@ -6,8 +6,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 [soi-toolkit.gen.createDate=2014-10-06T12:43:33.373+02:00]
 [soi-toolkit.gen.artifactId=GetAggregatedObservation]
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -19,7 +18,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
   <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
   <artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
-  <version>1.2.4-SNAPSHOT</version>
+  <version>1.2.4</version>
   <packaging>pom</packaging>
   <name>GetAggregatedSubjectOfCareSchedule-parent</name>
 
@@ -31,7 +30,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <url>https://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule</url>
     <connection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</connection>
     <developerConnection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v1.2.4</tag>
   </scm>
 
   <modules>
