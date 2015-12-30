@@ -77,6 +77,14 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
       <scope>test</scope>
       <version>1.8.5</version>
     </dependency>
+    
+    <dependency>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-core</artifactId>
+      <scope>test</scope>
+      <version>2.0.0-alpha-03</version>
+    </dependency>
+
   </dependencies>
 
   <build>
