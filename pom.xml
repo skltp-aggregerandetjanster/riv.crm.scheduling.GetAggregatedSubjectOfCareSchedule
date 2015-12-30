@@ -13,17 +13,18 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <parent>
     <groupId>se.skltp.commons</groupId>
     <artifactId>skltp-commons-mule-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
   </parent>
 
   <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
   <artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
-  <version>1.2.5-RC1-SNAPSHOT</version>
+  <version>1.3.0-RC1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>GetAggregatedSubjectOfCareSchedule-parent</name>
 
   <properties>
-    <skltp.agp.version>1.3.7</skltp.agp.version>
+    <mule.version>3.7.0</mule.version>
+    <skltp.agp.version>1.4.0</skltp.agp.version>
   </properties>
 
   <scm>
