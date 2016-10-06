@@ -36,6 +36,7 @@ import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCa
 import se.riv.crm.scheduling.v1.TimeslotType;
 import se.riv.interoperability.headers.v1.ActorType;
 import se.riv.interoperability.headers.v1.ActorTypeEnum;
+import se.skltp.agp.cache.TakCacheBean;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.test.consumer.AbstractAggregateIntegrationTest;
@@ -63,12 +64,15 @@ public class TidbokningIntegrationTest extends AbstractAggregateIntegrationTest 
 //			"aggregating-services-common.xml," +
 //	        "aggregating-service.xml," +
 			"teststub-services/engagemangsindex-teststub-service.xml," +
-			"teststub-services/service-producer-teststub-service.xml";
-    }
-
+			"teststub-services/service-producer-teststub-service.xml," +
+			"teststub-non-default-services/tak-teststub-service.xml";
+	}
+	
 	@Before
-	public void setup() {
-		TidbokningTestProducer.resetLastActor();
+	public void loadTakCache() throws Exception {
+	final TakCacheBean takCache = (TakCacheBean) muleContext.getRegistry().lookupObject("takCacheBean");
+	takCache.updateCache();
+	TidbokningTestProducer.resetLastActor();
 	}
 
 	/**
