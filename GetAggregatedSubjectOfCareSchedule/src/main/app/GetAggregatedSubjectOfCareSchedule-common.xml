@@ -27,6 +27,7 @@
 	    <spring:property name="locations">
 	      <spring:list>
 	        <spring:value>classpath:GetAggregatedSubjectOfCareSchedule-config.properties</spring:value>
+	        <spring:value>classpath:agp-config-override.properties</spring:value>
 	        <spring:value>classpath:GetAggregatedSubjectOfCareSchedule-config-override.properties</spring:value>
 	      </spring:list>
 	    </spring:property>
