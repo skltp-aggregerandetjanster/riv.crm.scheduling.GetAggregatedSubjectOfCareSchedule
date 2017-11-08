@@ -46,6 +46,39 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <pluginManagement>
       <plugins>
         <plugin>
+            <groupId>com.mycila.maven-license-plugin</groupId>
+            <artifactId>maven-license-plugin</artifactId>
+            <version>1.10.b1</version>
+            <configuration>
+                <properties>
+                    <year>2014</year>
+                    <copyright>Inera AB, &lt;http://inera.se/&gt;</copyright>
+                    <product>SKLTP</product>
+                </properties>
+                <strictCheck>true</strictCheck>
+                <basedir>${basedir}</basedir>
+                <header>https://raw.githubusercontent.com/skltp/license/develop/header.txt</header>
+                <encoding>UTF-8</encoding>
+                <includes>
+                    <include>src/main/**</include>
+                    <include>src/test/**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.xsd</exclude>
+                    <exclude>**/*.wsdl</exclude>
+                    <exclude>**/*.xml</exclude>
+                    <exclude>**/*.dtd</exclude>
+                    <exclude>**/*.jks</exclude>
+                    <exclude>**/*.pem</exclude>
+                </excludes>
+                <useDefaultExcludes>true</useDefaultExcludes>
+                <mapping>
+                    <tag>DYNASCRIPT_STYLE</tag>
+                </mapping>
+                <useDefaultMapping>true</useDefaultMapping>
+            </configuration>
+        </plugin>  
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.5.1</version>
