@@ -24,7 +24,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
   <properties>
     <mule.version>3.7.0</mule.version>
-    <skltp.agp.version>2.2</skltp.agp.version>
+    <skltp.agp.version>2.3.3-RC2</skltp.agp.version>
       <!-- Turn off strict checking of javadoc tags for Java 8 -->
       <additionalparam>-Xdoclint:none</additionalparam>
   </properties>
