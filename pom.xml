@@ -18,13 +18,13 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
   <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
   <artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
-  <version>1.4.0</version>
+  <version>1.4.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>GetAggregatedSubjectOfCareSchedule-parent</name>
 
   <properties>
     <mule.version>3.7.0</mule.version>
-    <skltp.agp.version>2.2</skltp.agp.version>
+    <skltp.agp.version>2.3.3</skltp.agp.version>
       <!-- Turn off strict checking of javadoc tags for Java 8 -->
       <additionalparam>-Xdoclint:none</additionalparam>
   </properties>
@@ -33,7 +33,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <url>https://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule</url>
     <connection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</connection>
     <developerConnection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</developerConnection>
-    <tag>v1.4.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <modules>
@@ -45,6 +45,39 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+            <groupId>com.mycila.maven-license-plugin</groupId>
+            <artifactId>maven-license-plugin</artifactId>
+            <version>1.10.b1</version>
+            <configuration>
+                <properties>
+                    <year>2014</year>
+                    <copyright>Inera AB, &lt;http://inera.se/&gt;</copyright>
+                    <product>SKLTP</product>
+                </properties>
+                <strictCheck>true</strictCheck>
+                <basedir>${basedir}</basedir>
+                <header>https://raw.githubusercontent.com/skltp/license/develop/header.txt</header>
+                <encoding>UTF-8</encoding>
+                <includes>
+                    <include>src/main/**</include>
+                    <include>src/test/**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.xsd</exclude>
+                    <exclude>**/*.wsdl</exclude>
+                    <exclude>**/*.xml</exclude>
+                    <exclude>**/*.dtd</exclude>
+                    <exclude>**/*.jks</exclude>
+                    <exclude>**/*.pem</exclude>
+                </excludes>
+                <useDefaultExcludes>true</useDefaultExcludes>
+                <mapping>
+                    <tag>DYNASCRIPT_STYLE</tag>
+                </mapping>
+                <useDefaultMapping>true</useDefaultMapping>
+            </configuration>
+        </plugin>  
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
