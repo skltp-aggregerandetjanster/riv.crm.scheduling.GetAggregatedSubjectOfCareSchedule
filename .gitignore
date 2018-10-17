@@ -3,3 +3,6 @@
 .settings
 .studio
 target
+
+.idea
+*.iml

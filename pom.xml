@@ -13,12 +13,12 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   <parent>
     <groupId>se.skltp.commons</groupId>
     <artifactId>skltp-commons-mule-parent</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.3</version>
   </parent>
 
   <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
   <artifactId>GetAggregatedSubjectOfCareSchedule-parent</artifactId>
-  <version>1.4.2-SNAPSHOT</version>
+  <version>1.4.2</version>
   <packaging>pom</packaging>
   <name>GetAggregatedSubjectOfCareSchedule-parent</name>
 
@@ -31,9 +31,9 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
   <scm>
     <url>https://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule</url>
-    <connection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</connection>
-    <developerConnection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</developerConnection>
-    <tag>HEAD</tag>
+    <connection>scm:git:https://github.com:443/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</connection>
+    <developerConnection>scm:git:https://github.com:443/skltp-aggregerandetjanster/riv.crm.scheduling.GetAggregatedSubjectOfCareSchedule.git</developerConnection>
+    <tag>v1.4.2</tag>
   </scm>
 
   <modules>
@@ -85,7 +85,6 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
           <configuration>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <tagNameFormat>v@{project.version}</tagNameFormat>
-            <pushChanges>false</pushChanges>
             <localCheckout>true</localCheckout>
           </configuration>
         </plugin>
