@@ -8,21 +8,21 @@
 
 # PingForConfiguration
 mvn gatling:execute -PPingForConfiguration -DserviceLowercase=getaggregatedsubjectofcareschedule
-mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-dit-app02.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
-mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-tit-app02.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-dit-app05.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
 mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
 
 # HappyPath - testDuration in seconds
 mvn gatling:execute -PHappyPath -DtestDuration=7
-mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app02.sth.basefarm.net:9014/GetAggregatedSubjectOfCareSchedule/service/v1 -DtestDuration=7
-mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app02.sth.basefarm.net:9014/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=3
-mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9014/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=45 -DtestDuration=120
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DtestDuration=7 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=3 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=45 -DtestDuration=120 -Dsenderid=SE5565594230-BCQ
 
 # Patients - testDuration in minutes
 mvn gatling:execute -PPatients -DtestDuration=1
-mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app02.sth.basefarm.net:9014/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=4 -DtestDuration=60
-mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app02.sth.basefarm.net:9014/GetAggregatedSubjectOfCareSchedule/service/v1 -DpatientsFileName=patients-override.csv
-mvn gatling:execute -PPatients -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9014/GetAggregatedSubjectOfCareSchedule/service/v1 -DtestDuration=720
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=4 -DtestDuration=60 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DpatientsFileName=patients-override.csv -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DtestDuration=720 -Dsenderid=SE5565594230-BCQ
 
 -->
 
