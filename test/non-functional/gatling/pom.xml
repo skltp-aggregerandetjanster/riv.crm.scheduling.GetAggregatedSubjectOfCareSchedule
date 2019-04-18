@@ -35,7 +35,7 @@ mvn gatling:execute -PPatients -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9
   <properties>
     <gatling.version>2.1.7</gatling.version>
     <gatling-maven-plugin.version>2.1.7</gatling-maven-plugin.version>
-    <skltp.agp.test.non.functional.version>2.3.4-RC1</skltp.agp.test.non.functional.version>
+    <skltp.agp.test.non.functional.version>2.3.4</skltp.agp.test.non.functional.version>
   </properties>
 
   <dependencies>
