@@ -84,8 +84,8 @@ public class ProcessNotificationIntegrationTest extends AbstractAggregateIntegra
  
 
     public ProcessNotificationIntegrationTest() {
-    
- 
+
+		super(rb.getString("TAK_TJANSTEKONTRAKT"));
         // Only start up Mule once to make the tests run faster...
         // Set to false if tests interfere with each other when Mule is started only once.
         setDisposeContextPerClass(true);
