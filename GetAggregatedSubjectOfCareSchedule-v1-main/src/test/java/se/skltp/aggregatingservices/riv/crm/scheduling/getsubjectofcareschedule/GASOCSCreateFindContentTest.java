@@ -2,7 +2,6 @@ package se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule
 
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
@@ -24,8 +23,14 @@ public class GASOCSCreateFindContentTest extends CreateFindContentTest {
   @BeforeClass
   public static void before() {
     configuration = new GASOCSAgpServiceConfiguration();
+
+    // TODO
+    configuration.setMessageContentListQueryIndex(1);
+
     agpServiceFactory = new GASOCSAgpServiceFactoryImpl();
     agpServiceFactory.setAgpServiceConfiguration(configuration);
+
+
   }
 
 

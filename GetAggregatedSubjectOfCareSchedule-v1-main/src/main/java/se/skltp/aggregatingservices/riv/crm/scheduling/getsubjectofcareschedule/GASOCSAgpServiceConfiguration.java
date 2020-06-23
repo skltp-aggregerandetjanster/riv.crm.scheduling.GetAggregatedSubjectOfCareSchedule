@@ -9,10 +9,10 @@ import se.riv.crm.scheduling.getsubjectofcareschedule.v1.rivtabp21.GetSubjectOfC
 
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix = "gasocs")
+@ConfigurationProperties(prefix = "getaggregatedsubjectofcareschedule.v1")
 public class GASOCSAgpServiceConfiguration extends se.skltp.aggregatingservices.configuration.AgpServiceConfiguration {
 
-public static final String SCHEMA_PATH = "classpath:/schemas/TD_SCHEDULING_1_1_0_R/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl";
+  public static final String SCHEMA_PATH = "classpath:/schemas/TD_SCHEDULING_1_1_0_R/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl";
 
   public GASOCSAgpServiceConfiguration() {
 

@@ -9,8 +9,8 @@
   <dependencySets>
     <dependencySet>
       <includes>
-        <include>se.skltp.aggregatingservices.riv.crm.scheduling:GetSubjectOfCareSchedule-main:jar</include>
-        <include>se.skltp.aggregatingservices.riv.crm.scheduling:GetSubjectOfCareSchedule-schemas:jar</include>
+        <include>se.skltp.aggregatingservices.riv.crm.scheduling:GetAggregatedSubjectOfCareSchedule-v1-main:jar</include>
+        <include>se.skltp.aggregatingservices.riv.crm.scheduling:GetAggregatedSubjectOfCareSchedule-v1-schemas:jar</include>
       </includes>
       <useProjectArtifact>true</useProjectArtifact>
       <unpack>true</unpack>
