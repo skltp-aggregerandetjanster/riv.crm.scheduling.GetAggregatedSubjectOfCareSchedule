@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tns:GetAllPerformersResponse xmlns:tns="urn:riv:crm:scheduling:GetAllPerformersResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:tns2="urn:riv:crm:scheduling:1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:GetAllPerformersResponder:1 GetAllPerformersResponder_1.1.xsd ">
-  <tns:performerInfos>
-    <tns1:perfomer>tns1:perfomer</tns1:perfomer>
-    <tns1:firstName>tns1:firstName</tns1:firstName>
-    <tns1:lastName>tns1:lastName</tns1:lastName>
-    <tns1:title>tns1:title</tns1:title>
-  </tns:performerInfos>
-</tns:GetAllPerformersResponse>

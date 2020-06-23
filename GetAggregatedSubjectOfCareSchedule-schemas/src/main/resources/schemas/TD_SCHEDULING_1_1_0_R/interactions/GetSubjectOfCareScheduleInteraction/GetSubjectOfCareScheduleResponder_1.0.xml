@@ -1,4 +1,0 @@
-<tns:GetSubjectOfCareSchedule xmlns:tns="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1 GetSubjectOfCareScheduleResponder_1.0.xsd ">
-  <tns:healthcare_facility>tns:healthcare_facility</tns:healthcare_facility>
-  <tns:subject_of_care>tns:subject_of_care</tns:subject_of_care>
-</tns:GetSubjectOfCareSchedule>
