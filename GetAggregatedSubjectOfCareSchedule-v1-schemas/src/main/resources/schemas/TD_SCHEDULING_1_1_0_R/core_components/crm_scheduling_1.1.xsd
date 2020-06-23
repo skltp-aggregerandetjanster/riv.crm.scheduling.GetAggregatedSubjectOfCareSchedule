@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership. Inera AB licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied. See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+<xs:schema xmlns:tns="urn:riv:crm:scheduling:1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:m1="urn:riv:crm:scheduling:1.1" targetNamespace="urn:riv:crm:scheduling:1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
+	<xs:annotation>
+		<xs:documentation>
+	  Beskrivning: Meddelandeformat för crm:scheduling.
+	  Revisioner: 
+		2010-04-21: Release version 1.0 johan.eltes@callistaenterprise.se.
+		2011-03-XX: Release version 1.1 johan.eltes@callistaenterprise.se.
+			- SubjectOfCareType: New elements: firstName, middleName, lastName. Osor change request:15075
+			- New structure declared: CareTypeType. Osor change request:15087	
+			- New reusable type: PerformerInfoType. 
+			- New reusable type: HealthcareFacilityInfoType		
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:riv:crm:scheduling:1.1" schemaLocation="crm_scheduling_1.1_ext.xsd"/>
+	<xs:complexType name="TimeslotType">
+		<xs:sequence>
+			<xs:element name="startTimeInclusive" type="tns:TS" minOccurs='0'/>
+			<xs:element name="endTimeExclusive" type="tns:TS" minOccurs='0'/>
+			<xs:element name="healthcare_facility" type="tns:HsaIdType" minOccurs="1"/>
+			<xs:element name="performer" type="tns:HsaIdType" minOccurs="0"/>
+			<xs:element name="bookingId" type="tns:BookingIdType" minOccurs="0"/>
+			<xs:element name="subject_of_care" type="tns:SubjectOfCareIdType" minOccurs="0"/>
+			<xs:element name="purpose" type="xs:string" minOccurs="0"/>
+			<xs:element name="reason" type="xs:string" minOccurs="0"/>
+			<xs:element name="resourceName" type="xs:string" minOccurs="0"/>
+			<xs:element name="healthcare_facility_name" type="xs:string" minOccurs="0"/>
+			<xs:element name="performerName" type="xs:string" minOccurs="0"/>
+			<xs:element name="resourceID" type="tns:ResourceIDType" minOccurs="0"/>
+			<xs:element name="timeTypeName" type="xs:string" minOccurs="0"/>
+			<xs:element name="timeTypeID" type="tns:TimeTypeIDType" minOccurs="0"/>
+			<xs:element name="careTypeName" type="xs:string" minOccurs="0"/>
+			<xs:element name="careTypeID" type="tns:CareTypeIDType" minOccurs="0"/>
+			<xs:element name="cancel_booking_allowed" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="rebooking_allowed" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="message_allowed" type="xs:boolean" minOccurs="0"/>			
+			<xs:element ref="m1:isInvitation" minOccurs="0"/>			
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="BookingIdType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="HsaIdType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="SubjectOfCareIdType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="^[0-9]{8}[0-9pPtTfF][0-9]{3}$"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ResultCodeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OK"/>
+			<xs:enumeration value="ERROR"/>
+			<xs:enumeration value="INFO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SubjectOfCareType">
+		<xs:sequence>
+			<xs:element name="phone" type="xs:string" minOccurs="0"/>
+			<xs:element name="email" type="xs:string" minOccurs="0"/>
+			<xs:element name="address" type="xs:string" minOccurs="0"/>
+			<xs:element name="coaddress" type="xs:string" minOccurs="0"/>
+			<xs:element ref="m1:firstName" minOccurs="1"/>
+			<xs:element ref="m1:middleName" minOccurs="0"/>
+			<xs:element ref="m1:lastName" minOccurs="1"/>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeTypeType">
+		<xs:sequence>
+			<xs:element name="timeTypeName" type="xs:string"/>
+			<xs:element name="timeTypeId" type="tns:TimeTypeIDType"/>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CareTypeType">
+		<xs:sequence>
+			<xs:element name="careTypeName" type="xs:string"/>
+			<xs:element name="careTypeId" type="tns:CareTypeIDType"/>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ResourceIDType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TimeTypeIDType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="CareTypeIDType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TS">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[1-9]{1}[0-9]{3}(0[1-9]{1}|1[0-2]{1})([0-2]{1}[0-9]{1}|3[0-1]{1})([0-1]{1}[0-9]{1}|2[0-3]{1})[0-5]{1}[0-9]{1}[0-5]{1}[0-9]{1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DT">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[1-9]{1}[0-9]{3}(0[1-9]{1}|1[0-2]{1})([0-2]{1}[0-9]{1}|3[0-1]{1})"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="PerformerInfoType">
+		<xs:sequence>
+			<xs:element name="perfomer" type="tns:HsaIdType" minOccurs="1"/>
+			<xs:element name="firstName" type="xs:string" minOccurs="1"/>
+			<xs:element name="lastName" type="xs:string" minOccurs="1"/>
+			<xs:element name="title" type="xs:string" minOccurs="0" />
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="HealthcareFacilityInfoType">
+		<xs:sequence>
+			<xs:element name="healthcare_facility" type="tns:HsaIdType" minOccurs="1"/>
+			<xs:element name="healthcare_facility_name" type="xs:string" minOccurs="0"/>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>	
+</xs:schema>

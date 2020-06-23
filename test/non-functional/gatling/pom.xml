@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<!--
+
+# default url - skltp-box; test only over http (no https)
+
+# PingForConfiguration
+mvn gatling:execute -PPingForConfiguration -DserviceLowercase=getaggregatedsubjectofcareschedule
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-dit-app05.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9014/agp/getaggregatedsubjectofcareschedule/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedsubjectofcareschedule
+
+# HappyPath - testDuration in seconds
+mvn gatling:execute -PHappyPath -DtestDuration=7
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DtestDuration=7 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=3 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=45 -DtestDuration=120 -Dsenderid=SE5565594230-BCQ
+
+# Patients - testDuration in minutes
+mvn gatling:execute -PPatients -DtestDuration=1
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DnumberOfConcurrentUsers=4 -DtestDuration=60 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DpatientsFileName=patients-override.csv -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9005/GetAggregatedSubjectOfCareSchedule/service/v1 -DtestDuration=720 -Dsenderid=SE5565594230-BCQ
+
+-->
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>se.skltp.aggregatingservices.riv.clinicalprocess.healthcond.actoutcome</groupId>
+  <artifactId>GetAggregatedSubjectOfCareSchedule-test-non-functional</artifactId>
+  <version>notused</version>
+
+  <properties>
+    <gatling.version>2.1.7</gatling.version>
+    <gatling-maven-plugin.version>2.1.7</gatling-maven-plugin.version>
+    <skltp.agp.test.non.functional.version>2.3.4</skltp.agp.test.non.functional.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.gatling.highcharts</groupId>
+      <artifactId>gatling-charts-highcharts</artifactId>
+      <version>${gatling.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>se.skltp.agp</groupId>
+      <artifactId>agp-test-non-functional</artifactId>
+      <version>${skltp.agp.test.non.functional.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>${gatling-maven-plugin.version}</version>
+        <configuration>
+          <simulationClass>${simulationClass}</simulationClass>
+          <jvmArgs>
+            <jvmArg>-DaggregatedService=${aggregatedService}</jvmArg>
+          </jvmArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>PingForConfiguration</id>
+      <properties>
+        <simulationClass>se.skltp.agp.testnonfunctional.TPPingForConfiguration</simulationClass>
+        <aggregatedService>GetAggregatedSubjectOfCareSchedule</aggregatedService>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>HappyPath</id>
+      <properties>
+       <simulationClass>se.skltp.aggregatingservices.riv.crm.scheduling.getaggregatedsubjectofcareschedule.TPHappyPath</simulationClass>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>Patients</id>
+      <properties>
+       <simulationClass>se.skltp.aggregatingservices.riv.crm.scheduling.getaggregatedsubjectofcareschedule.TPPatients</simulationClass>
+      </properties>
+    </profile>
+  </profiles>
+
+</project>
