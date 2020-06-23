@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.crm.scheduling.v1.TimeslotType;
-import se.riv.interoperability.headers.v1.ActorType;
-import se.riv.interoperability.headers.v1.ActorTypeEnum;
 import se.skltp.aggregatingservices.data.TestDataGenerator;
 
 @Log4j2
@@ -56,10 +54,6 @@ public class ServiceTestDataGenerator extends TestDataGenerator {
 	public Object createRequest(String patientId, String sourceSystemHSAId){
 		GetSubjectOfCareScheduleType outcomeType = new GetSubjectOfCareScheduleType();
 
-		ActorType actor = new ActorType();
-		actor.setActorId(patientId);
-		actor.setActorType(ActorTypeEnum.SUBJECT_OF_CARE);
-		
 		outcomeType.setSubjectOfCare(patientId);
 
 		return outcomeType;
