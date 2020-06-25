@@ -16,9 +16,9 @@ public class ServiceConfiguration extends TestProducerConfiguration {
   public static final String SCHEMA_PATH = "classpath:/schemas/TD_SCHEDULING_1_1_0_R/interactions/GetSubjectOfCareScheduleInteraction/GetSubjectOfCareScheduleInteraction_1.1_RIVTABP21.wsdl";
 
   public ServiceConfiguration() {
-    setProducerAddress("http://0.0.0.0:9105/GetAggregatedSubjectOfCareSchedule/service/teststub/v1");
+    setProducerAddress("http://localhost:8083/vp");
     setServiceClass(GetSubjectOfCareScheduleResponderInterface.class.getName());
-    setServiceNamespace("urn:riv:crm:scheduling:GetSubjectOfCareSchedule:1:rivtabp21");
+    setServiceNamespace("urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1");
     setPortName(GetSubjectOfCareScheduleResponderService.GetSubjectOfCareScheduleResponderPort.toString());
     setWsdlPath(SCHEMA_PATH);
     setTestDataGeneratorClass(ServiceTestDataGenerator.class.getName());
