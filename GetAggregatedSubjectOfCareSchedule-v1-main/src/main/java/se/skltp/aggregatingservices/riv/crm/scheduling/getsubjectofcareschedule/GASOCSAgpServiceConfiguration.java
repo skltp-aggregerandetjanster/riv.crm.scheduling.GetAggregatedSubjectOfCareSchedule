@@ -21,7 +21,7 @@ public class GASOCSAgpServiceConfiguration extends se.skltp.aggregatingservices.
     setMessageContentListQueryIndex(2);
     
     // Set inbound defaults
-    setInboundServiceURL("http://localhost:9005/GetAggregatedSubjectOfCareSchedule/service/v1");
+    setInboundServiceURL("http://0.0.0.0:9005/GetAggregatedSubjectOfCareSchedule/service/v1");
     setInboundServiceWsdl(SCHEMA_PATH);
     setInboundServiceClass(GetSubjectOfCareScheduleResponderInterface.class.getName());
     setInboundPortName(GetSubjectOfCareScheduleResponderService.GetSubjectOfCareScheduleResponderPort.toString());
@@ -32,8 +32,9 @@ public class GASOCSAgpServiceConfiguration extends se.skltp.aggregatingservices.
     setOutboundPortName(GetSubjectOfCareScheduleResponderService.GetSubjectOfCareScheduleResponderPort.toString());
 
     // FindContent
+    // Categorization has to be set to null for this service.
     setEiServiceDomain("riv:crm:scheduling");
-    setEiCategorization("Booking");
+    setEiCategorization(null);
 
     // TAK
     setTakContract("urn:riv:crm:scheduling:GetSubjectOfCareScheduleResponder:1");

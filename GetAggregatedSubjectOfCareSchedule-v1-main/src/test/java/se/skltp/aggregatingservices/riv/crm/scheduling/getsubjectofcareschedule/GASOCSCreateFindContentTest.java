@@ -20,18 +20,5 @@ public class GASOCSCreateFindContentTest extends CreateFindContentTest {
     super(testDataGenerator, agpServiceFactory, configuration);
   }
 
-  @BeforeClass
-  public static void before() {
-    configuration = new GASOCSAgpServiceConfiguration();
-
-    // TODO
-    configuration.setMessageContentListQueryIndex(1);
-
-    agpServiceFactory = new GASOCSAgpServiceFactoryImpl();
-    agpServiceFactory.setAgpServiceConfiguration(configuration);
-
-
-  }
-
 
 }
