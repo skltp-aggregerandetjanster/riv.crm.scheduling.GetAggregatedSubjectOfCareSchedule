@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tns:GetBookingDetails xmlns:tns="urn:riv:crm:scheduling:GetBookingDetailsResponder:1" xmlns:tns1="urn:riv:crm:scheduling:1" xmlns:tns2="urn:riv:crm:scheduling:1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:riv:crm:scheduling:GetBookingDetailsResponder:1 GetBookingDetailsResponder_1.1.xsd ">
-  <tns:healthcare_facility>tns:healthcare_facility</tns:healthcare_facility>
-  <tns:bookingId>tns:bookingId</tns:bookingId>
-</tns:GetBookingDetails>
