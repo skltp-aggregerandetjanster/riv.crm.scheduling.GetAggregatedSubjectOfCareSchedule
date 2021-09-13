@@ -1,7 +1,8 @@
 package se.skltp.aggregatingservices.riv.crm.scheduling.getsubjectofcareschedule;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static se.skltp.aggregatingservices.data.TestDataDefines.TEST_LOGICAL_ADDRESS_2;
 import static se.skltp.aggregatingservices.data.TestDataDefines.TEST_LOGICAL_ADDRESS_4;
 import static se.skltp.aggregatingservices.data.TestDataDefines.TEST_LOGICAL_ADDRESS_5;
@@ -12,11 +13,7 @@ import static se.skltp.aggregatingservices.data.TestDataDefines.TEST_RR_ID_MANY_
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.cxf.message.MessageContentsList;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import org.junit.jupiter.api.Test;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleResponseType;
 import se.riv.crm.scheduling.getsubjectofcarescheduleresponder.v1.GetSubjectOfCareScheduleType;
 import se.riv.interoperability.headers.v1.ActorType;
@@ -27,7 +24,10 @@ import se.skltp.aggregatingservices.tests.CreateFindContentTest;
 import se.skltp.aggregatingservices.tests.CreateRequestListTest;
 import se.skltp.aggregatingservices.tests.TestDataUtil;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
 public class GASOCSCreateRequestListTest extends CreateRequestListTest {
 
   public GASOCSCreateRequestListTest() {
