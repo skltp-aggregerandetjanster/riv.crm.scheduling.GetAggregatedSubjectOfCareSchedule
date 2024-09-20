@@ -6,18 +6,17 @@
   <parent>
     <artifactId>agp-parent</artifactId>
     <groupId>se.skltp.agp</groupId>
-    <version>3.0.0</version>
+    <version>4.0.0-RC1</version>
   </parent>
 
   <groupId>se.skltp.aggregatingservices.riv.crm.scheduling</groupId>
   <artifactId>GetAggregatedSubjectOfCareSchedule-v1</artifactId>
-  <version>2.1.1-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>GetAggregatedSubjectOfCareSchedule-v1</name>
 
   <properties>
-    <agp-parent.version>3.0.0</agp-parent.version>
-    <apache-cfx.version>3.2.7</apache-cfx.version>
+    <agp-parent.version>4.0.0-RC1</agp-parent.version>
   </properties>
 
   <distributionManagement>
@@ -70,4 +69,19 @@
     <module>GetAggregatedSubjectOfCareSchedule-v1-main</module>
     <module>GetAggregatedSubjectOfCareSchedule-v1-runner</module>
   </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.jws</groupId>
+      <artifactId>jakarta.jws-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.xml.ws</groupId>
+      <artifactId>jakarta.xml.ws-api</artifactId>
+    </dependency>
+  </dependencies>
 </project>
