@@ -36,7 +36,7 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <agp-parent.version>4.0.0</agp-parent.version>
+    <agp-parent.version>4.0.1</agp-parent.version>
   </properties>
   <dependencies>
     <dependency>
